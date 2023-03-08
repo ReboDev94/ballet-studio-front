@@ -1,0 +1,28 @@
+@layer components {
+  .btn {
+    @apply py-2.5
+            px-5
+            inline-block
+            text-sm
+            text-center
+            cursor-pointer
+            rounded-md
+            font-medium
+            outline-none
+            focus:ring-4
+            transform
+            active:scale-95
+            transition-transform
+            disabled:cursor-not-allowed
+          disabled:bg-gray-300
+          disabled:text-gray-500
+            disabled:active:scale-100;
+  }
+
+  .btn-primary {
+    @apply bg-primary-800
+            hover:bg-primary-700
+            text-secondary-900
+            focus:ring-secondary-900;
+  }
+}
