@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { ButtonAd, CardAd, FormInputAd, InputAd } from '../../common/components';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [first, setfirst] = useState('');
 
   return (
     <>
       <CardAd
-        className="w-96"
+        className="w-full md:w-96"
         cardBody={
           <div className="space-y-4">
             <h1 className="text-center font-bold text-xl tracking-wide">Iniciar sesión</h1>
@@ -42,8 +44,8 @@ const LoginPage = () => {
 
             <div className="border-b border-gray-400 border-opacity-50"></div>
 
-            <p className="text-xs text-center">
-              ¿No tienes una cuenta?{' '}
+            <p className="text-xs text-center" onClick={() => navigate('/auth/register')}>
+              ¿No tienes una cuenta?
               <span className="font-bold hover:underline hover:cursor-pointer">Registrate</span>
             </p>
           </div>
