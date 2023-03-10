@@ -1,35 +1,58 @@
+import { useState } from 'react';
+import { ButtonAd, CardAd, FormInputAd, InputAd } from '../../common/components';
 
 const LoginPage = () => {
+  const [first, setfirst] = useState('');
+
   return (
-    <div className="h-screen flex flex-col">
-      <nav className="px-6 py-4">
-        <div className=" flex flex-wrap items-center justify-end mx-auto">
-          <div className="flex gap-4">
-            <button className="text-sm font-medium">Registrate</button>
-            <button className="btn btn-primary">Registrate</button>
-            {/* <ButtonAd>Solicita una demo</ButtonAd> */}
-          </div>
-        </div>
-      </nav>
-      <div className="flex-1 grid grid-cols-3">
-        <div>Este es el primer div</div>
-        <div className="grid place-content-center">
-          {/* <CardAd>
-            <h1 className="text-center font-bold text-xl mb-3">Iniciar sesión</h1>
-            <p className="text-center text-sm font-light mb-3">
+    <>
+      <CardAd
+        className="w-96"
+        cardBody={
+          <div className="space-y-4">
+            <h1 className="text-center font-bold text-xl tracking-wide">Iniciar sesión</h1>
+            <p className="text-center text-sm font-light">
               Ingresa tu usuario y contraseña para iniciar sesión
             </p>
 
-            <InputAd />
-            <ButtonAd block >Iniciar</ButtonAd>
-          </CardAd> */}
-          <span className="text-xs text-center font-light mt-5">
-            Derechos reservados @ReboDev 2023 | Aviso de privacidad
-          </span>
-        </div>
-        <div>Este es el segundo div que ocupa todo el alto</div>
-      </div>
-    </div>
+            <FormInputAd textLT="Usuario:">
+              <InputAd
+                type="text"
+                value={first}
+                onChange={(e) => setfirst(e.target.value)}
+                placeholder="Ingrese su usuario"
+                variant="secondary"
+              />
+            </FormInputAd>
+
+            <FormInputAd textLT="Contraseña:">
+              <InputAd
+                type="password"
+                value={first}
+                onChange={(e) => setfirst(e.target.value)}
+                placeholder="Contraseña"
+                variant="secondary"
+              />
+            </FormInputAd>
+
+            <p className="text-xs hover:underline hover:cursor-pointer">
+              ¿Tienes problemas para iniciar sesión?
+            </p>
+            <ButtonAd block>Iniciar</ButtonAd>
+
+            <div className="border-b border-gray-400 border-opacity-50"></div>
+
+            <p className="text-xs text-center">
+              ¿No tienes una cuenta?{' '}
+              <span className="font-bold hover:underline hover:cursor-pointer">Registrate</span>
+            </p>
+          </div>
+        }
+      />
+      <span className="text-xs text-center font-light mt-5">
+        Derechos reservados @ReboDev 2023 | Aviso de privacidad
+      </span>
+    </>
   );
 };
 
