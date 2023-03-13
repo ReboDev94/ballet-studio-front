@@ -4,7 +4,10 @@ import classNames from 'classnames';
 export type Variant = 'primary' | 'secondary' | 'error';
 export interface IInputAd
   extends Omit<
-    React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    React.DetailedHTMLProps<
+      React.InputHTMLAttributes<HTMLInputElement>,
+      HTMLInputElement
+    >,
     'className'
   > {
   variant?: Variant;
@@ -18,7 +21,10 @@ export const InputAd: React.FC<IInputAd> = ({
   errorMessage,
   ...rest
 }) => {
-  const memoVariant = useMemo(() => (errorState ? 'error' : variant), [errorState]);
+  const memoVariant = useMemo(
+    () => (errorState ? 'error' : variant),
+    [errorState],
+  );
 
   return (
     <>
@@ -41,9 +47,11 @@ export const InputAd: React.FC<IInputAd> = ({
             caret-primary-700
             `,
           {
-            'border-primary-700 focus:ring-primary-700 focus:border-primary-700 ': memoVariant === 'error',
-            'focus:ring-secondary-900 focus:border-secondary-900': memoVariant === 'secondary',
-          }
+            'border-primary-700 focus:ring-primary-700 focus:border-primary-700 ':
+              memoVariant === 'error',
+            'focus:ring-secondary-900 focus:border-secondary-900':
+              memoVariant === 'secondary',
+          },
         )}
         {...rest}
       />

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const ConfirmPasswordPage = () => {
-  return (
-    <div>ConfirmPasswordPage</div>
-  )
-}
+  return <div>ConfirmPasswordPage</div>;
+};
 
-export default ConfirmPasswordPage
+export default ConfirmPasswordPage;

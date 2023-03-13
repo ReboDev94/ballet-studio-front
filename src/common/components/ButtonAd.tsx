@@ -4,14 +4,22 @@ import classNames from 'classnames';
 type Variant = 'primary';
 export interface IButtonAd
   extends Omit<
-    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+    React.DetailedHTMLProps<
+      React.ButtonHTMLAttributes<HTMLButtonElement>,
+      HTMLButtonElement
+    >,
     'className'
   > {
   variant?: Variant;
   block?: boolean;
 }
 
-export const ButtonAd: React.FC<IButtonAd> = ({ children, variant = 'primary', block = false, ...rest }) => {
+export const ButtonAd: React.FC<IButtonAd> = ({
+  children,
+  variant = 'primary',
+  block = false,
+  ...rest
+}) => {
   return (
     <button
       {...rest}
@@ -37,7 +45,7 @@ export const ButtonAd: React.FC<IButtonAd> = ({ children, variant = 'primary', b
           'w-full': block,
           'bg-primary-800 hover:bg-primary-700 text-secondary-900 focus:ring-secondary-900':
             variant === 'primary',
-        }
+        },
       )}
     >
       {children}
