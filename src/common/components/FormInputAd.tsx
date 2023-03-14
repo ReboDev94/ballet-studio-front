@@ -7,7 +7,11 @@ export interface IFormInputAd {
   textLT?: string;
 }
 
-export const FormInputAd: React.FC<IFormInputAd> = ({ children, textLT, textRT }) => {
+export const FormInputAd: React.FC<IFormInputAd> = ({
+  children,
+  textLT,
+  textRT,
+}) => {
   return (
     <div className="flex flex-col">
       {(textRT || textLT) && (

@@ -4,7 +4,9 @@ import { BailarinaImage, BailarinaImage2 } from '../../common/assets/images';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
-  const wl = import.meta.env.VITE_WHATSAPP_LINK + encodeURIComponent(import.meta.env.VITE_WHATSAPP_MESSAGE);
+  const wl =
+    import.meta.env.VITE_WHATSAPP_LINK +
+    encodeURIComponent(import.meta.env.VITE_WHATSAPP_MESSAGE);
 
   return (
     <div className="h-screen flex flex-col">

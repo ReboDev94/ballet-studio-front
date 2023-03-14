@@ -2,7 +2,10 @@ import React from 'react';
 import { ImagesSvg } from './images.interface';
 interface IBailarina extends ImagesSvg {}
 
-export const BailarinaImage2: React.FC<IBailarina> = ({ width = '235', height = '100%' }) => {
+export const BailarinaImage2: React.FC<IBailarina> = ({
+  width = '235',
+  height = '100%',
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +16,12 @@ export const BailarinaImage2: React.FC<IBailarina> = ({ width = '235', height = 
       xmlSpace="preserve"
     >
       <g transform="matrix(1.33333 0 0 -1.33333 -1.922 505.918)">
-        <g fillOpacity="1" fillRule="nonzero" stroke="none" transform="scale(.1)">
+        <g
+          fillOpacity="1"
+          fillRule="nonzero"
+          stroke="none"
+          transform="scale(.1)"
+        >
           <path
             fill="none"
             strokeWidth="0.767"

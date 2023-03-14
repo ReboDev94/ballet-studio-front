@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '../../common/components';
+import {
+  ButtonAd,
+  CardAd,
+  FormInputAd,
+  InputAd,
+} from '../../common/components';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -12,7 +17,9 @@ const LoginPage = () => {
         className="w-full md:w-96"
         cardBody={
           <div className="space-y-4">
-            <h1 className="text-center font-bold text-xl tracking-wide">Iniciar sesión</h1>
+            <h1 className="text-center font-bold text-xl tracking-wide">
+              Iniciar sesión
+            </h1>
             <p className="text-center text-sm font-light">
               Ingresa tu usuario y contraseña para iniciar sesión
             </p>
@@ -21,7 +28,7 @@ const LoginPage = () => {
               <InputAd
                 type="text"
                 value={first}
-                onChange={(e) => setfirst(e.target.value)}
+                onChange={e => setfirst(e.target.value)}
                 placeholder="Ingrese su usuario"
                 variant="secondary"
               />
@@ -31,7 +38,7 @@ const LoginPage = () => {
               <InputAd
                 type="password"
                 value={first}
-                onChange={(e) => setfirst(e.target.value)}
+                onChange={e => setfirst(e.target.value)}
                 placeholder="Contraseña"
                 variant="secondary"
               />
@@ -44,9 +51,14 @@ const LoginPage = () => {
 
             <div className="border-b border-gray-400 border-opacity-50"></div>
 
-            <p className="text-xs text-center" onClick={() => navigate('/auth/register')}>
+            <p
+              className="text-xs text-center"
+              onClick={() => navigate('/auth/register')}
+            >
               ¿No tienes una cuenta?
-              <span className="font-bold hover:underline hover:cursor-pointer">Registrate</span>
+              <span className="font-bold hover:underline hover:cursor-pointer">
+                Registrate
+              </span>
             </p>
           </div>
         }
