@@ -4,7 +4,7 @@ import {
   CardAd,
   FormInputAd,
   InputAd,
-} from '../../common/components';
+} from '@/common/components';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
