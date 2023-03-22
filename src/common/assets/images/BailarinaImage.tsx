@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImagesSvg } from './images.interface';
+import { ImagesSvg } from '../../interfaces/images.interface';
 
 interface IBailarina extends ImagesSvg {}
 

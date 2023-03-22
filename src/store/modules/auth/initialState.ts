@@ -1,4 +1,4 @@
-import { initialStateAuth } from '../../../ballet/interfaces/auth';
+import { initialStateAuth } from '@/ballet/interfaces/auth';
 
 const initialState: initialStateAuth = {
   user: null,

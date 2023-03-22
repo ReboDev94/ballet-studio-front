@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
-import { ButtonAd } from '../../common/components';
-import { BailarinaImage, BailarinaImage2 } from '../../common/assets/images';
+import { ButtonAd } from '@/common/components';
+import { BailarinaImage, BailarinaImage2 } from '@/common/assets/images';
 
 const AuthLayout = () => {
   const navigate = useNavigate();
