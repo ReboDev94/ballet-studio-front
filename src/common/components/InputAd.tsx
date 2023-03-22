@@ -44,12 +44,12 @@ export const InputAd: React.FC<IInputAd> = ({
             disabled:cursor-not-allowed
             disabled:bg-gray-300
             disabled:text-gray-500
-            caret-primary-700
+            caret-primary-800
             `,
           {
-            'border-primary-700 focus:ring-primary-700 focus:border-primary-700 ':
+            'border-primary-800 focus:ring-primary-800 focus:border-primary-800':
               memoVariant === 'error',
-            'focus:ring-secondary-900 focus:border-secondary-900':
+            'focus:ring-secondary-200 focus:border-secondary-200':
               memoVariant === 'secondary',
           },
         )}

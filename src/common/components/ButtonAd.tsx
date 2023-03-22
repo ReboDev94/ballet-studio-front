@@ -43,7 +43,7 @@ export const ButtonAd: React.FC<IButtonAd> = ({
             disabled:active:scale-100`,
         {
           'w-full': block,
-          'bg-primary-800 hover:bg-primary-700 text-secondary-900 focus:ring-secondary-900':
+          'bg-primary-800 hover:bg-primary-700 text-secondary-200 focus:ring-secondary-200':
             variant === 'primary',
         },
       )}
