@@ -22,7 +22,7 @@ export const InputAd: React.FC<IInputAd> = ({
       />
       {errorState && (
         <label className="px-1 py-2 flex items-center">
-          <span className="text-xs text-primary-700">{errorMessage}</span>
+          <span className="text-xs text-primary-800">{errorMessage}</span>
         </label>
       )}
     </>
