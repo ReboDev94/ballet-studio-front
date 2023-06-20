@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
 
-const ConfirmPasswordPage = () => {
+const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -11,21 +12,20 @@ const ConfirmPasswordPage = () => {
       cardBody={
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
-            Confirmar contraseña
+            Registrate
           </h1>
           <p className="text-center text-sm font-light">
-            Ingresa tu nueva contraseña
+            Ingresa tus datos para registrarte
           </p>
           <FormInputAd textLT="Correo electrónico:">
             <InputAd
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
-              disabled
             />
           </FormInputAd>
 
-          <FormInputAd textLT="Nueva contraseña:">
+          <FormInputAd textLT="Contraseña:">
             <div className="relative">
               <InputAd
                 type={showPassword ? 'text' : 'password'}
@@ -75,13 +75,23 @@ const ConfirmPasswordPage = () => {
             </div>
           </FormInputAd>
 
-          <ButtonAd block>Confirmar contraseña</ButtonAd>
+          <ButtonAd block>Registrarse</ButtonAd>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
+
+          <p className="text-xs text-center">
+            ¿Ya tienes una cuenta?&nbsp;
+            <Link
+              className="hover:underline hover:cursor-pointer font-medium"
+              to="/auth/login"
+            >
+              Inicia sesión
+            </Link>
+          </p>
         </div>
       }
     />
   );
 };
 
-export default ConfirmPasswordPage;
+export default RegisterPage;
