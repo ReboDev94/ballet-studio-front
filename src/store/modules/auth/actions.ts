@@ -1,3 +1,3 @@
 import { authActions } from './authSlice';
 
-export const { setUser: setUserAction } = authActions;
+export const { setDataLogin: setDataLoginAction } = authActions;

@@ -2,8 +2,8 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { AuthState } from './initialState';
 
 const reducers = {
-  setUser: (state: AuthState, payload: PayloadAction<AuthState['user']>) => {
-    console.log({ state, payload });
+  setDataLogin: (state: AuthState, { payload }: PayloadAction<AuthState>) => {
+    state.user = payload.user;
   },
 };
 
