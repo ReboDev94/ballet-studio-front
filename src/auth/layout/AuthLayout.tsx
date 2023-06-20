@@ -6,7 +6,7 @@ const AuthLayout = () => {
   return (
     <div className="h-screen">
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-4 py-10 mx-10">
+        <div className="col-span-12 lg:col-span-4 py-10 lg:mx-10 order-2 lg:order-none">
           <img
             src="/logos/ballet-studio-logo.svg"
             className="h-20 block mx-auto"
@@ -21,10 +21,15 @@ const AuthLayout = () => {
             {now.getFullYear()}
           </p>
         </div>
-        <div className="p-2 col-span-8 relative">
+        <div className="col-span-12 relative lg:p-2 lg:col-span-8 order-1 lg:order-none">
+          <img
+            src="/assets/home-mobile.webp"
+            className="w-full object-cover object-bottom h-28 rounded-bl-[4rem] lg:hidden"
+            alt="Home-Ballet"
+          />
           <img
             src="/assets/home.webp"
-            className="rounded-tl-[4rem] rounded-br-[4rem] h-full w-full"
+            className="rounded-tl-[4rem] rounded-br-[4rem] h-full w-full hidden lg:block"
             alt="Home-Ballet"
           />
         </div>
