@@ -1,0 +1,1 @@
+export const BASE_CARD_CLASSES = 'rounded-2xl';

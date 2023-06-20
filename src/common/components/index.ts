@@ -1,4 +1,4 @@
-export { InputAd } from './InputAd';
-export { FormInputAd } from './FormInputAd';
-export { ButtonAd } from './ButtonAd';
-export { CardAd } from './CardAd';
+export { InputAd } from './Forms/Input/InputAd';
+export { FormInputAd } from './Forms/InputLabel/FormInputAd';
+export { ButtonAd } from './Button/ButtonAd';
+export { CardAd } from './Card/CardAd';

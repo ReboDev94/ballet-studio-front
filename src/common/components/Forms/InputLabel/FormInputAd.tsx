@@ -1,11 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-
-export interface IFormInputAd {
-  children: ReactNode;
-  textRT?: string;
-  textLT?: string;
-}
+import { IFormInputAd } from './interfaces';
 
 export const FormInputAd: React.FC<IFormInputAd> = ({
   children,

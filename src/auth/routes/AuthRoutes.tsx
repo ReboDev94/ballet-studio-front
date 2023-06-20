@@ -1,10 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import {
-  ResetPasswordPage,
-  LoginPage,
-  ConfirmPasswordPage,
-  RegisterPage,
-} from '../pages';
+import { ResetPasswordPage, LoginPage, ConfirmPasswordPage } from '../pages';
 import AuthLayout from '../layout/AuthLayout';
 
 const AuthRoutes = () => {
@@ -18,7 +13,6 @@ const AuthRoutes = () => {
           path="confirm-password"
           element={<ConfirmPasswordPage />}
         ></Route>
-        <Route path="register" element={<RegisterPage />}></Route>
       </Route>
     </Routes>
   );

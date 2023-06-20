@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {
-  ButtonAd,
-  CardAd,
-  FormInputAd,
-  InputAd,
-} from '@/common/components';
+import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -12,12 +7,12 @@ const LoginPage = () => {
   const [first, setfirst] = useState('');
 
   return (
-    <>
+    <div className="flex flex-col">
       <CardAd
-        className="w-full md:w-96"
+        className="w-full"
         cardBody={
           <div className="space-y-4">
-            <h1 className="text-center font-bold text-xl tracking-wide">
+            <h1 className="text-center font-bold text-3xl tracking-wide">
               Iniciar sesión
             </h1>
             <p className="text-center text-sm font-light">
@@ -30,7 +25,7 @@ const LoginPage = () => {
                 value={first}
                 onChange={e => setfirst(e.target.value)}
                 placeholder="Ingrese su usuario"
-                variant="secondary"
+                variant="primary"
               />
             </FormInputAd>
 
@@ -40,11 +35,11 @@ const LoginPage = () => {
                 value={first}
                 onChange={e => setfirst(e.target.value)}
                 placeholder="Contraseña"
-                variant="secondary"
+                variant="primary"
               />
             </FormInputAd>
 
-            <p className="text-xs hover:underline hover:cursor-pointer">
+            <p className="text-xs hover:underline hover:cursor-pointer font-medium">
               ¿Tienes problemas para iniciar sesión?
             </p>
             <ButtonAd block>Iniciar</ButtonAd>
@@ -55,9 +50,9 @@ const LoginPage = () => {
               className="text-xs text-center"
               onClick={() => navigate('/auth/register')}
             >
-              ¿No tienes una cuenta?
-              <span className="font-bold hover:underline hover:cursor-pointer">
-                Registrate
+              ¿ No tienes una cuenta ? &nbsp;
+              <span className="font-medium hover:underline hover:cursor-pointer">
+                Contactame
               </span>
             </p>
           </div>
@@ -66,7 +61,7 @@ const LoginPage = () => {
       <span className="text-xs text-center font-light mt-5">
         Derechos reservados @ReboDev 2023 | Aviso de privacidad
       </span>
-    </>
+    </div>
   );
 };
 
