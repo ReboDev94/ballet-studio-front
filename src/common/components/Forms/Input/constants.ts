@@ -13,10 +13,10 @@ export const BASE_INPUT_CLASSES = `block
   disabled:text-base-200`;
 
 export const PRIMARY_CLASSES =
-  'focus:ring-primary-200 focus:border-primary-200 caret-primary-800';
+  'focus:ring-primary-200 focus:border-primary-200 caret-primary-900';
 
 export const ERROR_CLASSES =
-  'border-primary-800 focus:ring-primary-800 focus:border-primary-800';
+  'border-primary-900 focus:ring-primary-900 focus:border-primary-900';
 
 export const TYPE_INPUT = {
   primary: PRIMARY_CLASSES,
