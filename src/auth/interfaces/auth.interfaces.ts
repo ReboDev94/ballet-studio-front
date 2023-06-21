@@ -27,6 +27,12 @@ export interface Role {
   name: string;
 }
 
+
+export interface IGetUserResponse extends ICommonResponse {
+  user: User;
+}
+
+/* store */
 export interface initialStateAuth {
   user: User | null;
 }

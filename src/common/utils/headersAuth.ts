@@ -1,5 +1,5 @@
 import axiosInstance from '../http/http.service';
-import { getTokenStorage, removeTokenStorage } from './';
+import { getTokenStorage } from './';
 
 const addHeadersAuth = () => {
   const token = getTokenStorage();
@@ -9,7 +9,7 @@ const addHeadersAuth = () => {
 };
 
 const removeHeadersAuth = () => {
-    delete axiosInstance.defaults.headers.common.Authorization;
+  delete axiosInstance.defaults.headers.common.Authorization;
 };
 
 export { addHeadersAuth, removeHeadersAuth };
