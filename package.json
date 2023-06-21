@@ -18,12 +18,16 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc.cjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
     "@reduxjs/toolkit": "^1.9.3",
+    "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.0",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.2"
+    "react-router-dom": "^6.8.2",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

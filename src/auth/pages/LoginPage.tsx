@@ -1,16 +1,40 @@
 import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
 import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import { ILoginRequest } from '../interfaces';
+import { SchemaValidationLogin } from '../validations';
+import { useAppDispatch } from '@/store/hooks';
+import { loginThunk } from '@/store/modules/auth/thunks';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
+
+  const { register, handleSubmit } = useForm<ILoginRequest>({
+    mode: 'onSubmit',
+    defaultValues: {
+      email: 'admin1@gmail.com',
+      password: 'HolaMundo1234#',
+    },
+    resolver: yupResolver(SchemaValidationLogin),
+  });
+
+  const onSubmit: SubmitHandler<ILoginRequest> = data => {
+    dispatch(loginThunk(data))
+      .unwrap()
+      .catch(() => {
+        console.log('ocurrio un error');
+      });
+  };
 
   return (
     <CardAd
       className="w-full"
       cardBody={
-        <div className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Iniciar sesión
           </h1>
@@ -20,6 +44,8 @@ const LoginPage = () => {
 
           <FormInputAd textLT="Correo electrónico:">
             <InputAd
+              {...register('email')}
+              id="email"
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
@@ -29,6 +55,7 @@ const LoginPage = () => {
           <FormInputAd textLT="Contraseña:">
             <div className="relative">
               <InputAd
+                {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -58,7 +85,9 @@ const LoginPage = () => {
             ¿Tienes problemas para iniciar sesión?
           </Link>
 
-          <ButtonAd block>Iniciar</ButtonAd>
+          <ButtonAd block type="submit">
+            Iniciar
+          </ButtonAd>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
 
@@ -71,7 +100,7 @@ const LoginPage = () => {
               Registrate
             </span>
           </p>
-        </div>
+        </form>
       }
     />
   );

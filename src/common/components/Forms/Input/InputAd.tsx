@@ -1,14 +1,16 @@
-import React, { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { IInputAd } from './interfaces';
 import { BASE_INPUT_CLASSES, TYPE_INPUT } from './constants';
 
-export const InputAd: React.FC<IInputAd> = ({
-  variant = 'primary',
-  errorState = false,
-  errorMessage,
-  ...rest
-}) => {
+export const InputAd = forwardRef<HTMLInputElement, IInputAd>((props, ref) => {
+  const {
+    variant = 'primary',
+    errorState = false,
+    errorMessage,
+    ...rest
+  } = props;
+
   const computedClass = useMemo(
     () => TYPE_INPUT[errorState ? 'error' : variant],
     [variant],
@@ -17,6 +19,7 @@ export const InputAd: React.FC<IInputAd> = ({
   return (
     <>
       <input
+        ref={ref}
         className={classNames(`${BASE_INPUT_CLASSES} ${computedClass}`)}
         {...rest}
       />
@@ -27,4 +30,6 @@ export const InputAd: React.FC<IInputAd> = ({
       )}
     </>
   );
-};
+});
+
+InputAd.displayName = 'InputAd';
