@@ -1,4 +1,5 @@
-export const LoadingAd = () => {
+
+export const LoadingPage = () => {
   return (
     <div className="h-screen w-full grid place-content-center bg-primary-50">
       <div className="flex flex-col items-center gap-20">

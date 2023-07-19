@@ -6,8 +6,8 @@ import {
   Button,
   Card,
   CardBody,
-  FormInputAd,
-  InputAd,
+  InputLabel,
+  Input,
 } from '@/common/components';
 import { ILoginRequest } from '../interfaces';
 import { SchemaValidationLogin } from '../validations';
@@ -47,19 +47,19 @@ const LoginPage = () => {
             Ingresa tu correo electrónico y contraseña para iniciar sesión
           </p>
 
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               {...register('email')}
               id="email"
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Contraseña:">
+          <InputLabel textLT="Contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
@@ -81,7 +81,7 @@ const LoginPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
           <Link
             to="/auth/reset-password"

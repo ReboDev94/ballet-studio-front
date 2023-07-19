@@ -1,4 +1,4 @@
-export type Variant = 'primary';
+export type VariantBtn = 'primary';
 
 export interface IButton
   extends Omit<
@@ -8,6 +8,6 @@ export interface IButton
     >,
     'className'
   > {
-  variant?: Variant;
+  variant?: VariantBtn;
   block?: boolean;
 }

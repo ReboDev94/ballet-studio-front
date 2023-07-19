@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  Button,
-  Card,
-  CardBody,
-  FormInputAd,
-  InputAd,
-} from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const ConfirmPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -21,18 +15,18 @@ const ConfirmPasswordPage = () => {
           <p className="text-center text-sm font-light">
             Ingresa tu nueva contraseña
           </p>
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
               disabled
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Nueva contraseña:">
+          <InputLabel textLT="Nueva contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -53,11 +47,11 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Confirmar contraseña:">
+          <InputLabel textLT="Confirmar contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -78,7 +72,7 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
           <Button block>Confirmar contraseña</Button>
 

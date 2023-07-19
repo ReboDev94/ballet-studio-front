@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
-import { Variant } from './styles';
+
+export type VariantCard = 'default';
 
 export interface ICard {
-  variant?: Variant;
+  variant?: VariantCard;
   className?: string;
   children?: ReactNode;
 }

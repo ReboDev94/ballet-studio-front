@@ -1,11 +1,5 @@
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardBody,
-  FormInputAd,
-  InputAd,
-} from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const ResetPasswordPage = () => {
   return (
@@ -19,13 +13,13 @@ const ResetPasswordPage = () => {
             Ingresa tu correo electrónico para restablecer tu contraseña
           </p>
 
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
           <Button block>Enviar correo electrónico</Button>
 

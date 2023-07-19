@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardBody,
-  FormInputAd,
-  InputAd,
-} from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,17 +16,17 @@ const RegisterPage = () => {
           <p className="text-center text-sm font-light">
             Ingresa tus datos para registrarte
           </p>
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Contraseña:">
+          <InputLabel textLT="Contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -53,11 +47,11 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Confirmar contraseña:">
+          <InputLabel textLT="Confirmar contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -78,7 +72,7 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
           <Button block>Registrarse</Button>
 
