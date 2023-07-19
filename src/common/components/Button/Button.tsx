@@ -1,6 +1,5 @@
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
-import classNames from 'classnames';
+import { twMerge, twJoin } from 'tailwind-merge';
 import { BASE_BUTTON_CLASSES, BLOCK_BUTTON_CLASSES, TYPE_BTNS } from './styles';
 import { IButton } from './interfaces';
 
@@ -13,9 +12,11 @@ export const Button: React.FC<IButton> = ({
   return (
     <button
       className={twMerge(
-        classNames(BASE_BUTTON_CLASSES, TYPE_BTNS[variant], {
-          [BLOCK_BUTTON_CLASSES]: block,
-        }),
+        twJoin(
+          BASE_BUTTON_CLASSES,
+          TYPE_BTNS[variant],
+          block && BLOCK_BUTTON_CLASSES,
+        ),
       )}
       {...rest}
     >
