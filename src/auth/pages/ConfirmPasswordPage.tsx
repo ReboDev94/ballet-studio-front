@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import {
+  Button,
+  Card,
+  CardBody,
+  FormInputAd,
+  InputAd,
+} from '@/common/components';
 
 const ConfirmPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Confirmar contraseña
@@ -75,12 +80,12 @@ const ConfirmPasswordPage = () => {
             </div>
           </FormInputAd>
 
-          <ButtonAd block>Confirmar contraseña</ButtonAd>
+          <Button block>Confirmar contraseña</Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
         </div>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 

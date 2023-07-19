@@ -1,6 +1,6 @@
 export type Variant = 'primary';
 
-export interface IButtonAd
+export interface IButton
   extends Omit<
     React.DetailedHTMLProps<
       React.ButtonHTMLAttributes<HTMLButtonElement>,

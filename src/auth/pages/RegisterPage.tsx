@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import {
+  Button,
+  Card,
+  CardBody,
+  FormInputAd,
+  InputAd,
+} from '@/common/components';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Registrate
@@ -75,7 +80,7 @@ const RegisterPage = () => {
             </div>
           </FormInputAd>
 
-          <ButtonAd block>Registrarse</ButtonAd>
+          <Button block>Registrarse</Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
 
@@ -89,8 +94,8 @@ const RegisterPage = () => {
             </Link>
           </p>
         </div>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 
