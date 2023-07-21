@@ -1,6 +1,6 @@
-export type Variant = 'primary';
+export type VariantBtn = 'primary';
 
-export interface IButtonAd
+export interface IButton
   extends Omit<
     React.DetailedHTMLProps<
       React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -8,6 +8,6 @@ export interface IButtonAd
     >,
     'className'
   > {
-  variant?: Variant;
+  variant?: VariantBtn;
   block?: boolean;
 }

@@ -12,13 +12,22 @@ export const BASE_INPUT_CLASSES = `block
   disabled:bg-gray-300
   disabled:text-base-200`;
 
-export const PRIMARY_CLASSES =
+const PRIMARY_CLASSES =
   'focus:ring-primary-200 focus:border-primary-200 caret-primary-800';
 
-export const ERROR_CLASSES =
+const ERROR_CLASSES =
   'border-primary-800 focus:ring-primary-800 focus:border-primary-800';
 
 export const TYPE_INPUT = {
   primary: PRIMARY_CLASSES,
   error: ERROR_CLASSES,
 };
+
+/* Input Error Message */
+
+export const DEFAULT_LABEL_CLASSES = 'px-1 py-2 flex items-center';
+export const ERROR_LABEL_CLASSES = 'text-xs text-primary-700';
+
+/* Input Label */
+
+export const DEFAULT_INPUT_LABEL_CLASSES = 'py-2 px-1 flex items-center text-sm';

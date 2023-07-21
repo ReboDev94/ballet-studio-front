@@ -1,14 +1,26 @@
-export type Variant = 'primary' | 'error';
+import { ReactNode } from 'react';
 
-export interface IInputAd
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.InputHTMLAttributes<HTMLInputElement>,
-      HTMLInputElement
-    >,
-    'className'
+/* Input */
+export type Variant = 'primary' | 'error';
+export interface IInput
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
   > {
   variant?: Variant;
   errorState?: boolean;
-  errorMessage?: string;
 }
+
+/* Input error Message */
+export interface IInputErrorMessage {
+  message: string;
+  className?: string;
+}
+
+/* Input Label */
+
+export type IFormInputAd = {
+  children: ReactNode;
+  textRT?: string;
+  textLT?: string;
+};

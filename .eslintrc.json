@@ -9,7 +9,8 @@
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
     "eslint-config-prettier",
-    "prettier"
+    "prettier",
+    "plugin:storybook/recommended"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -17,7 +18,10 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
   "rules": {
     "@typescript-eslint/no-empty-interface": [
       "error",

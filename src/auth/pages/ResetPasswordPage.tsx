@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const ResetPasswordPage = () => {
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Restablecer contraseña
@@ -14,15 +13,15 @@ const ResetPasswordPage = () => {
             Ingresa tu correo electrónico para restablecer tu contraseña
           </p>
 
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <ButtonAd block>Enviar correo electrónico</ButtonAd>
+          <Button block>Enviar correo electrónico</Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
 
@@ -30,8 +29,8 @@ const ResetPasswordPage = () => {
             <Link to="/auth/login">Iniciar sesión</Link>
           </p>
         </div>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 

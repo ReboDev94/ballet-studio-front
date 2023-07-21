@@ -1,13 +1,14 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
-export type BgColor = 'white';
+export type VariantCard = 'default';
 
-export interface ICardAd
-  extends React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
-  > {
-  BgColor?: BgColor;
-  cardHeader?: ReactNode;
-  cardBody?: ReactNode;
+export interface ICard {
+  variant?: VariantCard;
+  className?: string;
+  children?: ReactNode;
+}
+
+export interface ICardBody {
+  children: ReactNode;
+  className?: string;
 }

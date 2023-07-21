@@ -5,7 +5,7 @@ import AuthRoutes from '@/auth/routes/AuthRoutes';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getTokenStorage } from '@/common/utils';
 import { getUserThunk } from '@/store/modules/auth/thunks';
-import { LoadingAd } from '@/common/components';
+import { LoadingPage } from '@/common/pages/LoadingPage';
 
 export const AppRouter = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const AppRouter = () => {
     getSession();
   }, []);
 
-  if (loadingPage) return <LoadingAd />;
+  if (loadingPage) return <LoadingPage />;
 
   return (
     <Routes>

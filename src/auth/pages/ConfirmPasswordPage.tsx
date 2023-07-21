@@ -1,14 +1,13 @@
 import { useState } from 'react';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const ConfirmPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Confirmar contraseña
@@ -16,18 +15,18 @@ const ConfirmPasswordPage = () => {
           <p className="text-center text-sm font-light">
             Ingresa tu nueva contraseña
           </p>
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
               disabled
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Nueva contraseña:">
+          <InputLabel textLT="Nueva contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -48,11 +47,11 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Confirmar contraseña:">
+          <InputLabel textLT="Confirmar contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -73,14 +72,14 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <ButtonAd block>Confirmar contraseña</ButtonAd>
+          <Button block>Confirmar contraseña</Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
         </div>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 

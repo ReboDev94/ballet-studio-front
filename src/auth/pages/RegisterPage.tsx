@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <div className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Registrate
@@ -17,17 +16,17 @@ const RegisterPage = () => {
           <p className="text-center text-sm font-light">
             Ingresa tus datos para registrarte
           </p>
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Contraseña:">
+          <InputLabel textLT="Contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -48,11 +47,11 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Confirmar contraseña:">
+          <InputLabel textLT="Confirmar contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="123456789"
                 variant="primary"
@@ -73,9 +72,9 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
-          <ButtonAd block>Registrarse</ButtonAd>
+          <Button block>Registrarse</Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
 
@@ -89,8 +88,8 @@ const RegisterPage = () => {
             </Link>
           </p>
         </div>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 

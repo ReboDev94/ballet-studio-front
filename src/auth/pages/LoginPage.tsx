@@ -2,7 +2,13 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { ButtonAd, CardAd, FormInputAd, InputAd } from '@/common/components';
+import {
+  Button,
+  Card,
+  CardBody,
+  InputLabel,
+  Input,
+} from '@/common/components';
 import { ILoginRequest } from '../interfaces';
 import { SchemaValidationLogin } from '../validations';
 import { useAppDispatch } from '@/store/hooks';
@@ -31,9 +37,8 @@ const LoginPage = () => {
   };
 
   return (
-    <CardAd
-      className="w-full"
-      cardBody={
+    <Card className="shadow-none bg-transparent">
+      <CardBody>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Iniciar sesión
@@ -42,19 +47,19 @@ const LoginPage = () => {
             Ingresa tu correo electrónico y contraseña para iniciar sesión
           </p>
 
-          <FormInputAd textLT="Correo electrónico:">
-            <InputAd
+          <InputLabel textLT="Correo electrónico:">
+            <Input
               {...register('email')}
               id="email"
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </FormInputAd>
+          </InputLabel>
 
-          <FormInputAd textLT="Contraseña:">
+          <InputLabel textLT="Contraseña:">
             <div className="relative">
-              <InputAd
+              <Input
                 {...register('password')}
                 type={showPassword ? 'text' : 'password'}
                 placeholder="123456789"
@@ -76,7 +81,7 @@ const LoginPage = () => {
                 />
               </button>
             </div>
-          </FormInputAd>
+          </InputLabel>
 
           <Link
             to="/auth/reset-password"
@@ -85,9 +90,9 @@ const LoginPage = () => {
             ¿Tienes problemas para iniciar sesión?
           </Link>
 
-          <ButtonAd block type="submit">
+          <Button block type="submit">
             Iniciar
-          </ButtonAd>
+          </Button>
 
           <div className="border-b border-gray-400 border-opacity-50"></div>
 
@@ -101,8 +106,8 @@ const LoginPage = () => {
             </span>
           </p>
         </form>
-      }
-    />
+      </CardBody>
+    </Card>
   );
 };
 
