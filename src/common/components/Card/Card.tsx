@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { ICard } from './interfaces';
 import { BASE_CARD_CLASSES, TYPE_CARD } from './styles';
 
-export const Card: React.FC<ICard> = ({
+const Card: React.FC<ICard> = ({
   variant = 'default',
   className,
   children,
@@ -14,3 +14,5 @@ export const Card: React.FC<ICard> = ({
     </div>
   );
 };
+
+export default Card;

@@ -3,7 +3,7 @@ import { twMerge, twJoin } from 'tailwind-merge';
 import { BASE_BUTTON_CLASSES, BLOCK_BUTTON_CLASSES, TYPE_BTNS } from './styles';
 import { IButton } from './interfaces';
 
-export const Button: React.FC<IButton> = ({
+const Button: React.FC<IButton> = ({
   children,
   variant = 'primary',
   block = false,
@@ -24,3 +24,5 @@ export const Button: React.FC<IButton> = ({
     </button>
   );
 };
+
+export default Button;

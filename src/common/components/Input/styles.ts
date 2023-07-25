@@ -22,12 +22,3 @@ export const TYPE_INPUT = {
   primary: PRIMARY_CLASSES,
   error: ERROR_CLASSES,
 };
-
-/* Input Error Message */
-
-export const DEFAULT_LABEL_CLASSES = 'px-1 py-2 flex items-center';
-export const ERROR_LABEL_CLASSES = 'text-xs text-primary-700';
-
-/* Input Label */
-
-export const DEFAULT_INPUT_LABEL_CLASSES = 'py-2 px-1 flex items-center text-sm';

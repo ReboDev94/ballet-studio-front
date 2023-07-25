@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
+import { Button, Card, Input, Form } from '@/common/components';
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,23 +8,23 @@ const RegisterPage = () => {
 
   return (
     <Card className="shadow-none bg-transparent">
-      <CardBody>
-        <div className="space-y-4">
+      <Card.Body>
+        <Form className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Registrate
           </h1>
           <p className="text-center text-sm font-light">
             Ingresa tus datos para registrarte
           </p>
-          <InputLabel textLT="Correo electrónico:">
+          <Form.Label title="Correo electrónico:">
             <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </InputLabel>
+          </Form.Label>
 
-          <InputLabel textLT="Contraseña:">
+          <Form.Label title="Contraseña:">
             <div className="relative">
               <Input
                 type={showPassword ? 'text' : 'password'}
@@ -47,9 +47,9 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </InputLabel>
+          </Form.Label>
 
-          <InputLabel textLT="Confirmar contraseña:">
+          <Form.Label title="Confirmar contraseña:">
             <div className="relative">
               <Input
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -72,7 +72,7 @@ const RegisterPage = () => {
                 />
               </button>
             </div>
-          </InputLabel>
+          </Form.Label>
 
           <Button block>Registrarse</Button>
 
@@ -87,8 +87,8 @@ const RegisterPage = () => {
               Inicia sesión
             </Link>
           </p>
-        </div>
-      </CardBody>
+        </Form>
+      </Card.Body>
     </Card>
   );
 };
