@@ -3,14 +3,24 @@ import { twMerge } from 'tailwind-merge';
 import { ICard } from './interfaces';
 import { BASE_CARD_CLASSES, TYPE_CARD } from './styles';
 
-export const Card: React.FC<ICard> = ({
+const Card: React.FC<ICard> = ({
   variant = 'default',
+  bordered = false,
   className,
   children,
 }) => {
   return (
-    <div className={twMerge(BASE_CARD_CLASSES, TYPE_CARD[variant], className)}>
+    <div
+      className={twMerge(
+        BASE_CARD_CLASSES,
+        TYPE_CARD[variant],
+        bordered && 'border',
+        className,
+      )}
+    >
       {children}
     </div>
   );
 };
+
+export default Card;

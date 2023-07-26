@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
+import { Button, Card, Input, Form } from '@/common/components';
 
 const ResetPasswordPage = () => {
   return (
     <Card className="shadow-none bg-transparent">
-      <CardBody>
-        <div className="space-y-4">
+      <Card.Body>
+        <Form className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Restablecer contraseña
           </h1>
@@ -13,13 +13,13 @@ const ResetPasswordPage = () => {
             Ingresa tu correo electrónico para restablecer tu contraseña
           </p>
 
-          <InputLabel textLT="Correo electrónico:">
+          <Form.Label title="Correo electrónico:">
             <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </InputLabel>
+          </Form.Label>
 
           <Button block>Enviar correo electrónico</Button>
 
@@ -28,8 +28,8 @@ const ResetPasswordPage = () => {
           <p className="text-xs text-center font-medium hover:underline hover:cursor-pointer">
             <Link to="/auth/login">Iniciar sesión</Link>
           </p>
-        </div>
-      </CardBody>
+        </Form>
+      </Card.Body>
     </Card>
   );
 };

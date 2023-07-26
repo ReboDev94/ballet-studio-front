@@ -2,13 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Card,
-  CardBody,
-  InputLabel,
-  Input,
-} from '@/common/components';
+import { Button, Card, Form, Input } from '@/common/components';
 import { ILoginRequest } from '../interfaces';
 import { SchemaValidationLogin } from '../validations';
 import { useAppDispatch } from '@/store/hooks';
@@ -38,8 +32,8 @@ const LoginPage = () => {
 
   return (
     <Card className="shadow-none bg-transparent">
-      <CardBody>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <Card.Body>
+        <Form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Iniciar sesión
           </h1>
@@ -47,7 +41,7 @@ const LoginPage = () => {
             Ingresa tu correo electrónico y contraseña para iniciar sesión
           </p>
 
-          <InputLabel textLT="Correo electrónico:">
+          <Form.Label title="Correo electrónico:">
             <Input
               {...register('email')}
               id="email"
@@ -55,9 +49,9 @@ const LoginPage = () => {
               placeholder="admin@admin.com"
               variant="primary"
             />
-          </InputLabel>
+          </Form.Label>
 
-          <InputLabel textLT="Contraseña:">
+          <Form.Label title="Contraseña:">
             <div className="relative">
               <Input
                 {...register('password')}
@@ -81,7 +75,7 @@ const LoginPage = () => {
                 />
               </button>
             </div>
-          </InputLabel>
+          </Form.Label>
 
           <Link
             to="/auth/reset-password"
@@ -105,8 +99,8 @@ const LoginPage = () => {
               Registrate
             </span>
           </p>
-        </form>
-      </CardBody>
+        </Form>
+      </Card.Body>
     </Card>
   );
 };

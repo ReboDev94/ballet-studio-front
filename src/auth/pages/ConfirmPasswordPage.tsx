@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, CardBody, InputLabel, Input } from '@/common/components';
+import { Button, Card, Form, Input } from '@/common/components';
 
 const ConfirmPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -7,24 +7,23 @@ const ConfirmPasswordPage = () => {
 
   return (
     <Card className="shadow-none bg-transparent">
-      <CardBody>
-        <div className="space-y-4">
+      <Card.Body>
+        <Form className="space-y-4">
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Confirmar contraseña
           </h1>
           <p className="text-center text-sm font-light">
             Ingresa tu nueva contraseña
           </p>
-          <InputLabel textLT="Correo electrónico:">
+          <Form.Label title="Correo electrónico:">
             <Input
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
               disabled
             />
-          </InputLabel>
-
-          <InputLabel textLT="Nueva contraseña:">
+          </Form.Label>
+          <Form.Label title="Nueva contraseña:">
             <div className="relative">
               <Input
                 type={showPassword ? 'text' : 'password'}
@@ -47,9 +46,8 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </InputLabel>
-
-          <InputLabel textLT="Confirmar contraseña:">
+          </Form.Label>
+          <Form.Label title="Confirmar contraseña:">
             <div className="relative">
               <Input
                 type={showConfirmPassword ? 'text' : 'password'}
@@ -72,13 +70,11 @@ const ConfirmPasswordPage = () => {
                 />
               </button>
             </div>
-          </InputLabel>
-
+          </Form.Label>
           <Button block>Confirmar contraseña</Button>
-
           <div className="border-b border-gray-400 border-opacity-50"></div>
-        </div>
-      </CardBody>
+        </Form>
+      </Card.Body>
     </Card>
   );
 };
