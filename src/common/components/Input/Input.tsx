@@ -6,15 +6,15 @@ import { BASE_INPUT_CLASSES, TYPE_INPUT } from './styles';
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
   const { variant = 'primary', errorState = false, className, ...rest } = props;
 
-  const computedClass = useMemo(
+  const variantClasses = useMemo(
     () => TYPE_INPUT[errorState ? 'error' : variant],
-    [variant],
+    [errorState, variant],
   );
 
   return (
     <input
       ref={ref}
-      className={twMerge(BASE_INPUT_CLASSES, computedClass, className)}
+      className={twMerge(BASE_INPUT_CLASSES, variantClasses, className)}
       {...rest}
     />
   );

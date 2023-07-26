@@ -5,11 +5,19 @@ import { BASE_CARD_CLASSES, TYPE_CARD } from './styles';
 
 const Card: React.FC<ICard> = ({
   variant = 'default',
+  bordered = false,
   className,
   children,
 }) => {
   return (
-    <div className={twMerge(BASE_CARD_CLASSES, TYPE_CARD[variant], className)}>
+    <div
+      className={twMerge(
+        BASE_CARD_CLASSES,
+        TYPE_CARD[variant],
+        bordered && 'border',
+        className,
+      )}
+    >
       {children}
     </div>
   );
