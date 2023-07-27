@@ -1,6 +1,6 @@
 import { FC, SVGProps } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '@/common/components';
+import { Sidebar, Menu } from '@/common/components';
 
 import { ReactComponent as ArrowDownIcon } from '@/common/components/assets/svg/icon-arrow-down.svg';
 import { ReactComponent as DashBoardTmp } from '@/common/components/assets/svg/icon-dashboard-tmp.svg';
@@ -48,6 +48,7 @@ const BalletLayout = () => {
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Category title="Menu" />
+          <Menu></Menu>
         </Sidebar.Content>
 
         {/* <div className="flex-1 py-4">

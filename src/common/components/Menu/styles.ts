@@ -1,0 +1,1 @@
+export const MENU_CLASSES = 'my-2 space-y-2';
