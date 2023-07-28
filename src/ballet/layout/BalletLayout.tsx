@@ -1,6 +1,7 @@
 import { Sidebar, Menu } from '@/common/components';
 import { ReactComponent as DashBoardTmp } from '@/common/components/assets/svg/icon-dashboard-tmp.svg';
 import { Outlet } from 'react-router-dom';
+import { Avatar } from '@/common/components';
 
 const BalletLayout = () => {
   return (
@@ -40,6 +41,17 @@ const BalletLayout = () => {
           <h1 className="text-2xl text-base-800 font-semibold border">
             Bienvenido, Rafael De Jesus
           </h1>
+          <div className="flex gap-2">
+            <Avatar shape="squared" title='RJ'/>
+            <Avatar size="sm" shape="squared" src="https://i.pravatar.cc" />
+            <Avatar size="md" border src="https://i.pravatar.cc" />
+            <Avatar
+              size="lg"
+              border
+              bgVariant="primary"
+              src="https://i.pravatar.cc"
+            />
+          </div>
         </div>
         <Outlet />
       </main>
