@@ -36,21 +36,13 @@ const BalletLayout = () => {
           <span className="text-sm font-semibold">@Rebodev</span>
         </Sidebar.Footer>
       </Sidebar>
-      <main className="px-6 py-8 ml-[280px]">
-        <div className="border flex justify-between">
-          <h1 className="text-2xl text-base-800 font-semibold border">
+      <main className="ml-[280px] px-6 py-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl text-base-800 font-semibold">
             Bienvenido, Rafael De Jesus
           </h1>
           <div className="flex gap-2">
-            <Avatar shape="squared" title='RJ'/>
-            <Avatar size="sm" shape="squared" src="https://i.pravatar.cc" />
-            <Avatar size="md" border src="https://i.pravatar.cc" />
-            <Avatar
-              size="lg"
-              border
-              bgVariant="primary"
-              src="https://i.pravatar.cc"
-            />
+            <Avatar size="sm" shape="circle" className='cursor-pointer' src="https://i.pravatar.cc" />
           </div>
         </div>
         <Outlet />
