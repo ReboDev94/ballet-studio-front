@@ -26,6 +26,6 @@ export const TYPE_ICON_ITEM_SIDEBAR = {
 };
 
 export const ITEM_SIDEBAR_ICON_CLASSES = 'w-6 fill-base-400';
-export const ITEM_TITLE_CLASSES = 'px-4 my-auto flex-1 line-clamp-1';
+export const ITEM_TITLE_CLASSES = 'px-4 my-auto flex-1 line-clamp-1 text-sm';
 export const ITEM_WRAPPER_CLASSES = 'min-w-[24px] my-auto';
 export const ITEM_COLLAPSE_MENU_CLASSES = 'ml-6 my-1 border-l border-base-100';

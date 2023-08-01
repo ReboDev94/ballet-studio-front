@@ -1,9 +1,9 @@
 import FormComponent from './Form';
 import { IForm } from './interfaces';
-import Label from './Label';
+import FormLabel from './FormLabel';
 
 const Form = Object.assign(FormComponent, {
-  Label,
+  Label: FormLabel,
 });
 
 export type FormProps = IForm;

@@ -3,8 +3,8 @@ import { CONTENT_CLASSES } from './styles';
 import React from 'react';
 import { IContent } from './interfaces';
 
-const Content: React.FC<IContent> = ({ children, className }) => {
+const SidebarContent: React.FC<IContent> = ({ children, className }) => {
   return <div className={twMerge(CONTENT_CLASSES, className)}>{children}</div>;
 };
 
-export default Content;
+export default SidebarContent;

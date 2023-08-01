@@ -1,7 +1,7 @@
 import SidebarComponent from './Sidebar';
-import Header from './Header';
-import Content from './Content';
-import Category from './Category';
+import Header from './SidebarHeader';
+import Content from './SidebarContent';
+import Category from './SidebarCategory';
 import { ISidebar } from './interfaces';
 
 const Sidebar = Object.assign(SidebarComponent, {

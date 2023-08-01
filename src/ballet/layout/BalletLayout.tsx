@@ -40,25 +40,24 @@ const BalletLayout = () => {
           <h1 className="text-2xl text-base-800 font-semibold">
             Bienvenido, Rafael De Jesus
           </h1>
-          <div className="flex gap-2">
-            <Dropdown>
-              <Dropdown.Toogle button={false}>
-                <Avatar
-                  size="sm"
-                  shape="circle"
-                  className="cursor-pointer"
-                  src="https://i.pravatar.cc"
-                />
-              </Dropdown.Toogle>
-              <Dropdown.Menu position='bottom' align='end' className="w-[11rem]">
-                <Dropdown.Item>Mi Perfil</Dropdown.Item>
-                <Dropdown.Item>Mi Escuela</Dropdown.Item>
-                <Dropdown.Item>
-                  <Button block>Cerrar sesión</Button>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </div>
+
+          <Dropdown>
+            <Dropdown.Toogle button={false}>
+              <Avatar
+                size="sm"
+                shape="circle"
+                className="cursor-pointer"
+                src="https://i.pravatar.cc"
+              />
+            </Dropdown.Toogle>
+            <Dropdown.Menu position="bottom" align="end" className="w-[11rem]">
+              <Dropdown.Item>Mi Perfil</Dropdown.Item>
+              <Dropdown.Item>Mi Escuela</Dropdown.Item>
+              <Dropdown.Item>
+                <Button block>Cerrar sesión</Button>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
 
         <Outlet />
