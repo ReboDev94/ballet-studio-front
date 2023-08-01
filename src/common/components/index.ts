@@ -5,6 +5,13 @@ import { InputProps as TInputProps } from './Input';
 import { FormProps as TFormProps } from './Form';
 import { MenuProps as TMenuProps, ItemProps as TItemProps } from './Menu';
 import { AvatarProps as TAvataProps } from './Avatar';
+import { DropdownProps as TDropdownProps } from './Dropdown';
+
+/* DropDown */
+
+export type DropdownProps = TDropdownProps;
+export { default as Dropdown } from './Dropdown';
+
 /* Avatar */
 export type AvatarProps = TAvataProps;
 export { default as Avatar } from './Avatar';

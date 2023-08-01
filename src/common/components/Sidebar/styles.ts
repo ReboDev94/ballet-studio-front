@@ -1,6 +1,6 @@
 /* Sidebar */
 export const SIDEBAR_CLASSES =
-  'px-5 py-6 fixed inset-y-0 z-40 flex flex-col overflow-y-auto shadow-sm bg-white';
+  'px-5 py-6 fixed inset-y-0 z-[2] flex flex-col overflow-y-auto shadow-sm bg-white';
 
 /*Sidebar Content  */
 export const CONTENT_CLASSES = 'flex-1 py-4';

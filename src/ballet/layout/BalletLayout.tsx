@@ -1,7 +1,6 @@
-import { Sidebar, Menu } from '@/common/components';
+import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import { ReactComponent as DashBoardTmp } from '@/common/components/assets/svg/icon-dashboard-tmp.svg';
 import { Outlet } from 'react-router-dom';
-import { Avatar } from '@/common/components';
 
 const BalletLayout = () => {
   return (
@@ -42,9 +41,26 @@ const BalletLayout = () => {
             Bienvenido, Rafael De Jesus
           </h1>
           <div className="flex gap-2">
-            <Avatar size="sm" shape="circle" className='cursor-pointer' src="https://i.pravatar.cc" />
+            <Dropdown>
+              <Dropdown.Toogle button={false}>
+                <Avatar
+                  size="sm"
+                  shape="circle"
+                  className="cursor-pointer"
+                  src="https://i.pravatar.cc"
+                />
+              </Dropdown.Toogle>
+              <Dropdown.Menu position='bottom' align='end' className="w-[11rem]">
+                <Dropdown.Item>Mi Perfil</Dropdown.Item>
+                <Dropdown.Item>Mi Escuela</Dropdown.Item>
+                <Dropdown.Item>
+                  <Button block>Cerrar sesión</Button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
+
         <Outlet />
       </main>
     </div>

@@ -20,6 +20,10 @@ export const BLOCK_BUTTON_CLASSES = 'w-full';
 const PRIMARY_CLASSES =
   'bg-primary-800 hover:bg-primary-700 text-primary-100 focus:ring-primary-100';
 
+const OUTLINE_PRIMARY_CLASSES =
+  'border border-primary-800 hover:bg-primary-800 hover:text-primary-100 text-primary-800 focus:ring-primary-100';
+
 export const TYPE_BTNS = {
   primary: PRIMARY_CLASSES,
+  'outline-primary': OUTLINE_PRIMARY_CLASSES,
 };
