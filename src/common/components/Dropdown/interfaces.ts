@@ -8,7 +8,7 @@ export interface IDropdown extends FormHTMLAttributes<HTMLDivElement> {}
 
 type buttonToogle = Pick<IButton, 'variant' | 'block'>;
 
-export interface IToogle {
+export interface IDropdownToogle {
   children: ReactNode;
   button?: boolean;
   buttonProps?: buttonToogle;

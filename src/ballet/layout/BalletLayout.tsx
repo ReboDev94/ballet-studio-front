@@ -9,6 +9,80 @@ import { ReactComponent as IconArchive } from '@/common/assets/svg/icon-archive.
 import { ReactComponent as IconCheck } from '@/common/assets/svg/icon-check.svg';
 
 import { Outlet } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
+const users = [
+  {
+    name: 'Raye',
+    email: 'rduiguid0@ow.ly',
+    phone: '785-902-4184',
+    active: true,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Mirelle',
+    email: 'mhackforth1@sina.com.cn',
+    phone: '300-892-0254',
+    active: false,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Rubi',
+    email: 'rgarci2@smh.com.au',
+    phone: '158-645-8654',
+    active: true,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Maure',
+    email: 'mguard3@artisteer.com',
+    phone: '635-368-1969',
+    active: true,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Suzann',
+    email: 'swillmot4@hud.gov',
+    phone: '443-401-6025',
+    active: false,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Nikoletta',
+    email: 'ncapener5@alexa.com',
+    phone: '475-288-1863',
+    active: false,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Rhodia',
+    email: 'rostridge6@ihg.com',
+    phone: '743-455-8012',
+    active: true,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Eada',
+    email: 'eoverel7@google.it',
+    phone: '200-798-2586',
+    active: false,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Jobey',
+    email: 'jfisbey8@forbes.com',
+    phone: '268-565-1785',
+    active: false,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+  {
+    name: 'Daryl',
+    email: 'dibell9@is.gd',
+    phone: '291-449-8222',
+    active: true,
+    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
+  },
+];
 
 const BalletLayout = () => {
   return (
@@ -79,13 +153,49 @@ const BalletLayout = () => {
           </Dropdown>
         </div>
 
-        {/* <div className="flex gap-2">
-          <Button variant="primary">Hola mundo</Button>
-          <Button variant="outline-primary">Hola mundo</Button>
-          <Button variant="base">Hola mundo</Button>
-          <Button variant="outline-base">Hola mundo</Button>
-        </div> */}
-        <Outlet />
+        {/*
+        hover items
+        divider items
+
+         */}
+        <div className="relative overflow-x-auto border border-base-100 bg-white rounded-xl shadow-sm">
+          <table className="w-full text-sm text-left text-base-400">
+            <thead className="text-xs uppercase border-b">
+              <tr>
+                <th scope="rol" className="px-6 py-5">
+                  Nombre
+                </th>
+                <th scope="rol" className="px-6 py-5">
+                  Email
+                </th>
+                <th scope="rol" className="px-6 py-5">
+                  Telefono
+                </th>
+                <th scope="rol" className="px-6 py-5">
+                  Activo
+                </th>
+                <th scope="rol" className="px-6 py-5">
+                  Roles
+                </th>
+              </tr>
+            </thead>
+            {/* className="divide-y divide-base-100" */}
+            <tbody>
+              {users.map(({ name, email, phone, active, roles }) => (
+                <tr className="hover:bg-base-50" key={uuidv4()}>
+                  <td className="px-6 py-4">{name}</td>
+                  <td className="px-6 py-4">{email}</td>
+                  <td className="px-6 py-4">{phone}</td>
+                  <td className="px-6 py-4">
+                    {active ? 'Activo' : 'Inactivo'}
+                  </td>
+                  <td className="px-6 py-4">{JSON.stringify(roles)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* <Outlet /> */}
       </main>
     </div>
   );

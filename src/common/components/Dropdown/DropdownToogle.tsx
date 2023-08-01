@@ -1,10 +1,10 @@
 import React from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DEFAULT_DROPDOWN_TOOGLE_CLASSES } from './styles';
-import { IToogle } from './interfaces';
+import { IDropdownToogle } from './interfaces';
 import Button from '../Button';
 
-const DropdownToogle: React.FC<IToogle> = ({
+const DropdownToogle: React.FC<IDropdownToogle> = ({
   children,
   button = true,
   buttonProps,
