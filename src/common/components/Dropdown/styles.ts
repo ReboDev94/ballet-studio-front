@@ -48,3 +48,5 @@ export const ALIGN_LATERAL_TYPE = {
   end: ALIGN_END_LATERAL_CLASSES,
   start: ALIGN_START_LATERAL_CLASSES,
 };
+
+export const DIVIDER_CLASSES = 'border-b border-base-100 my-2';

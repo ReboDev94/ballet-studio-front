@@ -22,3 +22,7 @@ export interface IDropdownItem {
   children: ReactNode;
   className?: string;
 }
+
+export interface IDropdownDivider{
+  className?:string
+}
