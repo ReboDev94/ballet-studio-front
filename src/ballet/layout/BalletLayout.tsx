@@ -1,93 +1,13 @@
-import {
-  Sidebar,
-  Menu,
-  Avatar,
-  Dropdown,
-  Button,
-  Table,
-} from '@/common/components';
+import { Outlet, Link } from 'react-router-dom';
+import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import { ReactComponent as IconPersonAdd } from '@/common/assets/svg/icon-person-add.svg';
+import { ReactComponent as IconDashboard } from '@/common/assets/svg/icon-dashboard.svg';
 import { ReactComponent as IconSchool } from '@/common/assets/svg/icon-school.svg';
 import { ReactComponent as IconStudents } from '@/common/assets/svg/icon-students.svg';
 import { ReactComponent as IconGroup } from '@/common/assets/svg/icon-group.svg';
 import { ReactComponent as IconTeam } from '@/common/assets/svg/icon-team.svg';
 import { ReactComponent as IconArchive } from '@/common/assets/svg/icon-archive.svg';
 import { ReactComponent as IconCheck } from '@/common/assets/svg/icon-check.svg';
-
-import { v4 as uuidv4 } from 'uuid';
-
-const users = [
-  {
-    name: 'Raye',
-    email: 'rduiguid0@ow.ly',
-    phone: '785-902-4184',
-    active: true,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Mirelle',
-    email: 'mhackforth1@sina.com.cn',
-    phone: '300-892-0254',
-    active: false,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Rubi',
-    email: 'rgarci2@smh.com.au',
-    phone: '158-645-8654',
-    active: true,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Maure',
-    email: 'mguard3@artisteer.com',
-    phone: '635-368-1969',
-    active: true,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Suzann',
-    email: 'swillmot4@hud.gov',
-    phone: '443-401-6025',
-    active: false,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Nikoletta',
-    email: 'ncapener5@alexa.com',
-    phone: '475-288-1863',
-    active: false,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Rhodia',
-    email: 'rostridge6@ihg.com',
-    phone: '743-455-8012',
-    active: true,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Eada',
-    email: 'eoverel7@google.it',
-    phone: '200-798-2586',
-    active: false,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Jobey',
-    email: 'jfisbey8@forbes.com',
-    phone: '268-565-1785',
-    active: false,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-  {
-    name: 'Daryl',
-    email: 'dibell9@is.gd',
-    phone: '291-449-8222',
-    active: true,
-    roles: [{ id: 2, slug: 'teacher', name: 'Profesor' }],
-  },
-];
 
 const BalletLayout = () => {
   return (
@@ -103,7 +23,12 @@ const BalletLayout = () => {
         <Sidebar.Content>
           <Sidebar.Category title="Menu" />
           <Menu>
-            <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
+            <Link to="/dashboard">
+              <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
+            </Link>
+            <Link to="/profile/school">
+              <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
+            </Link>
             <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
               <Menu>
                 <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
@@ -156,8 +81,8 @@ const BalletLayout = () => {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-
-        <Table>
+        <Outlet />
+        {/* <Table>
           <Table.Head>
             <>Nombre</>
             <>Email</>
@@ -176,9 +101,7 @@ const BalletLayout = () => {
               </Table.Row>
             ))}
           </Table.Body>
-        </Table>
-
-        {/* <Outlet /> */}
+        </Table> */}
       </main>
     </div>
   );

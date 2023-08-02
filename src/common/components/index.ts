@@ -53,8 +53,8 @@ export type AvatarProps = TAvataProps;
 export { default as Avatar } from './Avatar';
 
 /* Menu */
-export type MenuProps = TMenuProps;
-export type ItemProps = TItemProps;
+export type MenuSidebarProps = TMenuProps;
+export type ItemSidebarProps = TItemProps;
 export type CollapseProps = TCollapseProps;
 export { default as Menu } from './Menu';
 
