@@ -7,7 +7,7 @@ import {
   LABEL_RIGHT_CLASSES,
 } from './styles';
 
-const Label: React.FC<ILabel> = ({
+const FormLabel: React.FC<ILabel> = ({
   title,
   position = 'LT',
   children,
@@ -44,4 +44,4 @@ const Label: React.FC<ILabel> = ({
   );
 };
 
-export default Label;
+export default FormLabel;

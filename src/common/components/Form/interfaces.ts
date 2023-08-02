@@ -1,10 +1,6 @@
-import { DetailedHTMLProps, FormHTMLAttributes, ReactNode } from 'react';
+import { FormHTMLAttributes, ReactNode } from 'react';
 
-export interface IForm
-  extends DetailedHTMLProps<
-    FormHTMLAttributes<HTMLFormElement>,
-    HTMLFormElement
-  > {}
+export interface IForm extends FormHTMLAttributes<HTMLFormElement> {}
 
 type labelPosition = 'RT' | 'RB' | 'LT' | 'LB';
 

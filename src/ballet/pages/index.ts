@@ -1,2 +1,4 @@
 import DashboardPage from './DashboardPage';
-export { DashboardPage };
+import ProfileSchoolPage from './ProfileSchoolPage';
+
+export { DashboardPage, ProfileSchoolPage };

@@ -7,7 +7,8 @@ const Button: React.FC<IButton> = ({
   children,
   variant = 'primary',
   block = false,
-  ...rest
+  className,
+  ...props
 }) => {
   return (
     <button
@@ -16,9 +17,10 @@ const Button: React.FC<IButton> = ({
           BASE_BUTTON_CLASSES,
           TYPE_BTNS[variant],
           block && BLOCK_BUTTON_CLASSES,
+          className,
         ),
       )}
-      {...rest}
+      {...props}
     >
       {children}
     </button>

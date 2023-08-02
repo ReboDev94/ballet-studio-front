@@ -1,13 +1,12 @@
-export type VariantBtn = 'primary';
+import { ButtonHTMLAttributes } from 'react';
 
-export interface IButton
-  extends Omit<
-    React.DetailedHTMLProps<
-      React.ButtonHTMLAttributes<HTMLButtonElement>,
-      HTMLButtonElement
-    >,
-    'className'
-  > {
+export type VariantBtn =
+  | 'primary'
+  | 'outline-primary'
+  | 'base'
+  | 'outline-base';
+
+export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: VariantBtn;
   block?: boolean;
 }
