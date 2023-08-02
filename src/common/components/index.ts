@@ -10,6 +10,7 @@ import {
   CardBodyProps as TCardBodyProps,
 } from './Card';
 import { InputProps as TInputProps } from './Input';
+import { TextAreaProps as TTextAreaProps } from './Textarea';
 import {
   FormProps as TFormProps,
   FormLabelProps as TFormLabelProps,
@@ -62,6 +63,10 @@ export { default as Menu } from './Menu';
 export type FormProps = TFormProps;
 export type FormLabelProps = TFormLabelProps;
 export { default as Form } from './Form';
+
+/* TextArea */
+export type TextAreaProps = TTextAreaProps;
+export { default as Textarea } from './Textarea';
 
 /* Input */
 export type InputProps = TInputProps;

@@ -1,4 +1,4 @@
-import { Avatar, Card, Input } from '@/common/components';
+import { Avatar, Card, Input, Textarea } from '@/common/components';
 
 const ProfileSchoolPage = () => {
   return (
@@ -40,7 +40,7 @@ const ProfileSchoolPage = () => {
               </span>
             </div>
             <div className="col-start-5 col-end-10 my-auto">
-                {/* TODO:create TextAreaComponent */}
+              <Textarea placeholder='Descripción' rows={4} className='resize-none' />
             </div>
           </div>
         </Card.Body>
