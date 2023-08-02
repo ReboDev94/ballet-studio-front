@@ -1,5 +1,5 @@
 /* Card */
-export const BASE_CARD_CLASSES = 'rounded-2xl shadow-md w-full';
+export const BASE_CARD_CLASSES = 'rounded-2xl shadow-sm w-full';
 
 const DEFAULT_CARD_CLASSES = 'bg-white';
 const PRIMARY_CARD_CLASSES = 'border border-primary-800';
