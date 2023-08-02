@@ -27,6 +27,18 @@ import {
   DropdownItemProps as TDropdownItemProps,
   DropdownDividerProps as TDropdownDividerProps,
 } from './Dropdown';
+import {
+  TableProps as TTableProps,
+  TableHeadProps as TTableHeadProps,
+  TableBodyProps as TTableBody,
+  TableRowProps as TTableRowProps,
+} from './Table';
+
+export type TableRowProps = TTableRowProps;
+export type TableBodyProps = TTableBody;
+export type TableProps = TTableProps;
+export type TableHeadProps = TTableHeadProps;
+export { default as Table } from './Table';
 
 /* DropDown */
 export type DropdownProps = TDropdownProps;

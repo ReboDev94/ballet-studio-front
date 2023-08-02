@@ -1,5 +1,11 @@
-import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
-import { ReactComponent as DashBoardTmp } from '@/common/components/assets/svg/icon-dashboard-tmp.svg';
+import {
+  Sidebar,
+  Menu,
+  Avatar,
+  Dropdown,
+  Button,
+  Table,
+} from '@/common/components';
 import { ReactComponent as IconPersonAdd } from '@/common/assets/svg/icon-person-add.svg';
 import { ReactComponent as IconSchool } from '@/common/assets/svg/icon-school.svg';
 import { ReactComponent as IconStudents } from '@/common/assets/svg/icon-students.svg';
@@ -8,7 +14,6 @@ import { ReactComponent as IconTeam } from '@/common/assets/svg/icon-team.svg';
 import { ReactComponent as IconArchive } from '@/common/assets/svg/icon-archive.svg';
 import { ReactComponent as IconCheck } from '@/common/assets/svg/icon-check.svg';
 
-import { Outlet } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 const users = [
@@ -145,7 +150,6 @@ const BalletLayout = () => {
               </Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item>Mi Perfil</Dropdown.Item>
-              {/* <Dropdown.Divider /> */}
               <Dropdown.Item>
                 <Button block>Cerrar sesión</Button>
               </Dropdown.Item>
@@ -153,48 +157,27 @@ const BalletLayout = () => {
           </Dropdown>
         </div>
 
-        {/*
-        hover items
-        divider items
+        <Table>
+          <Table.Head>
+            <>Nombre</>
+            <>Email</>
+            <>Telefono</>
+            <>Activo</>
+            <>Roles</>
+          </Table.Head>
+          <Table.Body divide>
+            {users.map(({ name, email, phone, active, roles }) => (
+              <Table.Row hover key={uuidv4()}>
+                <>{name}</>
+                <>{email}</>
+                <>{phone}</>
+                <>{active ? 'Active' : 'Inactive'}</>
+                <>{JSON.stringify(roles)}</>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
 
-         */}
-        <div className="relative overflow-x-auto border border-base-100 bg-white rounded-xl shadow-sm">
-          <table className="w-full text-sm text-left text-base-400">
-            <thead className="text-xs uppercase border-b">
-              <tr>
-                <th scope="rol" className="px-6 py-5">
-                  Nombre
-                </th>
-                <th scope="rol" className="px-6 py-5">
-                  Email
-                </th>
-                <th scope="rol" className="px-6 py-5">
-                  Telefono
-                </th>
-                <th scope="rol" className="px-6 py-5">
-                  Activo
-                </th>
-                <th scope="rol" className="px-6 py-5">
-                  Roles
-                </th>
-              </tr>
-            </thead>
-            {/* className="divide-y divide-base-100" */}
-            <tbody>
-              {users.map(({ name, email, phone, active, roles }) => (
-                <tr className="hover:bg-base-50" key={uuidv4()}>
-                  <td className="px-6 py-4">{name}</td>
-                  <td className="px-6 py-4">{email}</td>
-                  <td className="px-6 py-4">{phone}</td>
-                  <td className="px-6 py-4">
-                    {active ? 'Activo' : 'Inactivo'}
-                  </td>
-                  <td className="px-6 py-4">{JSON.stringify(roles)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
         {/* <Outlet /> */}
       </main>
     </div>
