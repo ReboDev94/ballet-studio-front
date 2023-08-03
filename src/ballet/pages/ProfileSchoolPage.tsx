@@ -1,6 +1,9 @@
-import { Avatar, Card, Input, Textarea } from '@/common/components';
+import { Avatar, Card, Input, Textarea, Tag } from '@/common/components';
+import { useState } from 'react';
 
 const ProfileSchoolPage = () => {
+  const [tags, setTags] = useState(['hola1']);
+
   return (
     <div className="">
       <Card className="">
@@ -19,12 +22,13 @@ const ProfileSchoolPage = () => {
               <span className="text-xs">Av Gobernadores #24</span>
             </div>
           </div>
+
           <div className="border-b border-base-100 my-5" />
           <div className="grid grid-cols-12">
             <div className="col-span-4">
-              <h5 className="font-semibold">Nombre de la escuela</h5>
+              <h5 className="font-semibold">Nombre de la institución</h5>
               <span className="text-xs text-base-500">
-                Edita el nombre de tu escuela
+                Escribe el nombre de la institución
               </span>
             </div>
             <div className="col-start-5 col-end-10 my-auto">
@@ -34,13 +38,92 @@ const ProfileSchoolPage = () => {
           <div className="border-b border-base-100 my-5" />
           <div className="grid grid-cols-12">
             <div className="col-span-4">
-              <h5 className="font-semibold">Descripción</h5>
+              <h5 className="font-semibold">Logo</h5>
               <span className="text-xs text-base-500">
-                Escribe una reseña o comentario sobre tu escuela
+                Selecciona la imagen para el logo de la institución
               </span>
             </div>
             <div className="col-start-5 col-end-10 my-auto">
-              <Textarea placeholder='Descripción' rows={4} className='resize-none' />
+              <Input type="file" />
+            </div>
+          </div>
+
+          <div className="border-b border-base-100 my-5" />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4">
+              <h5 className="font-semibold">Nombre del (a) director (a)</h5>
+              <span className="text-xs text-base-500">
+                Escribe el nombre del (a) director (a) de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input type="text" placeholder="Dalia Nava" />
+            </div>
+          </div>
+          <div className="border-b border-base-100 my-5" />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4">
+              <h5 className="font-semibold">Descripción</h5>
+              <span className="text-xs text-base-500">
+                Escribe una reseña o comentario sobre la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Textarea
+                placeholder="Descripción"
+                rows={3}
+                className="resize-none"
+              />
+            </div>
+          </div>
+          <div className="border-b border-base-100 my-5" />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4">
+              <h5 className="font-semibold">Teléfono</h5>
+              <span className="text-xs text-base-500">
+                Escribe el número de teléfono de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input type="text" placeholder="000-000-00-00" />
+            </div>
+          </div>
+          <div className="border-b border-base-100 my-5" />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4">
+              <h5 className="font-semibold">Dirección</h5>
+              <span className="text-xs text-base-500">
+                Escribe la dirección la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Textarea
+                placeholder="Dirección"
+                rows={2}
+                className="resize-none"
+              />
+            </div>
+          </div>
+          <div className="border-b border-base-100 my-5" />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4">
+              <h5 className="font-semibold">Certificaciones</h5>
+              <span className="text-xs text-base-500">
+                Escribe las certificaciones que tiene la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Tag
+                value={tags}
+                onChange={(tags, newTag) => {
+                  setTags(prev => [...prev, newTag]);
+                }}
+                onRemoved={tag => {
+                  setTags(tags.filter(item => item !== tag));
+                }}
+                placeholder="Certificaciones"
+                variantTag="primary"
+              />
             </div>
           </div>
         </Card.Body>

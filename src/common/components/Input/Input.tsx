@@ -1,10 +1,20 @@
 import { forwardRef, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { IInput } from './interfaces';
-import { BASE_INPUT_CLASSES, TYPE_INPUT } from './styles';
+import { IInput } from '../shared/interfaces/inputInterfaces';
+import {
+  BASE_INPUT_CLASSES,
+  BASE_INPUT_FILE_CLASSES,
+  TYPE_INPUT,
+} from '../shared/styles/inputStyles';
 
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
-  const { variant = 'primary', errorState = false, className, ...rest } = props;
+  const {
+    variant = 'primary',
+    errorState = false,
+    type,
+    className,
+    ...rest
+  } = props;
 
   const variantClasses = useMemo(
     () => TYPE_INPUT[errorState ? 'error' : variant],
@@ -14,7 +24,13 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
   return (
     <input
       ref={ref}
-      className={twMerge(BASE_INPUT_CLASSES, variantClasses, className)}
+      type={type}
+      className={twMerge(
+        BASE_INPUT_CLASSES,
+        variantClasses,
+        type === 'file' && BASE_INPUT_FILE_CLASSES,
+        className,
+      )}
       {...rest}
     />
   );

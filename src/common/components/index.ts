@@ -34,7 +34,13 @@ import {
   TableBodyProps as TTableBody,
   TableRowProps as TTableRowProps,
 } from './Table';
+import { TagProps as TTagProps } from './Tag';
 
+/* Tag */
+export type TagProps = TTagProps;
+export { default as Tag } from './Tag';
+
+/* Table */
 export type TableRowProps = TTableRowProps;
 export type TableBodyProps = TTableBody;
 export type TableProps = TTableProps;
