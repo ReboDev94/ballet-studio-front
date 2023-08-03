@@ -1,8 +1,15 @@
-import { Avatar, Card, Input, Textarea, Tag } from '@/common/components';
+import {
+  Avatar,
+  Card,
+  Input,
+  Textarea,
+  Tag,
+  Button,
+} from '@/common/components';
 import { useState } from 'react';
 
 const ProfileSchoolPage = () => {
-  const [tags, setTags] = useState(['hola1']);
+  const [tags, setTags] = useState<string[]>([]);
 
   return (
     <div className="">
@@ -125,6 +132,11 @@ const ProfileSchoolPage = () => {
                 variantTag="primary"
               />
             </div>
+          </div>
+          <div className="border-b border-base-100 my-5" />
+          <div className="flex gap-2 justify-end">
+            <Button variant="outline-primary">Cancelar</Button>
+            <Button variant="primary">Guardar</Button>
           </div>
         </Card.Body>
       </Card>
