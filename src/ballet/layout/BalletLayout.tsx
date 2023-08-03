@@ -75,7 +75,9 @@ const BalletLayout = () => {
                   Rafael De Jesus Rebolledo Hernandez
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item>Mi Perfil</Dropdown.Item>
+                <Link to="/profile">
+                  <Dropdown.Item>Mi Perfil</Dropdown.Item>
+                </Link>
                 <Dropdown.Item>
                   <Button block>Cerrar sesión</Button>
                 </Dropdown.Item>
@@ -88,7 +90,7 @@ const BalletLayout = () => {
           </div>
         </nav>
 
-        <section className='py-2'>
+        <section className="py-2">
           <Outlet />
         </section>
         {/* <Table>
