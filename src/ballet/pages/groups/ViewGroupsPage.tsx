@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ViewGroupsPage = () => {
   return <div>ViewGroupsPage</div>;
 };

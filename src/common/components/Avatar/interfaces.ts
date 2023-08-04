@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 type SizeAvatar = 'xs' | 'sm' | 'md' | 'lg';
 type ShapeAvatar = 'circle' | 'squared';
 type VariantBorder = 'primary' | 'base';
@@ -12,4 +14,5 @@ export interface IAvatar {
   className?: string;
   title?: string;
   src?: string;
+  children?: ReactNode;
 }

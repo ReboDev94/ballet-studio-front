@@ -3,10 +3,10 @@ export const DEFAULT_AVATAR_CLASSES = 'shadow-md grid place-content-center';
 const CIRCLE_AVATAR_CLASSES = 'rounded-full';
 const SQUARED_AVATAR_CLASSES = 'rounded-md';
 
-const XS_AVATAR_CLASSES = 'h-10 w-10 text-sm';
-const SM_AVATAR_CLASSES = 'h-14 w-14 text-md';
-const MD_AVATAR_CLASSES = 'h-24 w-24 text-3xl';
-const LG_AVATAR_CLASSES = 'h-32 w-32 text-5xl';
+const XS_AVATAR_CLASSES = 'h-10 w-10 min-h-[2.5rem] min-w-[2.5rem] text-sm';
+const SM_AVATAR_CLASSES = 'h-14 w-14 min-h-[3.5rem] min-w-[3.5rem] text-md';
+const MD_AVATAR_CLASSES = 'h-24 w-24 min-h-[6rem] min-w-[6rem] text-3xl';
+const LG_AVATAR_CLASSES = 'h-32 w-32 min-h-[8rem] min-w-[8rem] text-5xl';
 
 export const SIZE_AVATAR = {
   xs: XS_AVATAR_CLASSES,

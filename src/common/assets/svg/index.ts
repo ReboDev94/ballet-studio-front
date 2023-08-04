@@ -8,6 +8,7 @@ import { ReactComponent as IconArchive } from './icon-archive.svg';
 import { ReactComponent as IconCheck } from './icon-check.svg';
 import { ReactComponent as IconEyeClose } from './icon-eye-close.svg';
 import { ReactComponent as IconEyeOpen } from './icon-eye-open.svg';
+import { ReactComponent as IconUser } from './icon-user.svg';
 
 export {
   IconPersonAdd,
@@ -20,4 +21,5 @@ export {
   IconCheck,
   IconEyeClose,
   IconEyeOpen,
+  IconUser,
 };

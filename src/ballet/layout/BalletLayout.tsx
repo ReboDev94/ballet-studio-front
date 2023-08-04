@@ -7,6 +7,7 @@ import {
   IconSchool,
   IconStudents,
   IconTeam,
+  IconUser
 } from '@/common/assets/svg';
 
 const BalletLayout = () => {
@@ -76,7 +77,9 @@ const BalletLayout = () => {
                   shape="circle"
                   className="cursor-pointer"
                   src="https://i.pravatar.cc"
-                />
+                >
+                  <IconUser className="fill-white h-8 w-8" />
+                </Avatar>
               </Dropdown.Toogle>
               <Dropdown.Menu position="bottom" className="w-[11rem]">
                 <Dropdown.Item className="text-center px-1 py-2 font-semibold">

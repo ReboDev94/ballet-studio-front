@@ -16,8 +16,9 @@ const Avatar: React.FC<IAvatar> = ({
   border = false,
   borderVariant = 'base',
   bgVariant = 'base',
-  title = 'YAD',
-  src = '',
+  title,
+  src,
+  children,
   className,
 }) => {
   const [loadImg, setloadImg] = useState(false);
@@ -38,7 +39,8 @@ const Avatar: React.FC<IAvatar> = ({
         className,
       )}
     >
-      {!loadImg && <span>{title}</span>}
+      {children && !loadImg && children}
+      {!children && !loadImg && <span>{title}</span>}
       <img
         src={src}
         className={twMerge('rounded-[inherit]', !loadImg && 'hidden')}

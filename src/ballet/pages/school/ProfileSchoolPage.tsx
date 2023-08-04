@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Avatar,
   Card,
@@ -6,7 +7,7 @@ import {
   Tag,
   Button,
 } from '@/common/components';
-import { useState } from 'react';
+import { IconSchool } from '@/common/assets/svg';
 
 const ProfileSchoolPage = () => {
   const [tags, setTags] = useState<string[]>([]);
@@ -17,7 +18,9 @@ const ProfileSchoolPage = () => {
         <h3 className="text-xl text-base-500 font-semibold">Perfil escuela</h3>
         <div className="border-b border-base-100 my-5" />
         <div className="flex items-center gap-4">
-          <Avatar size="lg" src="https://i.pravatar.cc" />
+          <Avatar size="lg" src="https://i.pravatar.cc">
+            <IconSchool className="fill-white h-14 w-14" />
+          </Avatar>
           <div className="flex flex-col gap-1">
             <h2 className="text-3xl text-primary-800 font-semibold">
               Ballet Studio
