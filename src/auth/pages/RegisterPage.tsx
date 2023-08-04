@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Card, Input, Form } from '@/common/components';
+import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
+
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -36,15 +38,11 @@ const RegisterPage = () => {
                 className="absolute inset-y-0 right-0 flex items-center cursor-pointe px-2"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <img
-                  src={
-                    showPassword
-                      ? '/assets/icons/eye.svg'
-                      : '/assets/icons/eye-off.svg'
-                  }
-                  alt="eye"
-                  className="h-6 w-6"
-                />
+                {showPassword ? (
+                  <IconEyeOpen className="h-6 w-6 fill-base-600" />
+                ) : (
+                  <IconEyeClose className="h-6 w-6 fill-base-600" />
+                )}
               </button>
             </div>
           </Form.Label>
@@ -61,15 +59,11 @@ const RegisterPage = () => {
                 className="absolute inset-y-0 right-0 flex items-center cursor-pointe px-2"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
-                <img
-                  src={
-                    showConfirmPassword
-                      ? '/assets/icons/eye.svg'
-                      : '/assets/icons/eye-off.svg'
-                  }
-                  alt="eye"
-                  className="h-6 w-6"
-                />
+                {showConfirmPassword ? (
+                  <IconEyeOpen className="h-6 w-6 fill-base-600" />
+                ) : (
+                  <IconEyeClose className="h-6 w-6 fill-base-600" />
+                )}
               </button>
             </div>
           </Form.Label>

@@ -20,7 +20,7 @@ import {
   BASE_TAG_DISABLED_CLASSES,
   BASE_INPUT_TAG_DISABLED_CLASSES,
 } from '../shared/styles/inputStyles';
-import { ReactComponent as IconX } from '../assets/svg/icon-x.svg';
+import { IconX } from '../assets/svg';
 
 const Tag: React.FC<ITag> = ({
   variantTag = 'primary',

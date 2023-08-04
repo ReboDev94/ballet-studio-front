@@ -7,8 +7,8 @@ import {
   ViewUsersPage,
   ViewGroupsPage,
   NewGroupPage,
-} from '../pages';
-import BalletLayout from '../layout/BalletLayout';
+} from '@/ballet/pages';
+import { BalletLayout } from '@/ballet/layout';
 
 const BalletRoutes = () => {
   return (

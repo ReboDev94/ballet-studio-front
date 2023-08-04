@@ -1,6 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ResetPasswordPage, LoginPage, ConfirmPasswordPage, RegisterPage } from '../pages';
-import AuthLayout from '../layout/AuthLayout';
+import {
+  ResetPasswordPage,
+  LoginPage,
+  ConfirmPasswordPage,
+  RegisterPage,
+} from '@/auth/pages';
+import { AuthLayout } from '@/auth/layout';
 
 const AuthRoutes = () => {
   return (

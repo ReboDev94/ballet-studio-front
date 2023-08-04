@@ -1,13 +1,13 @@
 import { Outlet, Link } from 'react-router-dom';
 import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
-import { ReactComponent as IconPersonAdd } from '@/common/assets/svg/icon-person-add.svg';
-import { ReactComponent as IconDashboard } from '@/common/assets/svg/icon-dashboard.svg';
-import { ReactComponent as IconSchool } from '@/common/assets/svg/icon-school.svg';
-import { ReactComponent as IconStudents } from '@/common/assets/svg/icon-students.svg';
-import { ReactComponent as IconGroup } from '@/common/assets/svg/icon-group.svg';
-import { ReactComponent as IconTeam } from '@/common/assets/svg/icon-team.svg';
-import { ReactComponent as IconArchive } from '@/common/assets/svg/icon-archive.svg';
-import { ReactComponent as IconCheck } from '@/common/assets/svg/icon-check.svg';
+import {
+  IconDashboard,
+  IconGroup,
+  IconPersonAdd,
+  IconSchool,
+  IconStudents,
+  IconTeam,
+} from '@/common/assets/svg';
 
 const BalletLayout = () => {
   return (

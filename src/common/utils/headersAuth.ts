@@ -1,4 +1,4 @@
-import axiosInstance from '../http/http.service';
+import { axiosInstance } from '@/common/http';
 import { getTokenStorage } from './';
 
 const addHeadersAuth = () => {

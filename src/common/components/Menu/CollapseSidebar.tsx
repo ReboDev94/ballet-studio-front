@@ -10,7 +10,7 @@ import {
   ITEM_COLLAPSE_MENU_CLASSES,
 } from './styles';
 import { ICollapseSidebar } from './interfaces';
-import { ReactComponent as ArrowDownIcon } from '@/common/components/assets/svg/icon-arrow-down.svg';
+import { ArrowDownIcon } from '../assets/svg';
 
 const CollapseSidebar: React.FC<ICollapseSidebar> = ({
   title,
