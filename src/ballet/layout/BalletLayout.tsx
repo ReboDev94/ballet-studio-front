@@ -31,19 +31,27 @@ const BalletLayout = () => {
             </Link>
             <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
               <Menu>
-                <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                <Link to="/users/new">
+                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                </Link>
+                <Link to="/users">
+                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                </Link>
               </Menu>
             </Menu.CollapseSidebar>
 
             <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
               <Menu>
-                <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                <Link to="/groups/new">
+                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                </Link>
+                <Link to="/groups">
+                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                </Link>
               </Menu>
             </Menu.CollapseSidebar>
-            <Menu.ItemSidebar title="Pase de Lista" icon={IconCheck} />
-            <Menu.ItemSidebar title="Inventario" icon={IconArchive} />
+            {/* <Menu.ItemSidebar title="Pase de Lista" icon={IconCheck} />
+            <Menu.ItemSidebar title="Inventario" icon={IconArchive} /> */}
           </Menu>
         </Sidebar.Content>
 
