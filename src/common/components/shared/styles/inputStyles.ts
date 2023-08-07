@@ -33,21 +33,21 @@ export const TYPE_INPUT = {
 export const BASE_TAG_DISABLED_CLASSES = 'bg-gray-300 text-base-400';
 
 export const BASE_INPUT_TAG_CLASSES =
-  'group min-h-[42px] focus-within:ring-1 px-2.5 py-0 flex items-center gap-2 flex-wrap';
+  'group min-h-[42px] focus-within:ring-1 px-2.5 py-[5px] flex items-center gap-2 flex-wrap';
 
 export const BASE_INPUT_TAG_DISABLED_CLASSES = [
   BASE_TAG_DISABLED_CLASSES,
   'focus-within:ring-0',
-  'focus-within:border-transparent'
+  'focus-within:border-transparent',
 ];
 
 export const DEFAULT_INPUT_INTERNAL_TAG_CLASSES =
-  'p-0 min-h-[32px] flex-1 max-w-full border-transparent text-sm border focus:border-transparent focus:ring-0';
+  'p-0 h-[32px] flex-1 max-w-full border-transparent text-sm border focus:border-transparent focus:ring-0';
 
-export const WRAPPER_ALL_TAGS_CLASSES = 'flex flex-wrap gap-2 h-full py-1';
+export const WRAPPER_ALL_TAGS_CLASSES = 'min-h-[32px] flex flex-wrap gap-2';
 
 export const ITEM_TAG_CLASSES =
-  'select-none inline-flex items-center gap-2 border rounded-lg p-2 font-medium';
+  'select-none inline-flex items-center gap-2 border rounded-lg px-2 font-medium h-[32px]';
 
 const PRIMARY_TAG_CLASSES = `
   focus-within:ring-primary-200
@@ -63,10 +63,7 @@ const ERROR_TAG_CLASSES = `
 
 const ITEM_PRIMARY_CLASSES = 'bg-primary-800 text-white fill-white';
 const ITEM_BASE_CLASSES = 'bg-base-600 text-white fill-white';
-export const ITEM_DISABLED_CLASSES = [
-  BASE_TAG_DISABLED_CLASSES,
-  'fill-white',
-];
+export const ITEM_DISABLED_CLASSES = [BASE_TAG_DISABLED_CLASSES, 'fill-white'];
 
 export const TYPE_ITEM = {
   primary: ITEM_PRIMARY_CLASSES,
