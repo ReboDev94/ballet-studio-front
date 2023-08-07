@@ -10,6 +10,7 @@ import {
 import { IconSchool } from '@/common/assets/svg';
 
 const ProfileSchoolPage = () => {
+
   const [tags, setTags] = useState<string[]>([]);
 
   return (
@@ -32,7 +33,7 @@ const ProfileSchoolPage = () => {
 
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
+          <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre de la institución</h5>
             <span className="text-xs text-base-500">
               Escribe el nombre de la institución
@@ -42,22 +43,10 @@ const ProfileSchoolPage = () => {
             <Input type="text" placeholder="Ballet Studio" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4">
-            <h5 className="font-semibold">Logo</h5>
-            <span className="text-xs text-base-500">
-              Selecciona la imagen para el logo de la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="file" />
-          </div>
-        </div>
 
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
+          <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre del (a) director (a)</h5>
             <span className="text-xs text-base-500">
               Escribe el nombre del (a) director (a) de la institución
@@ -69,8 +58,21 @@ const ProfileSchoolPage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
-            <h5 className="font-semibold">Descripción</h5>
+          <div className="col-span-4 pr-2">
+            <h5 className="font-semibold">Logo (opcional):</h5>
+            <span className="text-xs text-base-500">
+              Selecciona la imagen para el logo de la institución
+            </span>
+          </div>
+          <div className="col-start-5 col-end-10 my-auto">
+            <Input type="file" />
+          </div>
+        </div>
+
+        <div className="border-b border-base-100 my-5" />
+        <div className="grid grid-cols-12">
+          <div className="col-span-4 pr-2">
+            <h5 className="font-semibold">Descripción (opcional):</h5>
             <span className="text-xs text-base-500">
               Escribe una reseña o comentario sobre la institución
             </span>
@@ -85,8 +87,8 @@ const ProfileSchoolPage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
-            <h5 className="font-semibold">Teléfono</h5>
+          <div className="col-span-4 pr-2">
+            <h5 className="font-semibold">Teléfono (opcional):</h5>
             <span className="text-xs text-base-500">
               Escribe el número de teléfono de la institución
             </span>
@@ -97,8 +99,8 @@ const ProfileSchoolPage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
-            <h5 className="font-semibold">Dirección</h5>
+          <div className="col-span-4 pr-2">
+            <h5 className="font-semibold">Dirección (opcional):</h5>
             <span className="text-xs text-base-500">
               Escribe la dirección la institución
             </span>
@@ -113,8 +115,8 @@ const ProfileSchoolPage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
-            <h5 className="font-semibold">Certificaciones</h5>
+          <div className="col-span-4 pr-2">
+            <h5 className="font-semibold">Certificaciones (opcional):</h5>
             <span className="text-xs text-base-500">
               Escribe las certificaciones que tiene la institución
             </span>

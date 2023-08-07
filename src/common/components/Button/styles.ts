@@ -11,8 +11,8 @@ export const BASE_BUTTON_CLASSES = `py-2.5
   active:scale-95
   transition-transform
   disabled:cursor-not-allowed
-  disabled:bg-gray-300
-  disabled:text-base-200
+ disabled:bg-base-100
+  disabled:text-base-300
   disabled:active:scale-100`;
 
 export const BLOCK_BUTTON_CLASSES = 'w-full';

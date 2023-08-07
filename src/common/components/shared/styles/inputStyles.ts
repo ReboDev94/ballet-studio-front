@@ -5,12 +5,12 @@ export const BASE_INPUT_CLASSES = `block
   shadow-sm
   border
   border-solid
-  border-gray-300
+  border-base-200
   text-sm
   focus:ring-offset-0
   disabled:cursor-not-allowed
-  disabled:bg-gray-300
-  disabled:text-base-400`;
+  disabled:bg-base-50
+  disabled:text-base-300`;
 
 export const BASE_INPUT_FILE_CLASSES = 'p-0 file:border-none file:p-2.5';
 
@@ -30,7 +30,7 @@ export const TYPE_INPUT = {
 };
 
 /* Tags */
-export const BASE_TAG_DISABLED_CLASSES = 'bg-gray-300 text-base-400';
+export const BASE_TAG_DISABLED_CLASSES = 'bg-base-100 text-base-300';
 
 export const BASE_INPUT_TAG_CLASSES =
   'group min-h-[42px] focus-within:ring-1 px-2.5 py-[5px] flex items-center gap-2 flex-wrap';

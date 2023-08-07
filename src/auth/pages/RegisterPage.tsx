@@ -70,7 +70,7 @@ const RegisterPage = () => {
 
           <Button block>Registrarse</Button>
 
-          <div className="border-b border-gray-400 border-opacity-50"></div>
+          <div className="border-b border-base-100"></div>
 
           <p className="text-xs text-center">
             ¿Ya tienes una cuenta?&nbsp;

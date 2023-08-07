@@ -19,7 +19,7 @@ const ProfilePage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
+          <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre</h5>
             <span className="text-xs text-base-500">
               Escribe tu nombre completo
@@ -31,7 +31,7 @@ const ProfilePage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
+          <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Correo electrónico</h5>
             <span className="text-xs text-base-500">
               Escribe tu correo electrónico
@@ -43,7 +43,7 @@ const ProfilePage = () => {
         </div>
         <div className="border-b border-base-100 my-5" />
         <div className="grid grid-cols-12">
-          <div className="col-span-4">
+          <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Teléfono</h5>
             <span className="text-xs text-base-500">
               Escribe tu número de teléfono

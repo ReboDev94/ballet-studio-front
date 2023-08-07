@@ -65,7 +65,7 @@ const ConfirmPasswordPage = () => {
             </div>
           </Form.Label>
           <Button block>Confirmar contraseña</Button>
-          <div className="border-b border-gray-400 border-opacity-50"></div>
+          <div className="border-b border-base-100"></div>
         </Form>
       </Card.Body>
     </Card>

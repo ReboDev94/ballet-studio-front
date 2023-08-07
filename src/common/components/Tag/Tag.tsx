@@ -45,6 +45,8 @@ const Tag: React.FC<ITag> = ({
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
       if (!value.includes(inputValue) && inputValue) {
         const newTags = [...value];
         newTags.push(inputValue);
