@@ -1,7 +1,12 @@
 import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { VARIANT_BASE, VARIANT_ERROR, VARIANT_PRIMARY } from '../../constants';
 
-export type Variant = 'primary' | 'error' | 'base';
-export type VariantTag = 'primary' | 'base';
+export type Variant =
+  | typeof VARIANT_PRIMARY
+  | typeof VARIANT_ERROR
+  | typeof VARIANT_BASE;
+
+export type VariantTag = typeof VARIANT_PRIMARY | typeof VARIANT_BASE;
 
 interface defaultInput {
   variant?: Variant;

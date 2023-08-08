@@ -6,21 +6,27 @@ import {
   DEFAULT_LABEL_CONTAINER_CLASSES,
   LABEL_RIGHT_CLASSES,
 } from './styles';
+import {
+  POSITION_LB,
+  POSITION_LT,
+  POSITION_RB,
+  POSITION_RT,
+} from '../constants';
 
 const FormLabel: React.FC<ILabel> = ({
   title,
-  position = 'LT',
+  position = POSITION_LT,
   children,
   className,
 }) => {
   return (
     <div className={twMerge(DEFAULT_LABEL_CONTAINER_CLASSES, className)}>
-      {['RT', 'LT'].includes(position) && (
+      {[POSITION_RT, POSITION_LT].includes(position) && (
         <label
           className={twMerge(
             DEFAULT_LABEL_CLASSES,
             'pb-2',
-            position === 'RT' && LABEL_RIGHT_CLASSES,
+            position === POSITION_RT && LABEL_RIGHT_CLASSES,
           )}
         >
           {title}
@@ -29,12 +35,12 @@ const FormLabel: React.FC<ILabel> = ({
 
       {children}
 
-      {['RB', 'LB'].includes(position) && (
+      {[POSITION_RB, POSITION_LB].includes(position) && (
         <label
           className={twMerge(
             DEFAULT_LABEL_CLASSES,
             'pt-2',
-            position === 'RB' && LABEL_RIGHT_CLASSES,
+            position === POSITION_RB && LABEL_RIGHT_CLASSES,
           )}
         >
           {title}

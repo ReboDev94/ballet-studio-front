@@ -7,9 +7,10 @@ import {
   TYPE_ITEM,
   WRAPPER_ITEM_CLASSES,
 } from './styles';
+import { VARIANT_BASE } from '../constants';
 
 const ListItem: React.FC<IItemListGroup> = ({
-  variant = 'base',
+  variant = VARIANT_BASE,
   icon,
   children,
   className,

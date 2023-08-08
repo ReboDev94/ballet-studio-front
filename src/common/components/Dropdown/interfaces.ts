@@ -1,8 +1,20 @@
 import { FormHTMLAttributes, ReactNode } from 'react';
 import { IButton } from '../Button/interfaces';
+import {
+  ALING_END,
+  ALING_START,
+  POSITION_BOTTOM,
+  POSITION_LEFT,
+  POSITION_RIGHT,
+  POSITION_TOP,
+} from '../constants';
 
-type IPosition = 'top' | 'bottom' | 'right' | 'left';
-type IAlign = 'end' | 'start';
+type IPosition =
+  | typeof POSITION_TOP
+  | typeof POSITION_BOTTOM
+  | typeof POSITION_LEFT
+  | typeof POSITION_RIGHT;
+type IAlign = typeof ALING_END | typeof ALING_START;
 
 export interface IDropdown extends FormHTMLAttributes<HTMLDivElement> {}
 
@@ -23,6 +35,6 @@ export interface IDropdownItem {
   className?: string;
 }
 
-export interface IDropdownDivider{
-  className?:string
+export interface IDropdownDivider {
+  className?: string;
 }

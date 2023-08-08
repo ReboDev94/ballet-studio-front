@@ -6,10 +6,11 @@ import {
   BASE_INPUT_FILE_CLASSES,
   TYPE_INPUT,
 } from '../shared/styles/inputStyles';
+import { VARIANT_ERROR, VARIANT_PRIMARY } from '../constants';
 
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
   const {
-    variant = 'primary',
+    variant = VARIANT_PRIMARY,
     errorState = false,
     type,
     className,
@@ -17,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
   } = props;
 
   const variantClasses = useMemo(
-    () => TYPE_INPUT[errorState ? 'error' : variant],
+    () => TYPE_INPUT[errorState ? VARIANT_ERROR : variant],
     [errorState, variant],
   );
 

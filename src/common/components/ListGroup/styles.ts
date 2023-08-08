@@ -1,3 +1,5 @@
+import { VARIANT_BASE, VARIANT_PRIMARY } from '../constants';
+
 export const DEFAULT_LIST_GROUP_CLASSES =
   'w-full text-sm font-semibold rounded-lg border border-base-100 divide-y divide-base-100';
 
@@ -9,8 +11,8 @@ const PRIMARY_ITEM_CLASSES =
   'hover:bg-primary-50 hover:text-primary-800 fill-primary-800';
 
 export const TYPE_ITEM = {
-  base: BASE_ITEM_CLASSES,
-  primary: PRIMARY_ITEM_CLASSES,
+  [VARIANT_BASE]: BASE_ITEM_CLASSES,
+  [VARIANT_PRIMARY]: PRIMARY_ITEM_CLASSES,
 };
 export const WRAPPER_ITEM_CLASSES = 'flex items-center gap-2 w-full';
 

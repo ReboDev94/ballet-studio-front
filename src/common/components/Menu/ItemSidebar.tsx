@@ -10,10 +10,11 @@ import {
   TYPE_ICON_ITEM_SIDEBAR,
   TYPE_ITEM_SIDEBAR,
 } from './styles';
+import { VARIANT_PRIMARY } from '../constants';
 
 const ItemSidebar: React.FC<IItemSidebar> = ({
   title,
-  variant = 'primary',
+  variant = VARIANT_PRIMARY,
   icon,
   className,
   active = false,

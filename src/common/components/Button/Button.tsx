@@ -2,10 +2,11 @@ import React from 'react';
 import { twMerge, twJoin } from 'tailwind-merge';
 import { BASE_BUTTON_CLASSES, BLOCK_BUTTON_CLASSES, TYPE_BTNS } from './styles';
 import { IButton } from './interfaces';
+import { VARIANT_PRIMARY } from '../constants';
 
 const Button: React.FC<IButton> = ({
   children,
-  variant = 'primary',
+  variant = VARIANT_PRIMARY,
   block = false,
   className,
   ...props

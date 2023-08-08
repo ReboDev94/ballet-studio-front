@@ -1,3 +1,5 @@
+import { VARIANT_BASE, VARIANT_ERROR, VARIANT_PRIMARY } from '../../constants';
+
 export const BASE_INPUT_CLASSES = `block
   w-full
   p-2.5
@@ -24,9 +26,12 @@ const ERROR_CLASSES = `border-primary-800
   focus:border-primary-800
   `;
 
+const BASE_CLASSES = ``;
+
 export const TYPE_INPUT = {
-  primary: PRIMARY_CLASSES,
-  error: ERROR_CLASSES,
+  [VARIANT_PRIMARY]: PRIMARY_CLASSES,
+  [VARIANT_ERROR]: ERROR_CLASSES,
+  [VARIANT_BASE]: BASE_CLASSES,
 };
 
 /* Tags */
@@ -66,14 +71,14 @@ const ITEM_BASE_CLASSES = 'bg-base-600 text-white fill-white';
 export const ITEM_DISABLED_CLASSES = [BASE_TAG_DISABLED_CLASSES, 'fill-white'];
 
 export const TYPE_ITEM = {
-  primary: ITEM_PRIMARY_CLASSES,
-  base: ITEM_BASE_CLASSES,
+  [VARIANT_PRIMARY]: ITEM_PRIMARY_CLASSES,
+  [VARIANT_BASE]: ITEM_BASE_CLASSES,
 };
 
 export const TYPE_TAG = {
-  primary: PRIMARY_TAG_CLASSES,
-  error: ERROR_TAG_CLASSES,
-  base: BASE_TAG_CLASSES,
+  [VARIANT_PRIMARY]: PRIMARY_TAG_CLASSES,
+  [VARIANT_ERROR]: ERROR_TAG_CLASSES,
+  [VARIANT_BASE]: BASE_TAG_CLASSES,
 };
 
 export const ICON_TAG_CLASSES = '"h-full w-5 fill-inherit';

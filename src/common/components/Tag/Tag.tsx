@@ -20,11 +20,12 @@ import {
   BASE_TAG_DISABLED_CLASSES,
   BASE_INPUT_TAG_DISABLED_CLASSES,
 } from '../shared/styles/inputStyles';
+import { VARIANT_ERROR, VARIANT_PRIMARY } from '../constants';
 import { IconX } from '../assets/svg';
 
 const Tag: React.FC<ITag> = ({
-  variantTag = 'primary',
-  variant = 'primary',
+  variantTag = VARIANT_PRIMARY,
+  variant = VARIANT_PRIMARY,
   errorState = false,
   disabled = false,
   value,
@@ -39,7 +40,7 @@ const Tag: React.FC<ITag> = ({
   const [focusDiv, setfocusDiv] = useState(false);
 
   const VARIANT_CLASSES = useMemo(
-    () => TYPE_TAG[errorState ? 'error' : variant],
+    () => TYPE_TAG[errorState ? VARIANT_ERROR : variant],
     [errorState, variant],
   );
 

@@ -11,10 +11,11 @@ import {
 } from './styles';
 import { ICollapseSidebar } from './interfaces';
 import { ArrowDownIcon } from '../assets/svg';
+import { VARIANT_PRIMARY } from '../constants';
 
 const CollapseSidebar: React.FC<ICollapseSidebar> = ({
   title,
-  variant = 'primary',
+  variant = VARIANT_PRIMARY,
   icon,
   className,
   children,
