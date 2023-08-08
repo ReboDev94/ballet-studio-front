@@ -5,13 +5,29 @@ import {
   Form,
   Input,
   Textarea,
+  ListGroup,
 } from '@/common/components';
-import { IconUser } from '@/common/assets/svg';
+import { IconUser, IconCloseCircle } from '@/common/assets/svg';
 import { useState } from 'react';
 
 const NewUserPage = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [isOlder, setisOlder] = useState(false);
+
+  const [addresses, setaddresses] = useState([
+    {
+      uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
+      title: 'Hola mundo',
+    },
+    {
+      uid: '2673a4a7-a56e-4105-a7e6-80cde774ea66',
+      title: 'Hola mundo',
+    },
+    {
+      uid: 'a631dbdf-0c4d-4a59-990e-683923b98d83',
+      title: 'Hola mundo',
+    },
+  ]);
 
   return (
     <>
@@ -63,7 +79,7 @@ const NewUserPage = () => {
                 </span>
               </div>
               <div className="col-start-5 col-end-10 my-auto">
-                <Input type="date" disabled/>
+                <Input type="date" disabled />
               </div>
             </div>
             <div className="border-b border-base-100 my-5" />
@@ -93,10 +109,20 @@ const NewUserPage = () => {
                 </span>
               </div>
               <div className="col-start-5 col-end-10 my-auto">
-                {/* <Input type="text" /> */}
-                <ul className='text-sm rounded-md border border-base-600'>
-                  <li>Operacion de en la </li>
-                </ul>
+                <Input type="text" placeholder="Obesidad" className='mb-4' />
+
+                <ListGroup>
+                  {addresses.map(({ uid, title }) => (
+                    <ListGroup.Item key={uid} variant="primary">
+                      <div className="w-full h-full flex items-center justify-between">
+                        <span className="flex-1 line-clamp-1">{title}</span>
+                        <button type="button">
+                          <IconCloseCircle className="fill-primary-800 h-6 w-6" />
+                        </button>
+                      </div>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
               </div>
             </div>
             {!isOlder && (
@@ -159,7 +185,9 @@ const NewUserPage = () => {
             <div className="border-b border-base-100 my-5" />
             <div className="flex gap-2 justify-end">
               <Button variant="outline-primary">Cancelar</Button>
-              <Button variant="primary" disabled>Guardar</Button>
+              <Button variant="primary" disabled>
+                Guardar
+              </Button>
             </div>
           </Form>
         </Card.Body>

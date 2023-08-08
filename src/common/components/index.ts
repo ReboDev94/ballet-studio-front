@@ -35,6 +35,15 @@ import {
   TableRowProps as TTableRowProps,
 } from './Table';
 import { TagProps as TTagProps } from './Tag';
+import {
+  ListGroupProps as TListGroupProps,
+  ItemListGroupProps as TItemListGroupProps,
+} from './ListGroup';
+
+/* ListGroup */
+export type ListGroupProps = TListGroupProps;
+export type ItemListGroupProps = TItemListGroupProps;
+export { default as ListGroup } from './ListGroup';
 
 /* Tag */
 export type TagProps = TTagProps;
