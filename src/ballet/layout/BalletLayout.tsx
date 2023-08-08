@@ -7,7 +7,7 @@ import {
   IconSchool,
   IconStudents,
   IconTeam,
-  IconUser
+  IconUser,
 } from '@/common/assets/svg';
 
 const BalletLayout = () => {
@@ -51,8 +51,6 @@ const BalletLayout = () => {
                 </Link>
               </Menu>
             </Menu.CollapseSidebar>
-            {/* <Menu.ItemSidebar title="Pase de Lista" icon={IconCheck} />
-            <Menu.ItemSidebar title="Inventario" icon={IconArchive} /> */}
           </Menu>
         </Sidebar.Content>
 

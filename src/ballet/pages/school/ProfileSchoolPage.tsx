@@ -4,15 +4,28 @@ import {
   Card,
   Input,
   Textarea,
-  Tag,
   Button,
+  ListGroup,
 } from '@/common/components';
-import { IconSchool } from '@/common/assets/svg';
+import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
 
 const ProfileSchoolPage = () => {
 
-  const [tags, setTags] = useState<string[]>([]);
 
+  const [certifications, setcertifications] = useState([
+    {
+      uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
+      title: 'Hola mundo',
+    },
+    {
+      uid: '2673a4a7-a56e-4105-a7e6-80cde774ea66',
+      title: 'Hola mundo',
+    },
+    {
+      uid: 'a631dbdf-0c4d-4a59-990e-683923b98d83',
+      title: 'Hola mundo',
+    },
+  ]);
   return (
     <Card>
       <Card.Body>
@@ -122,17 +135,20 @@ const ProfileSchoolPage = () => {
             </span>
           </div>
           <div className="col-start-5 col-end-10 my-auto">
-            <Tag
-              value={tags}
-              onChange={(tags, newTag) => {
-                setTags(prev => [...prev, newTag]);
-              }}
-              onRemoved={tag => {
-                setTags(tags.filter(item => item !== tag));
-              }}
-              placeholder="Certificaciones"
-              variantTag="primary"
-            />
+            <Input type="text" placeholder="certificación" className="mb-4" />
+
+            <ListGroup>
+              {certifications.map(({ uid, title }) => (
+                <ListGroup.Item key={uid} variant="primary">
+                  <div className="w-full h-full flex items-center justify-between">
+                    <span className="flex-1 line-clamp-1">{title}</span>
+                    <button type="button">
+                      <IconCloseCircle className="fill-primary-800 h-6 w-6" />
+                    </button>
+                  </div>
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
           </div>
         </div>
         <div className="border-b border-base-100 my-5" />

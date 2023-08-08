@@ -11,7 +11,6 @@ import { IconUser, IconCloseCircle } from '@/common/assets/svg';
 import { useState } from 'react';
 
 const NewUserPage = () => {
-  const [tags, setTags] = useState<string[]>([]);
   const [isOlder, setisOlder] = useState(false);
 
   const [addresses, setaddresses] = useState([
@@ -79,7 +78,7 @@ const NewUserPage = () => {
                 </span>
               </div>
               <div className="col-start-5 col-end-10 my-auto">
-                <Input type="date" disabled />
+                <Input type="date"  />
               </div>
             </div>
             <div className="border-b border-base-100 my-5" />
@@ -185,7 +184,7 @@ const NewUserPage = () => {
             <div className="border-b border-base-100 my-5" />
             <div className="flex gap-2 justify-end">
               <Button variant="outline-primary">Cancelar</Button>
-              <Button variant="primary" disabled>
+              <Button variant="primary" >
                 Guardar
               </Button>
             </div>
