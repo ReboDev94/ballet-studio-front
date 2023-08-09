@@ -6,12 +6,11 @@ import {
   Textarea,
   Button,
   ListGroup,
+  Divider,
 } from '@/common/components';
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
 
 const ProfileSchoolPage = () => {
-
-
   const [certifications, setcertifications] = useState([
     {
       uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
@@ -30,7 +29,7 @@ const ProfileSchoolPage = () => {
     <Card>
       <Card.Body>
         <h3 className="text-xl text-base-500 font-semibold">Perfil escuela</h3>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="flex items-center gap-4">
           <Avatar size="lg" src="https://i.pravatar.cc">
             <IconSchool className="fill-white h-14 w-14" />
@@ -43,8 +42,7 @@ const ProfileSchoolPage = () => {
             <span className="text-xs">Av Gobernadores #24</span>
           </div>
         </div>
-
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre de la institución</h5>
@@ -56,8 +54,7 @@ const ProfileSchoolPage = () => {
             <Input type="text" placeholder="Ballet Studio" />
           </div>
         </div>
-
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre del (a) director (a)</h5>
@@ -69,7 +66,7 @@ const ProfileSchoolPage = () => {
             <Input type="text" placeholder="Dalia Nava" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Logo (opcional):</h5>
@@ -81,8 +78,7 @@ const ProfileSchoolPage = () => {
             <Input type="file" />
           </div>
         </div>
-
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Descripción (opcional):</h5>
@@ -98,7 +94,7 @@ const ProfileSchoolPage = () => {
             />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Teléfono (opcional):</h5>
@@ -110,7 +106,7 @@ const ProfileSchoolPage = () => {
             <Input type="text" placeholder="000-000-00-00" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Dirección (opcional):</h5>
@@ -126,7 +122,7 @@ const ProfileSchoolPage = () => {
             />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Certificaciones (opcional):</h5>
@@ -151,7 +147,7 @@ const ProfileSchoolPage = () => {
             </ListGroup>
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="flex gap-2 justify-end">
           <Button variant="outline-primary">Cancelar</Button>
           <Button variant="primary">Guardar</Button>

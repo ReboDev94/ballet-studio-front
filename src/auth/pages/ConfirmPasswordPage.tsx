@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, Form, Input } from '@/common/components';
+import { Button, Card, Divider, Form, Input } from '@/common/components';
 import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
 
 const ConfirmPasswordPage = () => {
@@ -65,7 +65,7 @@ const ConfirmPasswordPage = () => {
             </div>
           </Form.Label>
           <Button block>Confirmar contraseña</Button>
-          <div className="border-b border-base-100"></div>
+          <Divider />
         </Form>
       </Card.Body>
     </Card>

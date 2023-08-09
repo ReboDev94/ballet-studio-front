@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, Card, Input, Form } from '@/common/components';
+import { Button, Card, Input, Form, Divider } from '@/common/components';
 
 const ResetPasswordPage = () => {
   return (
@@ -23,7 +23,7 @@ const ResetPasswordPage = () => {
 
           <Button block>Enviar correo electrónico</Button>
 
-          <div className="border-b border-base-100"></div>
+          <Divider />
 
           <p className="text-xs text-center font-medium hover:underline hover:cursor-pointer">
             <Link to="/auth/login">Iniciar sesión</Link>

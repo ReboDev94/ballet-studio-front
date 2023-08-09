@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card, Form, Input } from '@/common/components';
+import { Button, Card, Form, Input, Divider } from '@/common/components';
 import { ILoginRequest } from '@/auth/interfaces';
 import { SchemaValidationLogin } from '@/auth/validations';
 import { useAppDispatch } from '@/store/hooks';
@@ -85,7 +85,7 @@ const LoginPage = () => {
             Iniciar
           </Button>
 
-          <div className="border-b border-base-100"></div>
+         <Divider/>
 
           <p
             className="text-xs text-center"

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Card, Input, Form } from '@/common/components';
+import { Button, Card, Input, Form, Divider } from '@/common/components';
 import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
-
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +69,7 @@ const RegisterPage = () => {
 
           <Button block>Registrarse</Button>
 
-          <div className="border-b border-base-100"></div>
+          <Divider />
 
           <p className="text-xs text-center">
             ¿Ya tienes una cuenta?&nbsp;

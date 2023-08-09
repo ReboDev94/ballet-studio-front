@@ -35,10 +35,16 @@ import {
   TableRowProps as TTableRowProps,
 } from './Table';
 import { TagProps as TTagProps } from './Tag';
+import { DividerProps as TDividerProps } from './Divider';
 import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
+
+/* Divider */
+
+export type DividerProps = TDividerProps;
+export { default as Divider } from './Divider';
 
 /* ListGroup */
 export type ListGroupProps = TListGroupProps;

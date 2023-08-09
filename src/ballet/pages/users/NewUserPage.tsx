@@ -6,6 +6,7 @@ import {
   Input,
   Textarea,
   ListGroup,
+  Divider
 } from '@/common/components';
 import { IconUser, IconCloseCircle } from '@/common/assets/svg';
 import { useState } from 'react';
@@ -35,7 +36,7 @@ const NewUserPage = () => {
           <h3 className="text-xl text-base-500 font-semibold">
             Nuevo estudiante
           </h3>
-          <div className="border-b border-base-100 my-5" />
+          <Divider />
           <Form>
             <h3 className="text-lg text-primary-800 font-semibold">
               Datos personales
@@ -45,7 +46,7 @@ const NewUserPage = () => {
                 <IconUser className="fill-white h-14 w-14" />
               </Avatar>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Nombre:</h5>
@@ -57,7 +58,7 @@ const NewUserPage = () => {
                 <Input type="text" placeholder="Yaretzin Araujo Delgado" />
               </div>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Fotografía (opcional):</h5>
@@ -69,7 +70,7 @@ const NewUserPage = () => {
                 <Input type="file" />
               </div>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Fecha de nacimiento:</h5>
@@ -81,7 +82,7 @@ const NewUserPage = () => {
                 <Input type="date"  />
               </div>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Dirección</h5>
@@ -98,7 +99,7 @@ const NewUserPage = () => {
                 />
               </div>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Enfermedades (opcional):</h5>
@@ -126,7 +127,7 @@ const NewUserPage = () => {
             </div>
             {!isOlder && (
               <>
-                <div className="border-b border-base-100 my-5" />
+                <Divider />
                 <h3 className="text-lg text-primary-800 font-semibold mb-5 ">
                   Datos del tutor
                 </h3>
@@ -141,7 +142,7 @@ const NewUserPage = () => {
                     <Input type="text" placeholder="Yaretzin Araujo Delgado" />
                   </div>
                 </div>
-                <div className="border-b border-base-100 my-5" />
+                <Divider />
                 <div className="grid grid-cols-12">
                   <div className="col-span-4 pr-2">
                     <h5 className="font-semibold">
@@ -155,7 +156,7 @@ const NewUserPage = () => {
                     <Input type="email" placeholder="example@gmail.com" />
                   </div>
                 </div>
-                <div className="border-b border-base-100 my-5" />
+                <Divider />
                 <div className="grid grid-cols-12">
                   <div className="col-span-4 pr-2">
                     <h5 className="font-semibold">Teléfono fijo (opcional):</h5>
@@ -169,7 +170,7 @@ const NewUserPage = () => {
                 </div>
               </>
             )}
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="grid grid-cols-12">
               <div className="col-span-4 pr-2">
                 <h5 className="font-semibold">Teléfono celular</h5>
@@ -181,7 +182,7 @@ const NewUserPage = () => {
                 <Input type="text" placeholder="000-000-00-00" />
               </div>
             </div>
-            <div className="border-b border-base-100 my-5" />
+            <Divider />
             <div className="flex gap-2 justify-end">
               <Button variant="outline-primary">Cancelar</Button>
               <Button variant="primary" >

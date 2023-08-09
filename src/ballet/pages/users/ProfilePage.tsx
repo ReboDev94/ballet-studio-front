@@ -1,11 +1,11 @@
-import { Card, Avatar, Input, Button } from '@/common/components';
+import { Card, Avatar, Input, Button, Divider } from '@/common/components';
 
 const ProfilePage = () => {
   return (
     <Card>
       <Card.Body>
         <h3 className="text-xl text-base-500 font-semibold">Perfil</h3>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="flex items-center gap-4">
           <Avatar size="lg" title="RJ" border />
           <div className="flex flex-col gap-1">
@@ -17,7 +17,7 @@ const ProfilePage = () => {
             </span>
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Nombre</h5>
@@ -29,7 +29,7 @@ const ProfilePage = () => {
             <Input type="text" placeholder="Yaretzin Araujo Delgado" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Correo electrónico</h5>
@@ -41,7 +41,7 @@ const ProfilePage = () => {
             <Input type="email" placeholder="example@balletstudio.com" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="grid grid-cols-12">
           <div className="col-span-4 pr-2">
             <h5 className="font-semibold">Teléfono</h5>
@@ -53,7 +53,7 @@ const ProfilePage = () => {
             <Input type="text" placeholder="000-000-00-00" />
           </div>
         </div>
-        <div className="border-b border-base-100 my-5" />
+        <Divider />
         <div className="flex gap-2 justify-end">
           <Button variant="outline-primary">Cancelar</Button>
           <Button variant="primary">Guardar</Button>
