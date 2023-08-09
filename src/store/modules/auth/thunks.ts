@@ -1,4 +1,4 @@
-import { getUserService, loginService } from '@/auth/api/auth.service';
+import { getUserService, loginService } from '@/auth/api';
 import { ILoginRequest } from '@/auth/interfaces';
 import {
   addHeadersAuth,

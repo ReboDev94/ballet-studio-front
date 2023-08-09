@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Card, Form, Input } from '@/common/components';
-import { ILoginRequest } from '../interfaces';
-import { SchemaValidationLogin } from '../validations';
+import { Button, Card, Form, Input, Divider } from '@/common/components';
+import { ILoginRequest } from '@/auth/interfaces';
+import { SchemaValidationLogin } from '@/auth/validations';
 import { useAppDispatch } from '@/store/hooks';
+import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
 import { loginThunk } from '@/store/modules/auth/thunks';
 
 const LoginPage = () => {
@@ -64,15 +65,11 @@ const LoginPage = () => {
                 className="absolute inset-y-0 right-0 flex items-center cursor-pointe px-2"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                <img
-                  src={
-                    showPassword
-                      ? '/assets/icons/eye.svg'
-                      : '/assets/icons/eye-off.svg'
-                  }
-                  alt="eye"
-                  className="h-6 w-6"
-                />
+                {showPassword ? (
+                  <IconEyeOpen className="h-6 w-6 fill-base-600" />
+                ) : (
+                  <IconEyeClose className="h-6 w-6 fill-base-600" />
+                )}
               </button>
             </div>
           </Form.Label>
@@ -88,7 +85,7 @@ const LoginPage = () => {
             Iniciar
           </Button>
 
-          <div className="border-b border-gray-400 border-opacity-50"></div>
+         <Divider/>
 
           <p
             className="text-xs text-center"

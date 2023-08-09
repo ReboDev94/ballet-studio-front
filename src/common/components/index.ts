@@ -10,6 +10,7 @@ import {
   CardBodyProps as TCardBodyProps,
 } from './Card';
 import { InputProps as TInputProps } from './Input';
+import { TextAreaProps as TTextAreaProps } from './Textarea';
 import {
   FormProps as TFormProps,
   FormLabelProps as TFormLabelProps,
@@ -33,7 +34,28 @@ import {
   TableBodyProps as TTableBody,
   TableRowProps as TTableRowProps,
 } from './Table';
+import { TagProps as TTagProps } from './Tag';
+import { DividerProps as TDividerProps } from './Divider';
+import {
+  ListGroupProps as TListGroupProps,
+  ItemListGroupProps as TItemListGroupProps,
+} from './ListGroup';
 
+/* Divider */
+
+export type DividerProps = TDividerProps;
+export { default as Divider } from './Divider';
+
+/* ListGroup */
+export type ListGroupProps = TListGroupProps;
+export type ItemListGroupProps = TItemListGroupProps;
+export { default as ListGroup } from './ListGroup';
+
+/* Tag */
+export type TagProps = TTagProps;
+export { default as Tag } from './Tag';
+
+/* Table */
 export type TableRowProps = TTableRowProps;
 export type TableBodyProps = TTableBody;
 export type TableProps = TTableProps;
@@ -62,6 +84,10 @@ export { default as Menu } from './Menu';
 export type FormProps = TFormProps;
 export type FormLabelProps = TFormLabelProps;
 export { default as Form } from './Form';
+
+/* TextArea */
+export type TextAreaProps = TTextAreaProps;
+export { default as Textarea } from './Textarea';
 
 /* Input */
 export type InputProps = TInputProps;

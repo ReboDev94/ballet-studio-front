@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
+import { VARIANT_DEFAULT, VARIANT_PRIMARY } from '../constants';
 
-export type VariantCard = 'default' | 'primary';
+export type VariantCard = typeof VARIANT_DEFAULT | typeof VARIANT_PRIMARY;
 
 export interface ICard {
   variant?: VariantCard;

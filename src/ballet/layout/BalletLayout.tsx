@@ -1,13 +1,14 @@
 import { Outlet, Link } from 'react-router-dom';
 import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
-import { ReactComponent as IconPersonAdd } from '@/common/assets/svg/icon-person-add.svg';
-import { ReactComponent as IconDashboard } from '@/common/assets/svg/icon-dashboard.svg';
-import { ReactComponent as IconSchool } from '@/common/assets/svg/icon-school.svg';
-import { ReactComponent as IconStudents } from '@/common/assets/svg/icon-students.svg';
-import { ReactComponent as IconGroup } from '@/common/assets/svg/icon-group.svg';
-import { ReactComponent as IconTeam } from '@/common/assets/svg/icon-team.svg';
-import { ReactComponent as IconArchive } from '@/common/assets/svg/icon-archive.svg';
-import { ReactComponent as IconCheck } from '@/common/assets/svg/icon-check.svg';
+import {
+  IconDashboard,
+  IconGroup,
+  IconPersonAdd,
+  IconSchool,
+  IconStudents,
+  IconTeam,
+  IconUser,
+} from '@/common/assets/svg';
 
 const BalletLayout = () => {
   return (
@@ -31,19 +32,25 @@ const BalletLayout = () => {
             </Link>
             <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
               <Menu>
-                <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                <Link to="/users/new">
+                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                </Link>
+                <Link to="/users">
+                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                </Link>
               </Menu>
             </Menu.CollapseSidebar>
 
             <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
               <Menu>
-                <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                <Link to="/groups/new">
+                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                </Link>
+                <Link to="/groups">
+                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                </Link>
               </Menu>
             </Menu.CollapseSidebar>
-            <Menu.ItemSidebar title="Pase de Lista" icon={IconCheck} />
-            <Menu.ItemSidebar title="Inventario" icon={IconArchive} />
           </Menu>
         </Sidebar.Content>
 
@@ -55,33 +62,46 @@ const BalletLayout = () => {
       </Sidebar>
 
       <main className="ml-[280px] px-6 py-8">
-        <div className="flex justify-between items-center mt-2 mb-4">
-          <h1 className="text-2xl text-base-800 font-semibold">
-            Bienvenido, Rafael De Jesus
-          </h1>
+        <nav className="flex justify-between items-center mt-2 mb-4">
+          <h2 className="text-3xl text-base-600 font-semibold">
+            Ballet Studio
+          </h2>
 
-          <Dropdown>
-            <Dropdown.Toogle button={false}>
-              <Avatar
-                size="sm"
-                shape="circle"
-                className="cursor-pointer"
-                src="https://i.pravatar.cc"
-              />
-            </Dropdown.Toogle>
-            <Dropdown.Menu position="bottom" align="end" className="w-[11rem]">
-              <Dropdown.Item className="text-center px-1 py-2 font-semibold">
-                Rafael De Jesus Rebolledo Hernandez
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item>Mi Perfil</Dropdown.Item>
-              <Dropdown.Item>
-                <Button block>Cerrar sesión</Button>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-        <Outlet />
+          <div className="flex gap-2">
+            <Dropdown>
+              <Dropdown.Toogle button={false}>
+                <Avatar
+                  size="sm"
+                  shape="circle"
+                  className="cursor-pointer"
+                  src="https://i.pravatar.cc"
+                >
+                  <IconUser className="fill-white h-8 w-8" />
+                </Avatar>
+              </Dropdown.Toogle>
+              <Dropdown.Menu position="bottom" className="w-[11rem]">
+                <Dropdown.Item className="text-center px-1 py-2 font-semibold">
+                  Rafael De Jesus Rebolledo Hernandez
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Link to="/profile">
+                  <Dropdown.Item>Mi Perfil</Dropdown.Item>
+                </Link>
+                <Dropdown.Item>
+                  <Button block>Cerrar sesión</Button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <div className="flex flex-col justify-center">
+              <h5 className="font-semibold text-base-600">Rafael De Jesus</h5>
+              <span className="text-xs">Administrador</span>
+            </div>
+          </div>
+        </nav>
+
+        <section className="py-2">
+          <Outlet />
+        </section>
         {/* <Table>
           <Table.Head>
             <>Nombre</>

@@ -1,4 +1,14 @@
 import DashboardPage from './DashboardPage';
-import ProfileSchoolPage from './ProfileSchoolPage';
+import { NewGroupPage, ViewGroupsPage } from './groups';
+import { ProfileSchoolPage } from './school';
+import { ProfilePage, NewUserPage, ViewUsersPage } from './users';
 
-export { DashboardPage, ProfileSchoolPage };
+export {
+  DashboardPage,
+  ProfilePage,
+  ProfileSchoolPage,
+  NewUserPage,
+  ViewUsersPage,
+  NewGroupPage,
+  ViewGroupsPage,
+};

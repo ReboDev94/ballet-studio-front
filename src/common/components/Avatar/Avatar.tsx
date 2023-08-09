@@ -9,15 +9,17 @@ import {
   SHAPE_AVATAR,
   SIZE_AVATAR,
 } from './styles';
+import { SHAPE_CIRCLE, SIZE_XS, VARIANT_BASE } from '../constants';
 
 const Avatar: React.FC<IAvatar> = ({
-  shape = 'circle',
-  size = 'xs',
+  shape = SHAPE_CIRCLE,
+  size = SIZE_XS,
   border = false,
-  borderVariant = 'base',
-  bgVariant = 'base',
-  title = 'YAD',
-  src = '',
+  borderVariant = VARIANT_BASE,
+  bgVariant = VARIANT_BASE,
+  title,
+  src,
+  children,
   className,
 }) => {
   const [loadImg, setloadImg] = useState(false);
@@ -38,7 +40,8 @@ const Avatar: React.FC<IAvatar> = ({
         className,
       )}
     >
-      {!loadImg && <span>{title}</span>}
+      {children && !loadImg && children}
+      {!children && !loadImg && <span>{title}</span>}
       <img
         src={src}
         className={twMerge('rounded-[inherit]', !loadImg && 'hidden')}

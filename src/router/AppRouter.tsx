@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import BalletRoutes from '@/ballet/routes/BalletRoutes';
-import AuthRoutes from '@/auth/routes/AuthRoutes';
+import { BalletRoutes } from '@/ballet/routes';
+import { AuthRoutes } from '@/auth/routes';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getTokenStorage } from '@/common/utils';
 import { getUserThunk } from '@/store/modules/auth/thunks';
-import { LoadingPage } from '@/common/pages/LoadingPage';
+import { LoadingPage } from '@/common/pages';
 
-export const AppRouter = () => {
+const AppRouter = () => {
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(state => state.auth);
   const [loadingPage, setloadingPage] = useState(true);
@@ -35,3 +35,5 @@ export const AppRouter = () => {
     </Routes>
   );
 };
+
+export default AppRouter;

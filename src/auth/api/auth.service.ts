@@ -1,5 +1,9 @@
-import axiosInstance from '../../common/http/http.service';
-import { IGetUserResponse, ILoginRequest, ILoginResponse } from '../interfaces';
+import { axiosInstance } from '@/common/http';
+import {
+  IGetUserResponse,
+  ILoginRequest,
+  ILoginResponse,
+} from '@/auth/interfaces';
 
 const LOGIN_URL = 'auth/login';
 const GET_USER_URL = 'auth/user';
