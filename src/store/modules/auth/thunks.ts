@@ -18,7 +18,7 @@ export const loginThunk = createAsyncThunk(
       } = await loginService(dataLogin);
       setTokenStorage(token);
       addHeadersAuth();
-      dispatch(setDataLoginAction({ user }));
+      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
       return user;
     } catch (error) {
       return rejectWithValue('Credenciales incorrectas');
@@ -33,7 +33,7 @@ export const getUserThunk = createAsyncThunk(
       const {
         data: { user },
       } = await getUserService();
-      dispatch(setDataLoginAction({ user }));
+      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
       return user;
     } catch (error) {
       removeTokenStorage();
