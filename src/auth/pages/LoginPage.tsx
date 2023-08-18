@@ -85,7 +85,7 @@ const LoginPage = () => {
             Iniciar
           </Button>
 
-         <Divider/>
+          <Divider />
 
           <p
             className="text-xs text-center"

@@ -6,15 +6,15 @@ import {
   Input,
   Textarea,
   ListGroup,
-  Divider
+  Divider,
 } from '@/common/components';
 import { IconUser, IconCloseCircle } from '@/common/assets/svg';
 import { useState } from 'react';
 
 const NewUserPage = () => {
-  const [isOlder, setisOlder] = useState(false);
+  const [isOlder] = useState(false);
 
-  const [addresses, setaddresses] = useState([
+  const [addresses] = useState([
     {
       uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
       title: 'Hola mundo',
@@ -79,7 +79,7 @@ const NewUserPage = () => {
                 </span>
               </div>
               <div className="col-start-5 col-end-10 my-auto">
-                <Input type="date"  />
+                <Input type="date" />
               </div>
             </div>
             <Divider />
@@ -109,7 +109,7 @@ const NewUserPage = () => {
                 </span>
               </div>
               <div className="col-start-5 col-end-10 my-auto">
-                <Input type="text" placeholder="Obesidad" className='mb-4' />
+                <Input type="text" placeholder="Obesidad" className="mb-4" />
 
                 <ListGroup>
                   {addresses.map(({ uid, title }) => (
@@ -185,9 +185,7 @@ const NewUserPage = () => {
             <Divider />
             <div className="flex gap-2 justify-end">
               <Button variant="outline-primary">Cancelar</Button>
-              <Button variant="primary" >
-                Guardar
-              </Button>
+              <Button variant="primary">Guardar</Button>
             </div>
           </Form>
         </Card.Body>
