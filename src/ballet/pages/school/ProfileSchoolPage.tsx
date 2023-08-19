@@ -11,7 +11,7 @@ import {
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
 
 const ProfileSchoolPage = () => {
-  const [certifications] = useState([
+  const [certifications, setCertitications] = useState([
     {
       uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
       title: 'Hola mundo',
