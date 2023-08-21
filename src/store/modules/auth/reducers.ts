@@ -4,6 +4,7 @@ import { AuthState } from './initialState';
 const reducers = {
   setDataLogin: (state: AuthState, { payload }: PayloadAction<AuthState>) => {
     state.user = payload.user;
+    state.school = payload.school;
     state.isAuthenticated = payload.isAuthenticated;
   },
 };

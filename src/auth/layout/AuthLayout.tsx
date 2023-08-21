@@ -7,11 +7,12 @@ const AuthLayout = () => {
     <div className="h-screen">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-12 lg:col-span-4 py-10 lg:mx-10 order-2 lg:order-none">
-          <img
+          {/* TODO:ESTABLECER DESDE LA INFORMACION DE LA ESCUELA */}
+          {/* <img
             src="/logos/ballet-studio-logo.svg"
             className="h-20 block mx-auto"
             alt="logo"
-          />
+          /> */}
           <Outlet />
           <p className="text-xs font-light text-center">
             Derechos reservados

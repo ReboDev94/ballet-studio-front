@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import {
   ResetPasswordPage,
@@ -6,8 +7,13 @@ import {
   RegisterPage,
 } from '@/auth/pages';
 import { AuthLayout } from '@/auth/layout';
+import { TITLE_IS_NOT_AUTHENTICATES } from '@/auth/constants';
 
 const AuthRoutes = () => {
+  useEffect(() => {
+    document.title = TITLE_IS_NOT_AUTHENTICATES;
+  }, []);
+
   return (
     <Routes>
       <Route element={<AuthLayout />}>

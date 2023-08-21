@@ -1,4 +1,4 @@
-import { getUserService, loginService } from '@/auth/api';
+import { getSchoolService, getUserService, loginService } from '@/auth/api';
 import { ILoginRequest } from '@/auth/interfaces';
 import {
   addHeadersAuth,
@@ -8,6 +8,17 @@ import {
 } from '@/common/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setDataLoginAction } from './actions';
+import { schoolInitialData } from './initialState';
+
+const getSchool = async (hasSchool = false) => {
+  if (hasSchool) {
+    const {
+      data: { school },
+    } = await getSchoolService();
+    return school;
+  }
+  return schoolInitialData;
+};
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -16,9 +27,12 @@ export const loginThunk = createAsyncThunk(
       const {
         data: { token, user },
       } = await loginService(dataLogin);
+      const { hasSchool } = user;
       setTokenStorage(token);
       addHeadersAuth();
-      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
+      /* obtener la escuela -solo si tiene */
+      const school = await getSchool(hasSchool);
+      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
       return user;
     } catch (error) {
       return rejectWithValue('Credenciales incorrectas');
@@ -33,7 +47,10 @@ export const getUserThunk = createAsyncThunk(
       const {
         data: { user },
       } = await getUserService();
-      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
+      /* obtener la escuela -solo si tiene */
+      const { hasSchool } = user;
+      const school = await getSchool(hasSchool);
+      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
       return user;
     } catch (error) {
       removeTokenStorage();

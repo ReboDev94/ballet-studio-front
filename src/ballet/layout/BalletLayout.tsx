@@ -11,21 +11,25 @@ import {
 } from '@/common/assets/svg';
 import { useAppSelector } from '@/store/hooks';
 import { getRoles } from '@/auth/utils';
+import { useEffect } from 'react';
 
 const BalletLayout = () => {
   const {
     user: { name, roles, photo },
+    school: { name: schoolName, logo },
   } = useAppSelector(state => state.auth);
+
+  useEffect(() => {
+    const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+    if (link && logo) link.href = logo;
+    document.title = schoolName;
+  }, []);
 
   return (
     <div className="h-screen w-full">
       <Sidebar width={280} className="">
         <Sidebar.Header>
-          <img
-            src="/logos/ballet-studio-logo.svg"
-            className="h-14"
-            alt="logo"
-          />
+          <img src={logo} className="h-14" alt="logo" />
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Category title="Menu" />
@@ -69,9 +73,7 @@ const BalletLayout = () => {
 
       <main className="ml-[280px] px-6 py-8">
         <nav className="flex justify-between items-center mt-2 mb-4">
-          <h2 className="text-3xl text-base-600 font-semibold">
-            Ballet Studio
-          </h2>
+          <h2 className="text-3xl text-base-600 font-semibold">{schoolName}</h2>
 
           <div className="flex gap-2">
             <Dropdown>
