@@ -9,8 +9,14 @@ import {
   IconTeam,
   IconUser,
 } from '@/common/assets/svg';
+import { useAppSelector } from '@/store/hooks';
+import { getRoles } from '@/auth/utils';
 
 const BalletLayout = () => {
+  const {
+    user: { name, roles, photo },
+  } = useAppSelector(state => state.auth);
+
   return (
     <div className="h-screen w-full">
       <Sidebar width={280} className="">
@@ -74,14 +80,14 @@ const BalletLayout = () => {
                   size="sm"
                   shape="circle"
                   className="cursor-pointer"
-                  src="https://i.pravatar.cc"
+                  src={photo}
                 >
                   <IconUser className="fill-white h-8 w-8" />
                 </Avatar>
               </Dropdown.Toogle>
               <Dropdown.Menu position="bottom" className="w-[11rem]">
                 <Dropdown.Item className="text-center px-1 py-2 font-semibold">
-                  Rafael De Jesus Rebolledo Hernandez
+                  {name}
                 </Dropdown.Item>
                 <Dropdown.Divider />
                 <Link to="/profile">
@@ -93,8 +99,8 @@ const BalletLayout = () => {
               </Dropdown.Menu>
             </Dropdown>
             <div className="flex flex-col justify-center">
-              <h5 className="font-semibold text-base-600">Rafael De Jesus</h5>
-              <span className="text-xs">Administrador</span>
+              <h5 className="font-semibold text-base-600">{name}</h5>
+              <span className="text-xs">{getRoles(roles, true)}</span>
             </div>
           </div>
         </nav>

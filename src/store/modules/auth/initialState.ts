@@ -11,6 +11,7 @@ const initialState: initialStateAuth = {
     isActive: false,
     roles: [],
     hasSchool: false,
+    photo: undefined,
   },
 };
 

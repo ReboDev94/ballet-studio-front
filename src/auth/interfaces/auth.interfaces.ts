@@ -18,6 +18,7 @@ export interface User {
   isOwner: boolean;
   isActive: boolean;
   roles: Role[];
+  photo: string | undefined;
   hasSchool: boolean;
 }
 

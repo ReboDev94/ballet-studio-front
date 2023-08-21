@@ -44,7 +44,11 @@ const Avatar: React.FC<IAvatar> = ({
       {!children && !loadImg && <span>{title}</span>}
       <img
         src={src}
-        className={twMerge('rounded-[inherit]', !loadImg && 'hidden')}
+        className={twMerge(
+          'rounded-[inherit] object-fill',
+          SIZE_AVATAR[size],
+          !loadImg && 'hidden',
+        )}
         onLoad={onLoadImg}
       />
     </div>
