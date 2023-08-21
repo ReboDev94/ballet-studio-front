@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import {
@@ -11,7 +12,6 @@ import {
 } from '@/common/assets/svg';
 import { useAppSelector } from '@/store/hooks';
 import { getRoles } from '@/auth/utils';
-import { useEffect } from 'react';
 
 const BalletLayout = () => {
   const {
@@ -29,7 +29,7 @@ const BalletLayout = () => {
     <div className="h-screen w-full">
       <Sidebar width={280} className="">
         <Sidebar.Header>
-          <img src={logo} className="h-14" alt="logo" />
+          <img src={logo ? logo : '/logo.png'} className="h-20" alt="logo" />
         </Sidebar.Header>
         <Sidebar.Content>
           <Sidebar.Category title="Menu" />
@@ -66,7 +66,7 @@ const BalletLayout = () => {
 
         <Sidebar.Footer>
           <span className="text-sm font-semibold">
-            @Rebodev {new Date().getFullYear()}
+            @Turink {new Date().getFullYear()}
           </span>
         </Sidebar.Footer>
       </Sidebar>
