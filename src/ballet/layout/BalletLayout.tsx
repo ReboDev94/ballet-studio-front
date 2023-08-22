@@ -10,19 +10,26 @@ import {
   IconTeam,
   IconUser,
 } from '@/common/assets/svg';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { getRoles } from '@/auth/utils';
+import { TITLE_DEFAULT } from '@/auth/constants';
+import { logoutThunk } from '@/store/modules/auth/thunks';
 
 const BalletLayout = () => {
+  const dispatch = useAppDispatch();
   const {
     user: { name, roles, photo },
     school: { name: schoolName, logo },
   } = useAppSelector(state => state.auth);
 
+  const logout = () => {
+    dispatch(logoutThunk());
+  };
+
   useEffect(() => {
     const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
     if (link && logo) link.href = logo;
-    document.title = schoolName;
+    document.title = schoolName ? schoolName : TITLE_DEFAULT;
   }, []);
 
   return (
@@ -96,7 +103,9 @@ const BalletLayout = () => {
                   <Dropdown.Item>Mi Perfil</Dropdown.Item>
                 </Link>
                 <Dropdown.Item>
-                  <Button block>Cerrar sesión</Button>
+                  <Button onClick={logout} block>
+                    Cerrar sesión
+                  </Button>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

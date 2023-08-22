@@ -7,7 +7,7 @@ import {
   removeTokenStorage,
 } from '@/common/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setDataLoginAction } from './actions';
+import { resetStoreAuthAction, setDataLoginAction } from './actions';
 import { schoolInitialData } from './initialState';
 
 const getSchool = async (hasSchool = false) => {
@@ -57,5 +57,14 @@ export const getUserThunk = createAsyncThunk(
       removeHeadersAuth();
       return rejectWithValue('unauthorized');
     }
+  },
+);
+
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  (_, { dispatch }) => {
+    dispatch(resetStoreAuthAction());
+    removeTokenStorage();
+    removeHeadersAuth();
   },
 );

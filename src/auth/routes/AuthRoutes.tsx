@@ -7,11 +7,11 @@ import {
   RegisterPage,
 } from '@/auth/pages';
 import { AuthLayout } from '@/auth/layout';
-import { TITLE_IS_NOT_AUTHENTICATES } from '@/auth/constants';
+import { TITLE_DEFAULT } from '@/auth/constants';
 
 const AuthRoutes = () => {
   useEffect(() => {
-    document.title = TITLE_IS_NOT_AUTHENTICATES;
+    document.title = TITLE_DEFAULT;
   }, []);
 
   return (

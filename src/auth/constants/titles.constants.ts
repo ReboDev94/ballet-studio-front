@@ -1,1 +1,1 @@
-export const TITLE_IS_NOT_AUTHENTICATES = 'Escuela de ballet';
+export const TITLE_DEFAULT = 'Turink Software Solutions';
