@@ -82,3 +82,15 @@ export const TYPE_TAG = {
 };
 
 export const ICON_TAG_CLASSES = '"h-full w-5 fill-inherit';
+
+export const ERROR_INPUT_DEFAULT_CLASSES = 'text-xs mt-1';
+
+const ERROR_INPUT_PRIMARY_CLASSES = 'text-primary-800';
+const ERROR_INPUT_ERROR_CLASSES = '';
+const ERROR_INPUT_BASE_CLASSES = 'text-base-600';
+
+export const TYPE_ERROR_INPUT = {
+  [VARIANT_PRIMARY]: ERROR_INPUT_PRIMARY_CLASSES,
+  [VARIANT_ERROR]: ERROR_INPUT_ERROR_CLASSES,
+  [VARIANT_BASE]: ERROR_INPUT_BASE_CLASSES,
+};

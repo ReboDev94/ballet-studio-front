@@ -36,10 +36,15 @@ import {
 } from './Table';
 import { TagProps as TTagProps } from './Tag';
 import { DividerProps as TDividerProps } from './Divider';
+import { ErrorInputProps as TErrorInputProps } from './ErrorInput/index';
 import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
+
+/* Error input */
+export type ErrorInputProps = TErrorInputProps;
+export { default as ErrorInput } from './ErrorInput';
 
 /* Divider */
 

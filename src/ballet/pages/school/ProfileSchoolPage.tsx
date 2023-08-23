@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   Avatar,
   Card,
@@ -7,153 +8,252 @@ import {
   Button,
   ListGroup,
   Divider,
+  ErrorInput,
 } from '@/common/components';
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
+import { useAppSelector } from '@/store/hooks';
+import { FormSchool } from '@/ballet/interfaces';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SchemaSchool } from '@/ballet/validations';
+import toast, { Toaster } from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
 
 const ProfileSchoolPage = () => {
-  const [certifications] = useState([
-    {
-      uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
-      title: 'Hola mundo',
-    },
-    {
-      uid: '2673a4a7-a56e-4105-a7e6-80cde774ea66',
-      title: 'Hola mundo',
-    },
-    {
-      uid: 'a631dbdf-0c4d-4a59-990e-683923b98d83',
-      title: 'Hola mundo',
-    },
-  ]);
-  return (
-    <Card>
-      <Card.Body>
-        <h3 className="text-xl text-base-500 font-semibold">Perfil escuela</h3>
-        <Divider />
-        <div className="flex items-center gap-4">
-          <Avatar size="lg" src="https://i.pravatar.cc">
-            <IconSchool className="fill-white h-14 w-14" />
-          </Avatar>
-          <div className="flex flex-col gap-1">
-            <h2 className="text-3xl text-primary-800 font-semibold">
-              Ballet Studio
-            </h2>
-            <span className="font-semibold text-lg">Dalia Nava</span>
-            <span className="text-xs">Av Gobernadores #24</span>
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Nombre de la institución</h5>
-            <span className="text-xs text-base-500">
-              Escribe el nombre de la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="text" placeholder="Ballet Studio" />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Nombre del (a) director (a)</h5>
-            <span className="text-xs text-base-500">
-              Escribe el nombre del (a) director (a) de la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="text" placeholder="Dalia Nava" />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Logo (opcional):</h5>
-            <span className="text-xs text-base-500">
-              Selecciona la imagen para el logo de la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="file" />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Descripción (opcional):</h5>
-            <span className="text-xs text-base-500">
-              Escribe una reseña o comentario sobre la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Textarea
-              placeholder="Descripción"
-              rows={3}
-              className="resize-none"
-            />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Teléfono (opcional):</h5>
-            <span className="text-xs text-base-500">
-              Escribe el número de teléfono de la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="text" placeholder="000-000-00-00" />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Dirección (opcional):</h5>
-            <span className="text-xs text-base-500">
-              Escribe la dirección la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Textarea
-              placeholder="Dirección"
-              rows={2}
-              className="resize-none"
-            />
-          </div>
-        </div>
-        <Divider />
-        <div className="grid grid-cols-12">
-          <div className="col-span-4 pr-2">
-            <h5 className="font-semibold">Certificaciones (opcional):</h5>
-            <span className="text-xs text-base-500">
-              Escribe las certificaciones que tiene la institución
-            </span>
-          </div>
-          <div className="col-start-5 col-end-10 my-auto">
-            <Input type="text" placeholder="certificación" className="mb-4" />
+  const {
+    user: { hasSchool },
+    school,
+  } = useAppSelector(state => state.auth);
 
-            <ListGroup>
-              {certifications.map(({ uid, title }) => (
-                <ListGroup.Item key={uid} variant="primary">
-                  <div className="w-full h-full flex items-center justify-between">
-                    <span className="flex-1 line-clamp-1">{title}</span>
-                    <button type="button">
-                      <IconCloseCircle className="fill-primary-800 h-6 w-6" />
-                    </button>
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+  const [certificationInput, setcertificationInput] = useState('');
+
+  const { id, logo, ...rest } = school;
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<FormSchool>({
+    mode: 'onSubmit',
+    defaultValues: {
+      ...rest,
+      file: null,
+    },
+    resolver: yupResolver(SchemaSchool),
+  });
+
+  const [name, directorName, address, certifications] = watch([
+    'name',
+    'directorName',
+    'address',
+    'certifications',
+  ]);
+
+  const submit: SubmitHandler<FormSchool> = data => {
+    console.log(data);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!certifications.includes(certificationInput) && certificationInput) {
+        setValue('certifications', [...certifications, certificationInput]);
+        setcertificationInput('');
+      }
+    }
+  };
+
+  const deleteCertifications = (title: string) => {
+    const newCertifications = certifications.filter(
+      titleAux => titleAux !== title,
+    );
+    setValue('certifications', newCertifications);
+  };
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      console.log(e.target.files[0]);
+    }
+  };
+
+  useEffect(() => {
+    if (!hasSchool)
+      toast.error(
+        'Aun no cuentas con una escuela, por favor registra los datos de la escuela para continuar',
+      );
+  }, []);
+
+  return (
+    <>
+      <Card>
+        <Card.Body>
+          <h3 className="text-xl text-base-500 font-semibold">
+            Perfil escuela
+          </h3>
+          <Divider />
+          <div className="flex items-center gap-4">
+            <Avatar size="lg" src={logo}>
+              <IconSchool className="fill-white h-14 w-14" />
+            </Avatar>
+            <div className="flex flex-col gap-1 w-full">
+              <p className="text-3xl min-h-[2.5rem] break-words text-primary-800 font-semibold">
+                {name}
+              </p>
+              <span className="break-words font-semibold text-lg min-h-[1.75rem]">
+                {directorName}
+              </span>
+              <span className="break-words text-xs min-h-[1rem]">
+                {address}
+              </span>
+            </div>
           </div>
-        </div>
-        <Divider />
-        <div className="flex gap-2 justify-end">
-          <Button variant="outline-primary">Cancelar</Button>
-          <Button variant="primary">Guardar</Button>
-        </div>
-      </Card.Body>
-    </Card>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Nombre de la institución</h5>
+              <span className="text-xs text-base-500">
+                Escribe el nombre de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input
+                type="text"
+                placeholder="Ballet Studio"
+                {...register('name')}
+                errorState={!!errors.name}
+              />
+              <ErrorInput message={errors.name?.message} />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Nombre del (a) director (a)</h5>
+              <span className="text-xs text-base-500">
+                Escribe el nombre del (a) director (a) de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input
+                type="text"
+                placeholder="Dalia Nava"
+                {...register('directorName')}
+              />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Logo (opcional):</h5>
+              <span className="text-xs text-base-500">
+                Selecciona la imagen para el logo de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input type="file" onChange={handleFile} />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Descripción (opcional):</h5>
+              <span className="text-xs text-base-500">
+                Escribe una reseña o comentario sobre la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Textarea
+                placeholder="Descripción"
+                rows={3}
+                className="resize-none"
+                {...register('description')}
+              />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Teléfono (opcional):</h5>
+              <span className="text-xs text-base-500">
+                Escribe el número de teléfono de la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input
+                type="text"
+                placeholder="000-000-00-00"
+                {...register('phone')}
+              />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Dirección (opcional):</h5>
+              <span className="text-xs text-base-500">
+                Escribe la dirección la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Textarea
+                placeholder="Dirección"
+                rows={2}
+                className="resize-none"
+                {...register('address')}
+              />
+            </div>
+          </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-4 pr-2">
+              <h5 className="font-semibold">Certificaciones (opcional):</h5>
+              <span className="text-xs text-base-500">
+                Escribe las certificaciones que tiene la institución
+              </span>
+            </div>
+            <div className="col-start-5 col-end-10 my-auto">
+              <Input
+                type="text"
+                placeholder="certificación"
+                className="mb-4"
+                value={certificationInput}
+                onChange={({ target: { value } }) =>
+                  setcertificationInput(value)
+                }
+                onKeyDown={handleKeyDown}
+              />
+              {certifications.length > 0 && (
+                <ListGroup>
+                  {certifications.map(title => (
+                    <ListGroup.Item key={uuidv4()} variant="primary">
+                      <div className="w-full h-full flex items-center justify-between">
+                        <span className="flex-1 line-clamp-1">{title}</span>
+                        <button
+                          type="button"
+                          onClick={() => deleteCertifications(title)}
+                        >
+                          <IconCloseCircle className="fill-primary-800 h-6 w-6" />
+                        </button>
+                      </div>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              )}
+            </div>
+          </div>
+          <Divider />
+          <div className="flex gap-2 justify-end">
+            <Button variant="outline-primary">Cancelar</Button>
+            <Button variant="primary" onClick={handleSubmit(submit)}>
+              Guardar
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
+      <Toaster />
+    </>
   );
 };
 

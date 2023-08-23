@@ -21,9 +21,9 @@ export interface IGetSchoolResponse extends ICommonResponse {
 export interface School {
   id: number;
   name: string;
-  description: string | null;
-  phone: string | null;
-  address: string | null;
+  description: string;
+  phone: string;
+  address: string;
   certifications: string[];
   directorName: string;
   logo: string | undefined;
