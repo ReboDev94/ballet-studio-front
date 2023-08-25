@@ -64,11 +64,15 @@ const ProfileSchoolPage = () => {
         resolve('hola');
       }, 5000);
     });
-    toast.promise(myPromise, {
-      loading: LOADING_SAVE_SCHOOL,
-      success: SAVE_DATA_SCHOOL,
-      error: ERROR_SAVE_DATA_SCHOOL,
-    });
+    toast.promise(
+      myPromise,
+      {
+        loading: LOADING_SAVE_SCHOOL,
+        success: SAVE_DATA_SCHOOL,
+        error: ERROR_SAVE_DATA_SCHOOL,
+      },
+      { id: 'school' },
+    );
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

@@ -1,3 +1,3 @@
-export * from './school';
-export * from './validations';
-export * from './defaultToastOptions';
+export * from './school.constant';
+export * from './validations.constant';
+export * from './defaultToastOptions.constant';

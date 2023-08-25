@@ -9,6 +9,7 @@ import {
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { resetStoreAuthAction, setDataLoginAction } from './actions';
 import { schoolInitialData } from './initialState';
+import { INCORRECT_CREDENTIALS, UNAUTHORIZED } from '@/auth/constants';
 
 const getSchool = async (hasSchool = false) => {
   if (hasSchool) {
@@ -35,7 +36,7 @@ export const loginThunk = createAsyncThunk(
       dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
       return user;
     } catch (error) {
-      return rejectWithValue('Credenciales incorrectas');
+      return rejectWithValue(INCORRECT_CREDENTIALS);
     }
   },
 );
@@ -55,7 +56,7 @@ export const getUserThunk = createAsyncThunk(
     } catch (error) {
       removeTokenStorage();
       removeHeadersAuth();
-      return rejectWithValue('unauthorized');
+      return rejectWithValue(UNAUTHORIZED);
     }
   },
 );
