@@ -58,8 +58,8 @@ const ProfileSchoolPage = () => {
     'certifications',
   ]);
 
-  const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = new Promise((resolve, reject) => {
+  const submit: SubmitHandler<FormSchool> = () => {
+    const myPromise = new Promise(resolve => {
       setTimeout(() => {
         resolve('hola');
       }, 5000);
@@ -117,15 +117,15 @@ const ProfileSchoolPage = () => {
             Perfil escuela
           </h3>
           <Divider />
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <Avatar size="lg" src={logo}>
               <IconSchool className="fill-white h-14 w-14" />
             </Avatar>
             <div className="flex flex-col gap-1 w-full">
-              <p className="text-3xl min-h-[2.5rem] break-words text-primary-800 font-semibold">
+              <p className="text-3xl min-h-[2.5rem] break-words text-primary-800 font-semibold text-center md:text-start">
                 {name}
               </p>
-              <span className="break-words font-semibold text-lg min-h-[1.75rem]">
+              <span className="break-words font-semibold text-lg min-h-[1.75rem] text-center md:text-start">
                 {directorName}
               </span>
               <span className="break-words text-xs min-h-[1rem]">

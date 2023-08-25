@@ -12,7 +12,7 @@ const AuthLayout = () => {
           <p className="text-xs font-light text-center">
             Derechos reservados
             <Link to="https://github.com/ReboDev94" className="font-semibold">
-              &nbsp;@ReboDev&nbsp;
+              &nbsp;@Turink&nbsp;
             </Link>
             {now.getFullYear()}
           </p>

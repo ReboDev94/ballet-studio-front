@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Toaster, toast } from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Card, Form, Input, Divider } from '@/common/components';
 import { ILoginRequest } from '@/auth/interfaces';
 import { SchemaValidationLogin } from '@/auth/validations';
@@ -17,7 +17,6 @@ import {
 } from '@/auth/constants';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
@@ -99,16 +98,6 @@ const LoginPage = () => {
             </Button>
 
             <Divider />
-
-            <p
-              className="text-xs text-center"
-              onClick={() => navigate('/auth/register')}
-            >
-              ¿ No tienes una cuenta ? &nbsp;
-              <span className="font-medium hover:underline hover:cursor-pointer">
-                Registrate
-              </span>
-            </p>
           </Form>
         </Card.Body>
       </Card>
