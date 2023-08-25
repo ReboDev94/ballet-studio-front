@@ -17,27 +17,27 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
 import toast, { Toaster } from 'react-hot-toast';
 import { v4 as uuidv4 } from 'uuid';
+import { IMAGE_TYPE_SUPPORT } from '@/common/constants/validations';
 
 const ProfileSchoolPage = () => {
   const {
     user: { hasSchool },
-    school,
+    school: { logo, ...resSchool },
   } = useAppSelector(state => state.auth);
 
   const [certificationInput, setcertificationInput] = useState('');
-
-  const { id, logo, ...rest } = school;
 
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    trigger,
     formState: { errors },
   } = useForm<FormSchool>({
     mode: 'onSubmit',
     defaultValues: {
-      ...rest,
+      ...resSchool,
       file: null,
     },
     resolver: yupResolver(SchemaSchool),
@@ -73,9 +73,12 @@ const ProfileSchoolPage = () => {
   };
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      console.log(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      setValue('file', e.target.files[0]);
+    } else {
+      setValue('file', null);
     }
+    trigger('file');
   };
 
   useEffect(() => {
@@ -141,6 +144,7 @@ const ProfileSchoolPage = () => {
                 placeholder="Dalia Nava"
                 {...register('directorName')}
               />
+              <ErrorInput message={errors.directorName?.message} />
             </div>
           </div>
           <Divider />
@@ -152,7 +156,12 @@ const ProfileSchoolPage = () => {
               </span>
             </div>
             <div className="col-start-5 col-end-10 my-auto">
-              <Input type="file" onChange={handleFile} />
+              <Input
+                type="file"
+                accept={IMAGE_TYPE_SUPPORT.join(', ')}
+                onChange={handleFile}
+              />
+              <ErrorInput message={errors.file?.message} />
             </div>
           </div>
           <Divider />
@@ -170,6 +179,7 @@ const ProfileSchoolPage = () => {
                 className="resize-none"
                 {...register('description')}
               />
+              <ErrorInput message={errors.description?.message} />
             </div>
           </div>
           <Divider />
@@ -186,6 +196,7 @@ const ProfileSchoolPage = () => {
                 placeholder="000-000-00-00"
                 {...register('phone')}
               />
+              <ErrorInput message={errors.phone?.message} />
             </div>
           </div>
           <Divider />
@@ -203,6 +214,7 @@ const ProfileSchoolPage = () => {
                 className="resize-none"
                 {...register('address')}
               />
+              <ErrorInput message={errors.address?.message} />
             </div>
           </div>
           <Divider />
@@ -224,6 +236,7 @@ const ProfileSchoolPage = () => {
                 }
                 onKeyDown={handleKeyDown}
               />
+              <ErrorInput message={errors.certifications?.message} />
               {certifications.length > 0 && (
                 <ListGroup>
                   {certifications.map(title => (
