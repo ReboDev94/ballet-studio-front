@@ -1,5 +1,7 @@
 import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   Avatar,
   Card,
@@ -15,8 +17,6 @@ import { useAppSelector } from '@/store/hooks';
 import { FormSchool } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
-import toast, { Toaster } from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
 import { IMAGE_TYPE_SUPPORT } from '@/common/constants/validations';
 
 const ProfileSchoolPage = () => {
