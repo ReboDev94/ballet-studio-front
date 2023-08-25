@@ -114,7 +114,7 @@ const BalletLayout = () => {
                   position="bottom"
                   className="w-[11rem] right-0 left-auto md:left-0 md:right-auto"
                 >
-                  <Dropdown.Item className="text-center px-1 py-2 font-semibold">
+                  <Dropdown.Item className="text-start px-1 py-2 font-semibold">
                     {name}
                   </Dropdown.Item>
                   <Dropdown.Divider />
