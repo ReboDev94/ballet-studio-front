@@ -10,6 +10,25 @@ export interface ILoginResponse extends ICommonResponse {
   token: string;
 }
 
+export interface IGetUserResponse extends ICommonResponse {
+  user: User;
+}
+
+export interface IGetSchoolResponse extends ICommonResponse {
+  school: School;
+}
+
+export interface School {
+  id: number;
+  name: string;
+  description: string;
+  phone: string;
+  address: string;
+  certifications: string[];
+  directorName: string;
+  logo: string | undefined;
+}
+
 export interface User {
   id: number;
   name: string;
@@ -18,6 +37,7 @@ export interface User {
   isOwner: boolean;
   isActive: boolean;
   roles: Role[];
+  photo: string | undefined;
   hasSchool: boolean;
 }
 
@@ -27,12 +47,8 @@ export interface Role {
   name: string;
 }
 
-
-export interface IGetUserResponse extends ICommonResponse {
-  user: User;
-}
-
-/* store */
 export interface initialStateAuth {
-  user: User | null;
+  isAuthenticated: boolean;
+  user: User;
+  school: School;
 }

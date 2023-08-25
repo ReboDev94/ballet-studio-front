@@ -10,15 +10,17 @@ const Sidebar: React.FC<ISidebar> = ({
   className,
 }) => {
   return (
-    <aside
-      className={twMerge(SIDEBAR_CLASSES, right && 'right-0', className)}
-      aria-label="Sidebar"
-      style={{
-        width,
-      }}
-    >
-      {children}
-    </aside>
+    <>
+      <aside
+        className={twMerge(SIDEBAR_CLASSES, right && 'right-0', className)}
+        aria-label="Sidebar"
+        style={{
+          width,
+        }}
+      >
+        {children}
+      </aside>
+    </>
   );
 };
 

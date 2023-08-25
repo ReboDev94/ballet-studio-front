@@ -36,10 +36,16 @@ import {
 } from './Table';
 import { TagProps as TTagProps } from './Tag';
 import { DividerProps as TDividerProps } from './Divider';
+import { ErrorInputProps as TErrorInputProps } from './ErrorInput/index';
+import { SidebarBackDrop as TSidebarBackDrop } from './Sidebar';
 import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
+
+/* Error input */
+export type ErrorInputProps = TErrorInputProps;
+export { default as ErrorInput } from './ErrorInput';
 
 /* Divider */
 
@@ -98,6 +104,7 @@ export type SidebarProps = TSidebarProps;
 export type SidebarContentProps = TSidebarContentProps;
 export type SidebarCategoryProps = TSidebarCategoryProps;
 export type SidebarHeaderProps = TSidebarHeaderProps;
+export type SidebarBackDrop = TSidebarBackDrop;
 export { default as Sidebar } from './Sidebar';
 
 /* Button */

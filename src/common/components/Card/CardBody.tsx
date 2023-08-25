@@ -11,4 +11,3 @@ const CardBody = ({ children, className }: ICardBody) => {
 };
 
 export default CardBody;
-

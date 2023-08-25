@@ -9,7 +9,7 @@ import { LoadingPage } from '@/common/pages';
 
 const AppRouter = () => {
   const dispatch = useAppDispatch();
-  const { user } = useAppSelector(state => state.auth);
+  const { isAuthenticated } = useAppSelector(state => state.auth);
   const [loadingPage, setloadingPage] = useState(true);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      {user ? (
+      {isAuthenticated ? (
         <Route path="/*" element={<BalletRoutes />}></Route>
       ) : (
         <Route path="auth/*" element={<AuthRoutes />}></Route>

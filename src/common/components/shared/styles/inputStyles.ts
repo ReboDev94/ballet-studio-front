@@ -21,9 +21,9 @@ const PRIMARY_CLASSES = `focus:ring-primary-200
   caret-primary-800
   `;
 
-const ERROR_CLASSES = `border-primary-800
-  focus:ring-primary-800
-  focus:border-primary-800
+const ERROR_CLASSES = `border-error-800
+  focus:ring-error-800
+  focus:border-error-800
   `;
 
 const BASE_CLASSES = ``;
@@ -63,8 +63,8 @@ const BASE_TAG_CLASSES = `
   focus-within:border-base-600`;
 
 const ERROR_TAG_CLASSES = `
-  focus-within:ring-primary-800
-  focus-within:border-primary-800`;
+  focus-within:ring-error-800
+  focus-within:border-error-800`;
 
 const ITEM_PRIMARY_CLASSES = 'bg-primary-800 text-white fill-white';
 const ITEM_BASE_CLASSES = 'bg-base-600 text-white fill-white';
@@ -82,3 +82,15 @@ export const TYPE_TAG = {
 };
 
 export const ICON_TAG_CLASSES = '"h-full w-5 fill-inherit';
+
+export const ERROR_INPUT_DEFAULT_CLASSES = 'text-xs mt-1';
+
+const ERROR_INPUT_PRIMARY_CLASSES = 'text-primary-800';
+const ERROR_INPUT_ERROR_CLASSES = 'text-error-800';
+const ERROR_INPUT_BASE_CLASSES = 'text-base-600';
+
+export const TYPE_ERROR_INPUT = {
+  [VARIANT_PRIMARY]: ERROR_INPUT_PRIMARY_CLASSES,
+  [VARIANT_ERROR]: ERROR_INPUT_ERROR_CLASSES,
+  [VARIANT_BASE]: ERROR_INPUT_BASE_CLASSES,
+};

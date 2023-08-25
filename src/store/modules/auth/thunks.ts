@@ -1,4 +1,4 @@
-import { getUserService, loginService } from '@/auth/api';
+import { getSchoolService, getUserService, loginService } from '@/auth/api';
 import { ILoginRequest } from '@/auth/interfaces';
 import {
   addHeadersAuth,
@@ -7,7 +7,19 @@ import {
   removeTokenStorage,
 } from '@/common/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setDataLoginAction } from './actions';
+import { resetStoreAuthAction, setDataLoginAction } from './actions';
+import { schoolInitialData } from './initialState';
+import { INCORRECT_CREDENTIALS, UNAUTHORIZED } from '@/auth/constants';
+
+const getSchool = async (hasSchool = false) => {
+  if (hasSchool) {
+    const {
+      data: { school },
+    } = await getSchoolService();
+    return school;
+  }
+  return schoolInitialData;
+};
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -16,12 +28,15 @@ export const loginThunk = createAsyncThunk(
       const {
         data: { token, user },
       } = await loginService(dataLogin);
+      const { hasSchool } = user;
       setTokenStorage(token);
       addHeadersAuth();
-      dispatch(setDataLoginAction({ user }));
+      /* obtener la escuela -solo si tiene */
+      const school = await getSchool(hasSchool);
+      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
       return user;
     } catch (error) {
-      return rejectWithValue('Credenciales incorrectas');
+      return rejectWithValue(INCORRECT_CREDENTIALS);
     }
   },
 );
@@ -33,12 +48,24 @@ export const getUserThunk = createAsyncThunk(
       const {
         data: { user },
       } = await getUserService();
-      dispatch(setDataLoginAction({ user }));
+      /* obtener la escuela -solo si tiene */
+      const { hasSchool } = user;
+      const school = await getSchool(hasSchool);
+      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
       return user;
     } catch (error) {
       removeTokenStorage();
       removeHeadersAuth();
-      return rejectWithValue('unauthorized');
+      return rejectWithValue(UNAUTHORIZED);
     }
+  },
+);
+
+export const logoutThunk = createAsyncThunk(
+  'auth/logout',
+  (_, { dispatch }) => {
+    dispatch(resetStoreAuthAction());
+    removeTokenStorage();
+    removeHeadersAuth();
   },
 );
