@@ -5,7 +5,7 @@ import {
   VALIDATION_IMAGE_SIZE,
   VALIDATION_IMAGE_TYPE,
   VALIDATION_REQUIRED,
-} from '@/common/constants/validations';
+} from '@/common/constants';
 
 export const SchemaSchool = object({
   name: string().required(VALIDATION_REQUIRED),

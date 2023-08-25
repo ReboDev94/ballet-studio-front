@@ -1,4 +1,5 @@
 import { useState, useEffect, KeyboardEvent, ChangeEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import toast, { Toaster } from 'react-hot-toast';
@@ -17,9 +18,16 @@ import { useAppSelector } from '@/store/hooks';
 import { FormSchool } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
-import { IMAGE_TYPE_SUPPORT } from '@/common/constants/validations';
+import {
+  ERROR_SAVE_DATA_SCHOOL,
+  IMAGE_TYPE_SUPPORT,
+  LOADING_SAVE_SCHOOL,
+  SAVE_DATA_SCHOOL,
+} from '@/common/constants';
+import { HAS_SCHOOL_LABEL, DEFAULT_TOAST_OPTIONS } from '@/common/constants';
 
 const ProfileSchoolPage = () => {
+  const navigate = useNavigate();
   const {
     user: { hasSchool },
     school: { logo, ...resSchool },
@@ -51,7 +59,16 @@ const ProfileSchoolPage = () => {
   ]);
 
   const submit: SubmitHandler<FormSchool> = data => {
-    console.log(data);
+    const myPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('hola');
+      }, 5000);
+    });
+    toast.promise(myPromise, {
+      loading: LOADING_SAVE_SCHOOL,
+      success: SAVE_DATA_SCHOOL,
+      error: ERROR_SAVE_DATA_SCHOOL,
+    });
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -83,9 +100,9 @@ const ProfileSchoolPage = () => {
 
   useEffect(() => {
     if (!hasSchool)
-      toast.error(
-        'Aun no cuentas con una escuela, por favor registra los datos de la escuela para continuar',
-      );
+      toast.error(HAS_SCHOOL_LABEL, {
+        id: 'hasSchool',
+      });
   }, []);
 
   return (
@@ -114,13 +131,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Nombre de la institución</h5>
               <span className="text-xs text-base-500">
                 Escribe el nombre de la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
                 type="text"
                 placeholder="Ballet Studio"
@@ -132,13 +149,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Nombre del (a) director (a)</h5>
               <span className="text-xs text-base-500">
                 Escribe el nombre del (a) director (a) de la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
                 type="text"
                 placeholder="Dalia Nava"
@@ -149,13 +166,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Logo (opcional):</h5>
               <span className="text-xs text-base-500">
                 Selecciona la imagen para el logo de la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
                 type="file"
                 accept={IMAGE_TYPE_SUPPORT.join(', ')}
@@ -166,13 +183,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Descripción (opcional):</h5>
               <span className="text-xs text-base-500">
                 Escribe una reseña o comentario sobre la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Textarea
                 placeholder="Descripción"
                 rows={3}
@@ -184,13 +201,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Teléfono (opcional):</h5>
               <span className="text-xs text-base-500">
                 Escribe el número de teléfono de la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
                 type="text"
                 placeholder="000-000-00-00"
@@ -201,13 +218,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Dirección (opcional):</h5>
               <span className="text-xs text-base-500">
                 Escribe la dirección la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Textarea
                 placeholder="Dirección"
                 rows={2}
@@ -219,13 +236,13 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="grid grid-cols-12">
-            <div className="col-span-4 pr-2">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Certificaciones (opcional):</h5>
               <span className="text-xs text-base-500">
                 Escribe las certificaciones que tiene la institución
               </span>
             </div>
-            <div className="col-start-5 col-end-10 my-auto">
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
                 type="text"
                 placeholder="certificación"
@@ -258,14 +275,21 @@ const ProfileSchoolPage = () => {
           </div>
           <Divider />
           <div className="flex gap-2 justify-end">
-            <Button variant="outline-primary">Cancelar</Button>
+            {hasSchool && (
+              <Button
+                variant="outline-primary"
+                onClick={() => navigate('/dashboard')}
+              >
+                Cancelar
+              </Button>
+            )}
             <Button variant="primary" onClick={handleSubmit(submit)}>
               Guardar
             </Button>
           </div>
         </Card.Body>
       </Card>
-      <Toaster />
+      <Toaster {...DEFAULT_TOAST_OPTIONS} />
     </>
   );
 };

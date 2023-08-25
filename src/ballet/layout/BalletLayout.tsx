@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import {
@@ -110,7 +110,10 @@ const BalletLayout = () => {
                     <IconUser className="fill-white h-8 w-8" />
                   </Avatar>
                 </Dropdown.Toogle>
-                <Dropdown.Menu position="bottom" className="w-[11rem]">
+                <Dropdown.Menu
+                  position="bottom"
+                  className="w-[11rem] right-0 left-auto md:left-0 md:right-auto"
+                >
                   <Dropdown.Item className="text-center px-1 py-2 font-semibold">
                     {name}
                   </Dropdown.Item>
@@ -125,7 +128,7 @@ const BalletLayout = () => {
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <div className="flex flex-col justify-center">
+              <div className="hidden flex-col justify-center md:flex">
                 <h5 className="font-semibold text-base-600">{name}</h5>
                 <span className="text-xs">{getRoles(roles, true)}</span>
               </div>
