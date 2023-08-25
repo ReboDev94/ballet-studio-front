@@ -23,3 +23,10 @@ export interface IHeader {
   children: ReactNode;
   className?: string;
 }
+
+/* Sidebar BackDrop */
+
+export interface IBackDrop {
+  className?: string;
+  onClick?: () => void;
+}
