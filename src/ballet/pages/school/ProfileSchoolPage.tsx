@@ -14,7 +14,7 @@ import {
   ErrorInput,
 } from '@/common/components';
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
-import { useAppSelector } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { FormSchool } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
@@ -25,15 +25,17 @@ import {
   LOADING_SAVE_SCHOOL,
   SAVE_DATA_SCHOOL,
 } from '@/ballet/constants';
+import { saveSchoolThunk } from '@/store/modules/school/thunks';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     user: { hasSchool },
   } = useAppSelector(state => state.auth);
 
   const {
-    school: { logo, ...resSchool },
+    school: { id, logo, ...resSchool },
   } = useAppSelector(state => state.school);
 
   const [certificationInput, setcertificationInput] = useState('');
@@ -61,12 +63,8 @@ const ProfileSchoolPage = () => {
     'certifications',
   ]);
 
-  const submit: SubmitHandler<FormSchool> = () => {
-    const myPromise = new Promise(resolve => {
-      setTimeout(() => {
-        resolve('hola');
-      }, 5000);
-    });
+  const submit: SubmitHandler<FormSchool> = data => {
+    const myPromise = dispatch(saveSchoolThunk(data)).unwrap();
     toast.promise(
       myPromise,
       {

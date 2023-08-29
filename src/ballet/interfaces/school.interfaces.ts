@@ -4,6 +4,10 @@ export interface IGetSchoolResponse extends ICommonResponse {
   school: School;
 }
 
+export interface IResponseSaveSchool extends ICommonResponse {
+  school: School;
+}
+
 export interface School {
   id: number;
   name: string;
