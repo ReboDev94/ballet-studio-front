@@ -4,9 +4,9 @@ const now = new Date();
 
 const AuthLayout = () => {
   return (
-    <div className="h-screen">
+    <div className="h-screen mx-auto min-w- max-w-screen-2xl">
       <div className="grid grid-cols-12 h-full">
-        <div className="col-span-12 lg:col-span-4 py-10 lg:mx-10 order-2 lg:order-none">
+        <div className="col-span-12 lg:col-span-4 py-10 lg:mx-5 xl:mx-10 order-2 lg:order-none lg:flex lg:flex-col lg:justify-center">
           <img src="/logo.png" className="h-24 block mx-auto" alt="logo" />
           <Outlet />
           <p className="text-xs font-light text-center">
@@ -17,15 +17,10 @@ const AuthLayout = () => {
             {now.getFullYear()}
           </p>
         </div>
-        <div className="col-span-12 relative lg:p-2 lg:col-span-8 order-1 lg:order-none">
-          <img
-            src="/assets/home-mobile.webp"
-            className="w-full object-cover object-bottom h-28 rounded-bl-[4rem] lg:hidden"
-            alt="Home-Ballet"
-          />
+        <div className="col-span-12 relative lg:col-span-8 order-1 lg:order-none">
           <img
             src="/assets/home.webp"
-            className="rounded-tl-[4rem] rounded-br-[4rem] h-full w-full hidden lg:block"
+            className=" h-full w-full hidden lg:block"
             alt="Home-Ballet"
           />
         </div>
