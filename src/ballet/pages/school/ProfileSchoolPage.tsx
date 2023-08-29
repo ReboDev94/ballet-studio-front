@@ -18,20 +18,23 @@ import { useAppSelector } from '@/store/hooks';
 import { FormSchool } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
+import { DEFAULT_TOAST_OPTIONS, IMAGE_TYPE_SUPPORT } from '@/common/constants';
 import {
   ERROR_SAVE_DATA_SCHOOL,
-  IMAGE_TYPE_SUPPORT,
+  HAS_SCHOOL_LABEL,
   LOADING_SAVE_SCHOOL,
   SAVE_DATA_SCHOOL,
-} from '@/common/constants';
-import { HAS_SCHOOL_LABEL, DEFAULT_TOAST_OPTIONS } from '@/common/constants';
+} from '@/ballet/constants';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
   const {
     user: { hasSchool },
-    school: { logo, ...resSchool },
   } = useAppSelector(state => state.auth);
+
+  const {
+    school: { logo, ...resSchool },
+  } = useAppSelector(state => state.school);
 
   const [certificationInput, setcertificationInput] = useState('');
 

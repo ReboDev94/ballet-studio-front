@@ -6,7 +6,7 @@ import {
   ConfirmPasswordPage,
 } from '@/auth/pages';
 import { AuthLayout } from '@/auth/layout';
-import { TITLE_DEFAULT } from '@/auth/constants';
+import { TITLE_DEFAULT } from '@/common/constants';
 
 const AuthRoutes = () => {
   useEffect(() => {

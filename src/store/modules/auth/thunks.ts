@@ -1,4 +1,4 @@
-import { getSchoolService, getUserService, loginService } from '@/auth/api';
+import { getUserService, loginService } from '@/auth/api';
 import { ILoginRequest } from '@/auth/interfaces';
 import {
   addHeadersAuth,
@@ -7,19 +7,10 @@ import {
   removeTokenStorage,
 } from '@/common/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { resetStoreAuthAction, setDataLoginAction } from './actions';
-import { schoolInitialData } from './initialState';
+import { setDataLoginAction } from './actions';
 import { INCORRECT_CREDENTIALS, UNAUTHORIZED } from '@/auth/constants';
-
-const getSchool = async (hasSchool = false) => {
-  if (hasSchool) {
-    const {
-      data: { school },
-    } = await getSchoolService();
-    return school;
-  }
-  return schoolInitialData;
-};
+import { userInitialData } from './initialState';
+import { getSchoolThunk } from '../school/thunks';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -28,12 +19,10 @@ export const loginThunk = createAsyncThunk(
       const {
         data: { token, user },
       } = await loginService(dataLogin);
-      const { hasSchool } = user;
       setTokenStorage(token);
       addHeadersAuth();
-      /* obtener la escuela -solo si tiene */
-      const school = await getSchool(hasSchool);
-      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
+      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
+      await dispatch(getSchoolThunk()).unwrap();
       return user;
     } catch (error) {
       return rejectWithValue(INCORRECT_CREDENTIALS);
@@ -48,10 +37,8 @@ export const getUserThunk = createAsyncThunk(
       const {
         data: { user },
       } = await getUserService();
-      /* obtener la escuela -solo si tiene */
-      const { hasSchool } = user;
-      const school = await getSchool(hasSchool);
-      dispatch(setDataLoginAction({ isAuthenticated: true, user, school }));
+      dispatch(setDataLoginAction({ isAuthenticated: true, user }));
+      await dispatch(getSchoolThunk()).unwrap();
       return user;
     } catch (error) {
       removeTokenStorage();
@@ -64,7 +51,9 @@ export const getUserThunk = createAsyncThunk(
 export const logoutThunk = createAsyncThunk(
   'auth/logout',
   (_, { dispatch }) => {
-    dispatch(resetStoreAuthAction());
+    dispatch(
+      setDataLoginAction({ isAuthenticated: false, user: userInitialData }),
+    );
     removeTokenStorage();
     removeHeadersAuth();
   },

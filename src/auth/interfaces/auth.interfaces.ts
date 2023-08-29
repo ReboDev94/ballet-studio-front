@@ -14,21 +14,6 @@ export interface IGetUserResponse extends ICommonResponse {
   user: User;
 }
 
-export interface IGetSchoolResponse extends ICommonResponse {
-  school: School;
-}
-
-export interface School {
-  id: number;
-  name: string;
-  description: string;
-  phone: string;
-  address: string;
-  certifications: string[];
-  directorName: string;
-  logo: string | undefined;
-}
-
 export interface User {
   id: number;
   name: string;
@@ -50,5 +35,4 @@ export interface Role {
 export interface initialStateAuth {
   isAuthenticated: boolean;
   user: User;
-  school: School;
 }
