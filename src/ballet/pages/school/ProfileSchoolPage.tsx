@@ -25,7 +25,7 @@ import {
   LOADING_SAVE_SCHOOL,
   SAVE_DATA_SCHOOL,
 } from '@/ballet/constants';
-import { saveSchoolThunk } from '@/store/modules/school/thunks';
+import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
@@ -35,6 +35,7 @@ const ProfileSchoolPage = () => {
   } = useAppSelector(state => state.auth);
 
   const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     school: { id, logo, ...resSchool },
   } = useAppSelector(state => state.school);
 
@@ -64,7 +65,7 @@ const ProfileSchoolPage = () => {
   ]);
 
   const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = dispatch(saveSchoolThunk(data)).unwrap();
+    const myPromise = dispatch(saveOrUpdateSchoolThunk(data)).unwrap();
     toast.promise(
       myPromise,
       {

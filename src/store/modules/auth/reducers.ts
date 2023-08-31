@@ -6,6 +6,9 @@ const reducers = {
     state.user = payload.user;
     state.isAuthenticated = payload.isAuthenticated;
   },
+  setHasSchool: (state: AuthState, { payload }: PayloadAction<boolean>) => {
+    state.user.hasSchool = payload;
+  },
 };
 
 export default reducers;

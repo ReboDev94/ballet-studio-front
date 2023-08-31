@@ -7,6 +7,7 @@ import {
 
 const GET_SCHOOL_URL = 'school';
 const SAVE_SCHOOL_URL = 'school';
+const UPDATE_SCHOOL_URL = 'school';
 
 export const getSchoolService = async () => {
   const response = await axiosInstance.get<IGetSchoolResponse>(GET_SCHOOL_URL);
@@ -14,6 +15,30 @@ export const getSchoolService = async () => {
 };
 
 export const saveSchoolService = async (dataSchool: FormSchool) => {
+  const response = await axiosInstance<IResponseSaveSchool>({
+    method: 'POST',
+    url: SAVE_SCHOOL_URL,
+    data: generateFormDataSchool(dataSchool),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+export const updateSchoolService = async (dataSchool: FormSchool) => {
+  const response = await axiosInstance<IResponseSaveSchool>({
+    method: 'PATCH',
+    url: UPDATE_SCHOOL_URL,
+    data: generateFormDataSchool(dataSchool),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+const generateFormDataSchool = (dataSchool: FormSchool) => {
   const formData = new FormData();
   formData.append('name', dataSchool['name']);
   formData.append('description', dataSchool['description']);
@@ -24,14 +49,5 @@ export const saveSchoolService = async (dataSchool: FormSchool) => {
     formData.append('certifications[]', cer),
   );
   if (dataSchool['file']) formData.append('file', dataSchool['file']);
-
-  const response = await axiosInstance<IResponseSaveSchool>({
-    method: 'POST',
-    url: SAVE_SCHOOL_URL,
-    data: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
-  return response;
+  return formData;
 };

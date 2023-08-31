@@ -1,10 +1,15 @@
-import { getSchoolService, saveSchoolService } from '@/ballet/api';
+import {
+  getSchoolService,
+  saveSchoolService,
+  updateSchoolService,
+} from '@/ballet/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { schoolInitialData } from './initialState';
 import { setDataSchoolAction } from './actions';
 import { RootState } from '@/store';
 import { FormSchool } from '@/ballet/interfaces';
 import { ERROR_SAVE_DATA_SCHOOL, GET_SCHOOL_ERROR } from '@/ballet/constants';
+import { setHasSchoolAction } from '../auth/actions';
 
 export const getSchoolThunk = createAsyncThunk(
   'school/getSchoolThunk',
@@ -30,14 +35,24 @@ export const getSchoolThunk = createAsyncThunk(
   },
 );
 
-export const saveSchoolThunk = createAsyncThunk(
-  'school/saveSchoolThunk',
-  async (dataSchool: FormSchool, { rejectWithValue, dispatch }) => {
+export const saveOrUpdateSchoolThunk = createAsyncThunk(
+  'school/saveOrUpdateSchoolThunk',
+  async (dataSchool: FormSchool, { rejectWithValue, dispatch, getState }) => {
     try {
       const {
+        auth: {
+          user: { hasSchool },
+        },
+      } = getState() as RootState;
+
+      const {
         data: { school },
-      } = await saveSchoolService(dataSchool);
+      } = !hasSchool
+        ? await saveSchoolService(dataSchool)
+        : await updateSchoolService(dataSchool);
+
       dispatch(setDataSchoolAction(school));
+      dispatch(setHasSchoolAction(true));
       return school;
     } catch (error) {
       return rejectWithValue(ERROR_SAVE_DATA_SCHOOL);
