@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import {
   getSchoolService,
   saveSchoolService,
@@ -8,6 +9,7 @@ import { schoolInitialData } from './initialState';
 import { setDataSchoolAction } from './actions';
 import { RootState } from '@/store';
 import { FormSchool } from '@/ballet/interfaces';
+import { ICommonError } from '@/common/interfaces';
 import { ERROR_SAVE_DATA_SCHOOL, GET_SCHOOL_ERROR } from '@/ballet/constants';
 import { setHasSchoolAction } from '../auth/actions';
 
@@ -54,8 +56,11 @@ export const saveOrUpdateSchoolThunk = createAsyncThunk(
       dispatch(setDataSchoolAction(school));
       dispatch(setHasSchoolAction(true));
       return school;
-    } catch (error) {
-      return rejectWithValue(ERROR_SAVE_DATA_SCHOOL);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      const message = error.response?.data.message ?? ERROR_SAVE_DATA_SCHOOL;
+      return rejectWithValue(message);
     }
   },
 );

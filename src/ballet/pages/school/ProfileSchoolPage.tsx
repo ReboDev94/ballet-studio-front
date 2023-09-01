@@ -15,7 +15,7 @@ import {
 } from '@/common/components';
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { FormSchool } from '@/ballet/interfaces';
+import { FormSchool, SchoolTypes } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
 import { DEFAULT_TOAST_OPTIONS, IMAGE_TYPE_SUPPORT } from '@/common/constants';
@@ -26,6 +26,8 @@ import {
   SAVE_DATA_SCHOOL,
 } from '@/ballet/constants';
 import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
+import { Messages } from '@/common/interfaces';
+import { getCustomErrors } from '@/common/utils';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
@@ -41,14 +43,7 @@ const ProfileSchoolPage = () => {
 
   const [certificationInput, setcertificationInput] = useState('');
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    trigger,
-    formState: { errors },
-  } = useForm<FormSchool>({
+  const formSchool = useForm<FormSchool>({
     mode: 'onSubmit',
     defaultValues: {
       ...resSchool,
@@ -56,6 +51,16 @@ const ProfileSchoolPage = () => {
     },
     resolver: yupResolver(SchemaSchool),
   });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    trigger,
+    setError,
+    formState: { errors },
+  } = formSchool;
 
   const [name, directorName, address, certifications] = watch([
     'name',
@@ -65,7 +70,16 @@ const ProfileSchoolPage = () => {
   ]);
 
   const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = dispatch(saveOrUpdateSchoolThunk(data)).unwrap();
+    const myPromise = dispatch(saveOrUpdateSchoolThunk(data))
+      .unwrap()
+      .catch((messages: string | Messages[]) => {
+        Array.isArray(messages) &&
+          messages.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as SchoolTypes, error, config);
+          });
+        throw messages;
+      });
     toast.promise(
       myPromise,
       {

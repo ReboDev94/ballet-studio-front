@@ -27,3 +27,5 @@ export interface initialSchoolState {
 export interface FormSchool extends Omit<School, 'logo' | 'id'> {
   file: File | null;
 }
+
+export type SchoolTypes = keyof FormSchool;
