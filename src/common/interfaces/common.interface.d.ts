@@ -11,5 +11,4 @@ export interface ICommonError {
   statusCode: number;
   message: string;
   errors?: Errors[];
-  error?: string;
 }
