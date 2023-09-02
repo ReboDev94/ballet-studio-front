@@ -26,8 +26,8 @@ import {
   SAVE_DATA_SCHOOL,
 } from '@/ballet/constants';
 import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
-import { Messages } from '@/common/interfaces';
 import { getCustomErrors } from '@/common/utils';
+import { Errors } from '@/common/interfaces';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
@@ -72,13 +72,13 @@ const ProfileSchoolPage = () => {
   const submit: SubmitHandler<FormSchool> = data => {
     const myPromise = dispatch(saveOrUpdateSchoolThunk(data))
       .unwrap()
-      .catch((messages: string | Messages[]) => {
-        Array.isArray(messages) &&
-          messages.map(({ property, message }) => {
+      .catch((errors: string | Errors[]) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
             const { error, config } = getCustomErrors(message);
             setError(property as SchoolTypes, error, config);
           });
-        throw messages;
+        throw errors;
       });
     toast.promise(
       myPromise,

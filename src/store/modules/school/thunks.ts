@@ -59,8 +59,8 @@ export const saveOrUpdateSchoolThunk = createAsyncThunk(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error: AxiosError<ICommonError> = err;
-      const message = error.response?.data.message ?? ERROR_SAVE_DATA_SCHOOL;
-      return rejectWithValue(message);
+      const errors = error.response?.data.errors ?? ERROR_SAVE_DATA_SCHOOL;
+      return rejectWithValue(errors);
     }
   },
 );

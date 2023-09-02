@@ -2,13 +2,14 @@ export interface ICommonResponse {
   success: boolean;
 }
 
-export interface Messages {
+export interface Errors {
   message: string;
   property: string;
 }
 
 export interface ICommonError {
-  error?: string;
   statusCode: number;
-  message: Messages[] | string;
+  message: string;
+  errors?: Errors[];
+  error?: string;
 }
