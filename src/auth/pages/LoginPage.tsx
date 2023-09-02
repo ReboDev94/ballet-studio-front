@@ -23,8 +23,8 @@ const LoginPage = () => {
   const { register, handleSubmit } = useForm<ILoginRequest>({
     mode: 'onSubmit',
     defaultValues: {
-      email: 'admin9@gmail.com',
-      password: 'HolaMundo#123',
+      email: 'admin1@gmail.com',
+      password: 'HolaMundo1234#',
     },
     resolver: yupResolver(SchemaValidationLogin),
   });
