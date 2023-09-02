@@ -1,4 +1,4 @@
-import { School, initialStateAuth } from '@/auth/interfaces';
+import { initialStateAuth } from '@/auth/interfaces';
 
 export const userInitialData = {
   id: -1,
@@ -12,21 +12,9 @@ export const userInitialData = {
   photo: undefined,
 };
 
-export const schoolInitialData: School = {
-  id: -1,
-  name: '',
-  description: '',
-  phone: '',
-  address: '',
-  certifications: [],
-  directorName: '',
-  logo: undefined,
-};
-
 const initialState: initialStateAuth = {
   isAuthenticated: false,
   user: userInitialData,
-  school: schoolInitialData,
 };
 
 export type AuthState = typeof initialState;

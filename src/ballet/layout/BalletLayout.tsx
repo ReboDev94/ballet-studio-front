@@ -20,8 +20,11 @@ const BalletLayout = () => {
   const dispatch = useAppDispatch();
   const {
     user: { name, roles, photo },
-    school: { name: schoolName, logo },
   } = useAppSelector(state => state.auth);
+
+  const {
+    school: { name: schoolName, logo },
+  } = useAppSelector(state => state.school);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -94,7 +97,7 @@ const BalletLayout = () => {
               >
                 <IconMenu className="fill-black h-7 w-7" />
               </button>
-              <h2 className="text-3xl text-base-600 font-semibold">
+              <h2 className="text-3xl text-base-600 font-semibold line-clamp-1">
                 {schoolName}
               </h2>
             </div>
@@ -114,7 +117,7 @@ const BalletLayout = () => {
                   position="bottom"
                   className="w-[11rem] right-0 left-auto md:left-0 md:right-auto"
                 >
-                  <Dropdown.Item className="text-center px-1 py-2 font-semibold">
+                  <Dropdown.Item className="text-start px-1 py-2 font-semibold">
                     {name}
                   </Dropdown.Item>
                   <Dropdown.Divider />

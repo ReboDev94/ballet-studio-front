@@ -1,1 +1,1 @@
-export * from './school.form.interfaces';
+export * from './school.interfaces';

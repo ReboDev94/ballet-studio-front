@@ -4,10 +4,9 @@ import {
   ResetPasswordPage,
   LoginPage,
   ConfirmPasswordPage,
-  RegisterPage,
 } from '@/auth/pages';
 import { AuthLayout } from '@/auth/layout';
-import { TITLE_DEFAULT } from '@/auth/constants';
+import { TITLE_DEFAULT } from '@/common/constants';
 
 const AuthRoutes = () => {
   useEffect(() => {
@@ -19,7 +18,6 @@ const AuthRoutes = () => {
       <Route element={<AuthLayout />}>
         <Route path="/*" element={<Navigate to="/auth/login" />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
-        <Route path="register" element={<RegisterPage />}></Route>
         <Route path="reset-password" element={<ResetPasswordPage />}></Route>
         <Route
           path="confirm-password"

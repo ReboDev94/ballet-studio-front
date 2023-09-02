@@ -12,12 +12,12 @@ import { BalletLayout } from '@/ballet/layout';
 import { GuardHasSchool } from '@/ballet/guards';
 import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
-import { TITLE_DEFAULT } from '@/auth/constants';
+import { TITLE_DEFAULT } from '@/common/constants';
 
 const BalletRoutes = () => {
   const {
     school: { name: schoolName, logo },
-  } = useAppSelector(state => state.auth);
+  } = useAppSelector(state => state.school);
 
   useEffect(() => {
     const link = document.querySelector("link[rel~='icon']") as HTMLLinkElement;

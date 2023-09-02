@@ -14,35 +14,36 @@ import {
   ErrorInput,
 } from '@/common/components';
 import { IconCloseCircle, IconSchool } from '@/common/assets/svg';
-import { useAppSelector } from '@/store/hooks';
-import { FormSchool } from '@/ballet/interfaces';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { FormSchool, SchoolTypes } from '@/ballet/interfaces';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaSchool } from '@/ballet/validations';
+import { DEFAULT_TOAST_OPTIONS, IMAGE_TYPE_SUPPORT } from '@/common/constants';
 import {
   ERROR_SAVE_DATA_SCHOOL,
-  IMAGE_TYPE_SUPPORT,
+  HAS_SCHOOL_LABEL,
   LOADING_SAVE_SCHOOL,
   SAVE_DATA_SCHOOL,
-} from '@/common/constants';
-import { HAS_SCHOOL_LABEL, DEFAULT_TOAST_OPTIONS } from '@/common/constants';
+} from '@/ballet/constants';
+import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
+import { getCustomErrors } from '@/common/utils';
+import { Errors } from '@/common/interfaces';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const {
     user: { hasSchool },
-    school: { logo, ...resSchool },
   } = useAppSelector(state => state.auth);
+
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    school: { id, logo, ...resSchool },
+  } = useAppSelector(state => state.school);
 
   const [certificationInput, setcertificationInput] = useState('');
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    trigger,
-    formState: { errors },
-  } = useForm<FormSchool>({
+  const formSchool = useForm<FormSchool>({
     mode: 'onSubmit',
     defaultValues: {
       ...resSchool,
@@ -50,6 +51,16 @@ const ProfileSchoolPage = () => {
     },
     resolver: yupResolver(SchemaSchool),
   });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    trigger,
+    setError,
+    formState: { errors },
+  } = formSchool;
 
   const [name, directorName, address, certifications] = watch([
     'name',
@@ -59,11 +70,16 @@ const ProfileSchoolPage = () => {
   ]);
 
   const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('hola');
-      }, 5000);
-    });
+    const myPromise = dispatch(saveOrUpdateSchoolThunk(data))
+      .unwrap()
+      .catch((errors: string | Errors[]) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as SchoolTypes, error, config);
+          });
+        throw errors;
+      });
     toast.promise(
       myPromise,
       {
@@ -117,15 +133,15 @@ const ProfileSchoolPage = () => {
             Perfil escuela
           </h3>
           <Divider />
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <Avatar size="lg" src={logo}>
               <IconSchool className="fill-white h-14 w-14" />
             </Avatar>
             <div className="flex flex-col gap-1 w-full">
-              <p className="text-3xl min-h-[2.5rem] break-words text-primary-800 font-semibold">
+              <p className="text-3xl min-h-[2.5rem] break-words text-primary-800 font-semibold text-center md:text-start">
                 {name}
               </p>
-              <span className="break-words font-semibold text-lg min-h-[1.75rem]">
+              <span className="break-words font-semibold text-lg min-h-[1.75rem] text-center md:text-start">
                 {directorName}
               </span>
               <span className="break-words text-xs min-h-[1rem]">
