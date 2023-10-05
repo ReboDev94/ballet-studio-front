@@ -1,4 +1,3 @@
-import { getRoles } from '@/auth/utils';
 import { IconUser } from '@/common/assets/svg';
 import {
   Card,
@@ -24,13 +23,15 @@ import {
   LOADING_UPDATE_PROFILE,
   SAVE_UPDATE_PROFILE,
 } from '@/auth/constants';
+import { useRoles } from '@/auth/hooks';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { allRoles } = useRoles();
 
   const {
-    user: { email, name, phone, photo, roles },
+    user: { email, name, phone, photo },
   } = useAppSelector(state => state.auth);
 
   const userForm = useForm<IUserForm>({
@@ -100,7 +101,7 @@ const ProfilePage = () => {
             <h2 className="text-3xl text-primary-800 font-semibold">
               {watch('name')}
             </h2>
-            <span className="text-xs">{getRoles(roles)}</span>
+            <span className="text-xs">{allRoles}</span>
           </div>
         </div>
         <Divider />

@@ -12,14 +12,15 @@ import {
   IconMenu,
 } from '@/common/assets/svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getRoles } from '@/auth/utils';
 import { logoutThunk } from '@/store/modules/auth/thunks';
 import { twMerge } from 'tailwind-merge';
+import { useRoles } from '@/auth/hooks';
 
 const BalletLayout = () => {
   const dispatch = useAppDispatch();
+  const { mainRole, isAdmin } = useRoles();
   const {
-    user: { name, roles, photo },
+    user: { name, photo },
   } = useAppSelector(state => state.auth);
 
   const {
@@ -53,12 +54,26 @@ const BalletLayout = () => {
             <Link to="/profile/school">
               <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
             </Link>
+
+            {isAdmin && (
+              <Menu.CollapseSidebar title="Usuarios" icon={IconStudents}>
+                <Menu>
+                  <Link to="/user/new">
+                    <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                  </Link>
+                  <Link to="/user">
+                    <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                  </Link>
+                </Menu>
+              </Menu.CollapseSidebar>
+            )}
+
             <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
               <Menu>
-                <Link to="/users/new">
+                <Link to="/student/new">
                   <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
                 </Link>
-                <Link to="/users">
+                <Link to="/student">
                   <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
                 </Link>
               </Menu>
@@ -133,7 +148,7 @@ const BalletLayout = () => {
               </Dropdown>
               <div className="hidden flex-col justify-center md:flex">
                 <h5 className="font-semibold text-base-600">{name}</h5>
-                <span className="text-xs">{getRoles(roles, true)}</span>
+                <span className="text-xs">{mainRole}</span>
               </div>
             </div>
           </nav>
