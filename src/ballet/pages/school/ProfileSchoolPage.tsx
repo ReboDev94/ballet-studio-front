@@ -27,7 +27,6 @@ import {
 } from '@/ballet/constants';
 import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
 import { getCustomErrors } from '@/common/utils';
-import { Errors } from '@/common/interfaces';
 
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
@@ -70,22 +69,21 @@ const ProfileSchoolPage = () => {
   ]);
 
   const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = dispatch(saveOrUpdateSchoolThunk(data))
-      .unwrap()
-      .catch((errors: string | Errors[]) => {
-        Array.isArray(errors) &&
-          errors.map(({ property, message }) => {
-            const { error, config } = getCustomErrors(message);
-            setError(property as SchoolTypes, error, config);
-          });
-        throw errors;
-      });
+    const myPromise = dispatch(saveOrUpdateSchoolThunk(data)).unwrap();
+
     toast.promise(
       myPromise,
       {
         loading: LOADING_SAVE_SCHOOL,
         success: SAVE_DATA_SCHOOL,
-        error: ERROR_SAVE_DATA_SCHOOL,
+        error: errors => {
+          Array.isArray(errors) &&
+            errors.map(({ property, message }) => {
+              const { error, config } = getCustomErrors(message);
+              setError(property as SchoolTypes, error, config);
+            });
+          return typeof errors === 'string' ? errors : ERROR_SAVE_DATA_SCHOOL;
+        },
       },
       { id: 'school' },
     );
@@ -134,7 +132,7 @@ const ProfileSchoolPage = () => {
           </h3>
           <Divider />
           <div className="flex flex-col md:flex-row items-center gap-4">
-            <Avatar size="lg" src={logo}>
+            <Avatar border borderVariant="primary" size="lg" src={logo}>
               <IconSchool className="fill-white h-14 w-14" />
             </Avatar>
             <div className="flex flex-col gap-1 w-full">

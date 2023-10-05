@@ -14,11 +14,22 @@ export interface IGetUserResponse extends ICommonResponse {
   user: User;
 }
 
+export interface IUpdateUserResponse extends ICommonResponse {
+  user: UserUpdate;
+}
+
+export interface UserUpdate {
+  photo: string | undefined;
+  name: string;
+  phone: string;
+  email: string;
+}
+
 export interface User {
   id: number;
   name: string;
   email: string;
-  phone: string | null;
+  phone: string;
   isOwner: boolean;
   isActive: boolean;
   roles: Role[];
@@ -31,6 +42,15 @@ export interface Role {
   slug: string;
   name: string;
 }
+
+export interface IUserForm {
+  name: string;
+  phone: string;
+  email: string;
+  file: File | null;
+}
+
+export type UserTypes = keyof IUserForm;
 
 export interface initialStateAuth {
   isAuthenticated: boolean;

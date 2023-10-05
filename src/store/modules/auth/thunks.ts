@@ -1,5 +1,6 @@
-import { getUserService, loginService } from '@/auth/api';
-import { ILoginRequest } from '@/auth/interfaces';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getUserService, loginService, updateProfileService } from '@/auth/api';
+import { ILoginRequest, IUserForm } from '@/auth/interfaces';
 import {
   addHeadersAuth,
   removeHeadersAuth,
@@ -7,10 +8,12 @@ import {
   removeTokenStorage,
 } from '@/common/utils';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setDataLoginAction } from './actions';
+import { setDataLoginAction, updateProfileUserAction } from './actions';
 import { INCORRECT_CREDENTIALS, UNAUTHORIZED } from '@/auth/constants';
 import { userInitialData } from './initialState';
 import { getSchoolThunk } from '../school/thunks';
+import { AxiosError } from 'axios';
+import { ICommonError } from '@/common/interfaces';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -44,6 +47,28 @@ export const getUserThunk = createAsyncThunk(
       removeTokenStorage();
       removeHeadersAuth();
       return rejectWithValue(UNAUTHORIZED);
+    }
+  },
+);
+
+export const updateProfileThunk = createAsyncThunk(
+  'auth/updateProfile',
+  async (data: IUserForm, { rejectWithValue, dispatch }) => {
+    try {
+      const {
+        data: {
+          user: { name, photo, email, phone },
+        },
+      } = await updateProfileService(data);
+
+      dispatch(updateProfileUserAction({ name, photo, email, phone }));
+
+      return { name, photo, email, phone };
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      const errors =
+        error.response?.data.errors ?? error.response?.data.message;
+      return rejectWithValue(errors);
     }
   },
 );
