@@ -4,3 +4,6 @@ export const SAVE_UPDATE_PROFILE =
   'La información de tu perfil ha sido guardada con exito!';
 export const ERROR_SAVE_UPDATE_PROFILE =
   'Ocurrio un error al guardar los datos!';
+
+export const ERROR_GET_ALL_USERS =
+  'No se pudo recuperar la información de los usuarios.';

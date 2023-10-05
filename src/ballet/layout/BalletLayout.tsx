@@ -34,75 +34,77 @@ const BalletLayout = () => {
   };
 
   return (
-    <div className="min-h-screen  flex flex-row">
-      <Sidebar
-        width={280}
-        className={twMerge(
-          'md:translate-x-0',
-          !sidebarOpen ? '-translate-x-full' : 'translate-x-0',
-        )}
-      >
-        <Sidebar.Header>
-          <img src={logo ? logo : '/logo.png'} className="h-20" alt="logo" />
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Category title="Menu" />
-          <Menu>
-            <Link to="/dashboard">
-              <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
-            </Link>
-            <Link to="/profile/school">
-              <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
-            </Link>
+    <div className="flex h-screen overflow-hidden">
+      <div className="flex h-full">
+        <Sidebar
+          width={280}
+          className={twMerge(
+            'md:translate-x-0 md:relative',
+            !sidebarOpen ? '-translate-x-full' : 'translate-x-0',
+          )}
+        >
+          <Sidebar.Header>
+            <img src={logo ? logo : '/logo.png'} className="h-20" alt="logo" />
+          </Sidebar.Header>
+          <Sidebar.Content>
+            <Sidebar.Category title="Menu" />
+            <Menu>
+              <Link to="/dashboard">
+                <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
+              </Link>
+              <Link to="/profile/school">
+                <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
+              </Link>
 
-            {isAdmin && (
-              <Menu.CollapseSidebar title="Usuarios" icon={IconStudents}>
+              {isAdmin && (
+                <Menu.CollapseSidebar title="Usuarios" icon={IconStudents}>
+                  <Menu>
+                    <Link to="/user/new">
+                      <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                    </Link>
+                    <Link to="/user">
+                      <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                    </Link>
+                  </Menu>
+                </Menu.CollapseSidebar>
+              )}
+
+              <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
                 <Menu>
-                  <Link to="/user/new">
+                  <Link to="/student/new">
                     <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
                   </Link>
-                  <Link to="/user">
+                  <Link to="/student">
                     <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
                   </Link>
                 </Menu>
               </Menu.CollapseSidebar>
-            )}
 
-            <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
-              <Menu>
-                <Link to="/student/new">
-                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                </Link>
-                <Link to="/student">
-                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
-                </Link>
-              </Menu>
-            </Menu.CollapseSidebar>
+              <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
+                <Menu>
+                  <Link to="/groups/new">
+                    <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+                  </Link>
+                  <Link to="/groups">
+                    <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                  </Link>
+                </Menu>
+              </Menu.CollapseSidebar>
+            </Menu>
+          </Sidebar.Content>
+          <Sidebar.Footer>
+            <span className="text-sm font-semibold">
+              @Turink {new Date().getFullYear()}
+            </span>
+          </Sidebar.Footer>
+        </Sidebar>
+        <Sidebar.BackDrop
+          onClick={() => setSidebarOpen(false)}
+          className={twMerge('md:hidden', !sidebarOpen && 'hidden')}
+        />
+      </div>
 
-            <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
-              <Menu>
-                <Link to="/groups/new">
-                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                </Link>
-                <Link to="/groups">
-                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
-                </Link>
-              </Menu>
-            </Menu.CollapseSidebar>
-          </Menu>
-        </Sidebar.Content>
-        <Sidebar.Footer>
-          <span className="text-sm font-semibold">
-            @Turink {new Date().getFullYear()}
-          </span>
-        </Sidebar.Footer>
-      </Sidebar>
-      <Sidebar.BackDrop
-        onClick={() => setSidebarOpen(false)}
-        className={twMerge('md:hidden', !sidebarOpen && 'hidden')}
-      />
-
-      <main className="md:ml-[280px] w-full px-6 py-8">
+      <main className="flex-1 w-full px-6 py-8 overflow-x-hidden overflow-y-auto">
         <div className="mx-auto max-w-screen-2xl">
           <nav className="flex justify-between items-center mt-2 mb-4">
             <div className="flex gap-4">

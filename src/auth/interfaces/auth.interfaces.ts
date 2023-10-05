@@ -1,4 +1,5 @@
-import { ICommonResponse } from '@/common/interfaces';
+import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
+import { TypeRoles } from '../constants';
 
 export interface ILoginRequest {
   email: string;
@@ -18,6 +19,21 @@ export interface IUpdateUserResponse extends ICommonResponse {
   user: UserUpdate;
 }
 
+export interface IGetAllUsersResponse extends ICommonResponse {
+  users: IDataUsers;
+}
+
+export interface IDataUsers {
+  data: IUserAll[];
+  meta: IMeta;
+}
+
+export interface IGetAllUsersRequest extends IPaginateRequest {
+  name?: string;
+  role?: TypeRoles | null;
+  photos?: boolean;
+}
+
 export interface UserUpdate {
   photo: string | undefined;
   name: string;
@@ -35,6 +51,12 @@ export interface User {
   roles: Role[];
   photo: string | undefined;
   hasSchool: boolean;
+}
+
+export interface IUserAll extends Omit<User, 'hasSchool'> {
+  deletedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface Role {

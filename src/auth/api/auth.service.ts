@@ -1,5 +1,7 @@
 import { axiosInstance } from '@/common/http';
 import {
+  IGetAllUsersRequest,
+  IGetAllUsersResponse,
   IGetUserResponse,
   ILoginRequest,
   ILoginResponse,
@@ -10,6 +12,7 @@ import {
 const LOGIN_URL = 'auth/login';
 const GET_USER_URL = 'auth/user';
 const UPDATE_PROFILE = 'auth/update-profile';
+const GET_ALL_USERS = 'auth/users';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -30,6 +33,17 @@ export const updateProfileService = async (data: IUserForm) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+  return response;
+};
+
+export const getAllUsersService = async (data: IGetAllUsersRequest) => {
+  if (!data.role) delete data.role;
+  const response = await axiosInstance.get<IGetAllUsersResponse>(
+    GET_ALL_USERS,
+    {
+      params: { ...data },
+    },
+  );
   return response;
 };
 
