@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IDataUsers, IGetAllUsersRequest } from '@/auth/interfaces';
-import { Avatar, Card, Table } from '@/common/components';
+import { Avatar, Card, Pagination, Table } from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
 import { getAllUsersThunk } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE } from '@/common/constants';
@@ -10,8 +10,15 @@ import { formatDate } from '@/common/utils';
 
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
+  const [pagination, setpagination] = useState(1);
 
-  const [{ data, meta }, setUsers] = useState<IDataUsers>({
+  const [
+    {
+      data,
+      meta: { pageCount },
+    },
+    setUsers,
+  ] = useState<IDataUsers>({
     data: [],
     meta: DEFAULT_META_RESPONSE,
   });
@@ -28,6 +35,7 @@ const ViewUsersPage = () => {
       getAllUsersThunk({ name, role, photos, page, take, order }),
     ).unwrap();
     setUsers({ data: users, meta });
+    setpagination(meta.page);
   };
 
   useEffect(() => {
@@ -63,21 +71,34 @@ const ViewUsersPage = () => {
                     roles,
                   }) => (
                     <Table.Row hover key={id}>
-                      <>
+                      <Table.Td>
                         <Avatar size="xs" src={photo}>
                           <IconUser className="fill-white h-6 w-6" />
                         </Avatar>
-                      </>
-                      <>{name}</>
-                      <>{email}</>
-                      <>{phone}</>
-                      <>{isActive ? 'Activo' : 'Inactivo'}</>
-                      <>{formatDate(createdAt, 'LL')}</>
-                      <>{getRoles(roles)}</>
+                      </Table.Td>
+                      <Table.Td>{name}</Table.Td>
+                      <Table.Td>{email}</Table.Td>
+                      <Table.Td>{phone}</Table.Td>
+                      <Table.Td>{isActive ? 'Activo' : 'Inactivo'}</Table.Td>
+                      <Table.Td>{formatDate(createdAt, 'DD/MM/YYYY')}</Table.Td>
+                      <Table.Td>{getRoles(roles)}</Table.Td>
                     </Table.Row>
                   ),
                 )}
             </Table.Body>
+            <Table.Footer>
+              <Table.Row>
+                <Table.Td colSpan={7} className="py-5">
+                  <div className="flex justify-end">
+                    <Pagination
+                      currentPage={pagination}
+                      pageCount={pageCount}
+                      onChange={page => setpagination(page)}
+                    />
+                  </div>
+                </Table.Td>
+              </Table.Row>
+            </Table.Footer>
           </Table>
         </Card.Body>
       </Card>

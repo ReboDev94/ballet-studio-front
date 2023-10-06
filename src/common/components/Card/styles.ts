@@ -1,7 +1,7 @@
 import { VARIANT_DEFAULT, VARIANT_PRIMARY } from '../constants';
 
 /* Card */
-export const BASE_CARD_CLASSES = 'rounded-xl shadow-sm w-full';
+export const BASE_CARD_CLASSES = 'rounded-lg shadow-sm w-full';
 
 const DEFAULT_CARD_CLASSES = 'bg-white';
 const PRIMARY_CARD_CLASSES = 'border border-primary-800';

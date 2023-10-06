@@ -38,10 +38,16 @@ import { TagProps as TTagProps } from './Tag';
 import { DividerProps as TDividerProps } from './Divider';
 import { ErrorInputProps as TErrorInputProps } from './ErrorInput/index';
 import { SidebarBackDrop as TSidebarBackDrop } from './Sidebar';
+import { PaginationProps as TPaginationProps } from './Pagination/index';
 import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
+
+/* Pagination */
+
+export type PaginationProps = TPaginationProps;
+export { default as Pagination } from './Pagination';
 
 /* Error input */
 export type ErrorInputProps = TErrorInputProps;
