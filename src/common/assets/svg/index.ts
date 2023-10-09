@@ -11,6 +11,8 @@ import { ReactComponent as IconEyeOpen } from './icon-eye-open.svg';
 import { ReactComponent as IconUser } from './icon-user.svg';
 import { ReactComponent as IconCloseCircle } from './icon-close-circle.svg';
 import { ReactComponent as IconMenu } from './icon-menu.svg';
+import { ReactComponent as IconFilter } from './icon-filter.svg';
+import { ReactComponent as IconSort } from './icon-sort.svg';
 
 export {
   IconPersonAdd,
@@ -26,4 +28,6 @@ export {
   IconUser,
   IconCloseCircle,
   IconMenu,
+  IconFilter,
+  IconSort,
 };

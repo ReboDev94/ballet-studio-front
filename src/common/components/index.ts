@@ -44,8 +44,13 @@ import {
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
 
-/* Pagination */
+import { CheckboxProps as TCheckboxProps } from './Checkbox';
 
+/* Checkbox */
+export type CheckboxProps = TCheckboxProps;
+export { default as Checkbox } from './Checkbox';
+
+/* Pagination */
 export type PaginationProps = TPaginationProps;
 export { default as Pagination } from './Pagination';
 

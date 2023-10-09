@@ -1,16 +1,51 @@
 import { useEffect, useState } from 'react';
-import { IDataUsers, IGetAllUsersRequest } from '@/auth/interfaces';
-import { Avatar, Card, Pagination, Table } from '@/common/components';
+import {
+  IDataUsers,
+  IGetAllUsersRequest,
+  IRolesFilter,
+} from '@/auth/interfaces';
+import {
+  Avatar,
+  Card,
+  Checkbox,
+  Dropdown,
+  Pagination,
+  Table,
+} from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
 import { getAllUsersThunk } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE } from '@/common/constants';
-import { IconUser } from '@/common/assets/svg';
+import { IconFilter, IconSort, IconUser } from '@/common/assets/svg';
 import { getRoles } from '@/auth/utils';
 import { formatDate } from '@/common/utils';
+import { ROLES_LABEL, TypeRoles } from '@/auth/constants';
+import { ISort } from '@/common/interfaces';
 
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
+
+  const [{ roles: rolesFilter }, setFilters] = useState<{
+    roles: IRolesFilter[];
+    sort: ISort;
+  }>({
+    roles: [
+      { type: TypeRoles.admin, value: false },
+      { type: TypeRoles.teacher, value: false },
+      { type: TypeRoles.receptionist, value: false },
+    ],
+    sort: 'ASC',
+  });
+
+  const checkedRolesFilter = ({
+    target: { checked, name },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const newRoles = [...rolesFilter].map(rol => {
+      if (rol.type === name) rol.value = checked;
+      return rol;
+    });
+    setFilters(prev => ({ ...prev, roles: newRoles }));
+  };
 
   const [
     {
@@ -44,9 +79,75 @@ const ViewUsersPage = () => {
 
   return (
     <>
-      <h3 className="text-2xl text-base-500 font-semibold mb-2">Usuarios</h3>
       <Card>
         <Card.Body>
+          <div className="flex justify-between my-4">
+            <h3 className="text-2xl text-base-500 font-semibold mb-2">
+              Usuarios
+            </h3>
+            <div>
+              <Dropdown>
+                <Dropdown.Toogle
+                  buttonProps={{ variant: 'outline-base', size: 'xs' }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <IconSort className="w-4 h-4 fill-base-600" />
+                    Orden
+                  </div>
+                </Dropdown.Toogle>
+
+                <Dropdown.Menu
+                  className="w-[11rem]"
+                  position="bottom"
+                  align="end"
+                >
+                  {rolesFilter.map(({ type, value }) => (
+                    <Dropdown.Item key={type}>
+                      <label
+                        htmlFor={type}
+                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                      >
+                        {ROLES_LABEL[type]}
+                      </label>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Dropdown>
+                <Dropdown.Toogle
+                  buttonProps={{ variant: 'outline-base', size: 'xs' }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <IconFilter className="w-4 h-4 fill-base-600" />
+                    Roles
+                  </div>
+                </Dropdown.Toogle>
+
+                <Dropdown.Menu
+                  className="w-[11rem]"
+                  position="bottom"
+                  align="end"
+                >
+                  {rolesFilter.map(({ type, value }) => (
+                    <Dropdown.Item key={type}>
+                      <label
+                        htmlFor={type}
+                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                      >
+                        <Checkbox
+                          id={type}
+                          name={type}
+                          checked={value}
+                          onChange={checkedRolesFilter}
+                        />
+                        {ROLES_LABEL[type]}
+                      </label>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </div>
           <Table>
             <Table.Head>
               <>Foto</>

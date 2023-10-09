@@ -1,10 +1,11 @@
+import { ISort } from './filters.interface';
 export interface ICommonResponse {
   success: boolean;
 }
 
 export interface IPaginateRequest {
   page?: number;
-  order?: 'ASC' | 'DESC';
+  order?: ISort;
   take?: number;
 }
 
