@@ -30,7 +30,7 @@ export interface IDataUsers {
 
 export interface IGetAllUsersRequest extends IPaginateRequest {
   name?: string;
-  role?: TypeRoles | null;
+  roles?: TypeRoles[];
   photos?: boolean;
 }
 

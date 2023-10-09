@@ -10,6 +10,7 @@ import {
   IconTeam,
   IconUser,
   IconMenu,
+  IconViewAllUser,
 } from '@/common/assets/svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logoutThunk } from '@/store/modules/auth/thunks';
@@ -57,13 +58,16 @@ const BalletLayout = () => {
               </Link>
 
               {isAdmin && (
-                <Menu.CollapseSidebar title="Usuarios" icon={IconStudents}>
+                <Menu.CollapseSidebar title="Usuarios" icon={IconTeam}>
                   <Menu>
                     <Link to="/user/new">
                       <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
                     </Link>
                     <Link to="/user">
-                      <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                      <Menu.ItemSidebar
+                        title="Visualizar"
+                        icon={IconViewAllUser}
+                      />
                     </Link>
                   </Menu>
                 </Menu.CollapseSidebar>
@@ -75,7 +79,10 @@ const BalletLayout = () => {
                     <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
                   </Link>
                   <Link to="/student">
-                    <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
+                    <Menu.ItemSidebar
+                      title="Visualizar"
+                      icon={IconViewAllUser}
+                    />
                   </Link>
                 </Menu>
               </Menu.CollapseSidebar>

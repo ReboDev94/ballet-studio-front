@@ -50,7 +50,7 @@ export const TYPE_BTNS = {
 
 const SIZE_XS_BTN_CLASSES = 'h-8 text-xs';
 const SIZE_SM_BTN_CLASSES = 'h-9 text-sm';
-const SIZE_MD_BTN_CLASSES = 'h-10 text-base';
+const SIZE_MD_BTN_CLASSES = 'h-10 text-sm';
 const SIZE_LG_BTN_CLASSES = 'h-12 text-base';
 
 export const SIZE_BTNS = {

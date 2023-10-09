@@ -37,11 +37,23 @@ export const updateProfileService = async (data: IUserForm) => {
 };
 
 export const getAllUsersService = async (data: IGetAllUsersRequest) => {
-  if (!data.role) delete data.role;
+  let dataAux = {};
+  let roles = '';
+  if (data.roles && data.roles.length > 0) {
+    roles = data.roles.join(',');
+  }
+
+  if (roles) {
+    dataAux = { ...data, roles };
+  } else {
+    delete data.roles;
+    dataAux = { ...data };
+  }
+
   const response = await axiosInstance.get<IGetAllUsersResponse>(
     GET_ALL_USERS,
     {
-      params: { ...data },
+      params: { ...dataAux },
     },
   );
   return response;

@@ -43,8 +43,12 @@ import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
-
 import { CheckboxProps as TCheckboxProps } from './Checkbox';
+import { RadioProps as TRadioProps } from './Radio';
+
+/* Radio */
+export type RadioProps = TRadioProps;
+export { default as Radio } from './Radio';
 
 /* Checkbox */
 export type CheckboxProps = TCheckboxProps;

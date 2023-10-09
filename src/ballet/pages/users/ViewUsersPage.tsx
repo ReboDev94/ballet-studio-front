@@ -11,11 +11,18 @@ import {
   Dropdown,
   Pagination,
   Table,
+  Radio,
+  Input,
 } from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
 import { getAllUsersThunk } from '@/store/modules/auth/thunks';
-import { DEFAULT_META_RESPONSE } from '@/common/constants';
-import { IconFilter, IconSort, IconUser } from '@/common/assets/svg';
+import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
+import {
+  IconFilter,
+  IconSearch,
+  IconSort,
+  IconUser,
+} from '@/common/assets/svg';
 import { getRoles } from '@/auth/utils';
 import { formatDate } from '@/common/utils';
 import { ROLES_LABEL, TypeRoles } from '@/auth/constants';
@@ -25,9 +32,13 @@ const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
 
-  const [{ roles: rolesFilter }, setFilters] = useState<{
+  const [
+    { roles: rolesFilter, sort: sortFilter, name: nameFilter },
+    setFilters,
+  ] = useState<{
     roles: IRolesFilter[];
     sort: ISort;
+    name: string;
   }>({
     roles: [
       { type: TypeRoles.admin, value: false },
@@ -35,7 +46,15 @@ const ViewUsersPage = () => {
       { type: TypeRoles.receptionist, value: false },
     ],
     sort: 'ASC',
+    name: '',
   });
+
+  const checkedSortFilter = ({
+    target: { value },
+  }: React.ChangeEvent<HTMLInputElement>) => {
+    const sort = value as ISort;
+    setFilters(prev => ({ ...prev, sort }));
+  };
 
   const checkedRolesFilter = ({
     target: { checked, name },
@@ -60,18 +79,31 @@ const ViewUsersPage = () => {
 
   const getAll = async ({
     name = '',
-    role = null,
+    roles = [],
     photos = true,
     page = 1,
     take = 15,
     order = 'ASC',
   }: IGetAllUsersRequest) => {
     const { users, meta } = await dispatch(
-      getAllUsersThunk({ name, role, photos, page, take, order }),
+      getAllUsersThunk({ name, roles, photos, page, take, order }),
     ).unwrap();
     setUsers({ data: users, meta });
     setpagination(meta.page);
   };
+
+  useEffect(() => {
+    const roles = rolesFilter
+      .filter(({ value }) => value)
+      .map(({ type }) => type);
+
+    getAll({
+      name: nameFilter,
+      roles,
+      order: sortFilter,
+      page: 1,
+    });
+  }, [sortFilter, rolesFilter]);
 
   useEffect(() => {
     getAll({});
@@ -85,38 +117,53 @@ const ViewUsersPage = () => {
             <h3 className="text-2xl text-base-500 font-semibold mb-2">
               Usuarios
             </h3>
-            <div>
+            <div className="flex items-center gap-2">
+              <div className="relative flex">
+                <div className="grid place-content-center p-2 bg-base-50 rounded-l-lg border border-r-0">
+                  <IconSearch className="h-4 w-4 fill-base-600" />
+                </div>
+                <Input
+                  value={nameFilter}
+                  onChange={({ target: { value } }) =>
+                    setFilters(prev => ({ ...prev, name: value }))
+                  }
+                  className=" w-[15rem] rounded-l-none"
+                  placeholder="Busqueda"
+                />
+              </div>
               <Dropdown>
-                <Dropdown.Toogle
-                  buttonProps={{ variant: 'outline-base', size: 'xs' }}
-                >
+                <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
                   <div className="flex items-center justify-center gap-2">
                     <IconSort className="w-4 h-4 fill-base-600" />
                     Orden
                   </div>
                 </Dropdown.Toogle>
-
                 <Dropdown.Menu
                   className="w-[11rem]"
                   position="bottom"
                   align="end"
                 >
-                  {rolesFilter.map(({ type, value }) => (
-                    <Dropdown.Item key={type}>
+                  {typeSort.map(({ label, value }) => (
+                    <Dropdown.Item key={value}>
                       <label
-                        htmlFor={type}
+                        htmlFor={value}
                         className="flex gap-2 items-center select-none cursor-pointer text-xs"
                       >
-                        {ROLES_LABEL[type]}
+                        <Radio
+                          id={value}
+                          value={value}
+                          checked={sortFilter === value}
+                          onChange={checkedSortFilter}
+                          name="sort"
+                        />
+                        {label}
                       </label>
                     </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>
               <Dropdown>
-                <Dropdown.Toogle
-                  buttonProps={{ variant: 'outline-base', size: 'xs' }}
-                >
+                <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
                   <div className="flex items-center justify-center gap-2">
                     <IconFilter className="w-4 h-4 fill-base-600" />
                     Roles
