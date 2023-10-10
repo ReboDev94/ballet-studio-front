@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   IDataUsers,
   IGetAllUsersRequest,
@@ -66,6 +66,11 @@ const ViewUsersPage = () => {
     setFilters(prev => ({ ...prev, roles: newRoles }));
   };
 
+  const roles = useMemo(
+    () => rolesFilter.filter(({ value }) => value).map(({ type }) => type),
+    [rolesFilter],
+  );
+
   const [
     {
       data,
@@ -93,10 +98,6 @@ const ViewUsersPage = () => {
   };
 
   useEffect(() => {
-    const roles = rolesFilter
-      .filter(({ value }) => value)
-      .map(({ type }) => type);
-
     getAll({
       name: nameFilter,
       roles,
@@ -106,6 +107,20 @@ const ViewUsersPage = () => {
   }, [sortFilter, rolesFilter]);
 
   useEffect(() => {
+    const debouceId = setTimeout(() => {
+      getAll({
+        name: nameFilter,
+        roles,
+        order: sortFilter,
+        page: 1,
+      });
+    }, 1000);
+    return () => {
+      clearTimeout(debouceId);
+    };
+  }, [nameFilter]);
+
+  useEffect(() => {
     getAll({});
   }, []);
 
@@ -113,12 +128,12 @@ const ViewUsersPage = () => {
     <>
       <Card>
         <Card.Body>
-          <div className="flex justify-between my-4">
-            <h3 className="text-2xl text-base-500 font-semibold mb-2">
+          <div className="flex flex-col md:flex-row justify-between my-4">
+            <h3 className="w-full text-2xl text-base-500 font-semibold mb-2">
               Usuarios
             </h3>
-            <div className="flex items-center gap-2">
-              <div className="relative flex">
+            <div className="flex flex-col lg:flex-row md:items-center gap-2">
+              <div className="w-full relative flex">
                 <div className="grid place-content-center p-2 bg-base-50 rounded-l-lg border border-r-0">
                   <IconSearch className="h-4 w-4 fill-base-600" />
                 </div>
@@ -127,72 +142,75 @@ const ViewUsersPage = () => {
                   onChange={({ target: { value } }) =>
                     setFilters(prev => ({ ...prev, name: value }))
                   }
-                  className=" w-[15rem] rounded-l-none"
+                  className="w-full md:min-w-[10rem] lg:min-w-[15rem] rounded-l-none"
                   placeholder="Busqueda"
                 />
               </div>
-              <Dropdown>
-                <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
-                  <div className="flex items-center justify-center gap-2">
-                    <IconSort className="w-4 h-4 fill-base-600" />
-                    Orden
-                  </div>
-                </Dropdown.Toogle>
-                <Dropdown.Menu
-                  className="w-[11rem]"
-                  position="bottom"
-                  align="end"
-                >
-                  {typeSort.map(({ label, value }) => (
-                    <Dropdown.Item key={value}>
-                      <label
-                        htmlFor={value}
-                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                      >
-                        <Radio
-                          id={value}
-                          value={value}
-                          checked={sortFilter === value}
-                          onChange={checkedSortFilter}
-                          name="sort"
-                        />
-                        {label}
-                      </label>
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-              <Dropdown>
-                <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
-                  <div className="flex items-center justify-center gap-2">
-                    <IconFilter className="w-4 h-4 fill-base-600" />
-                    Roles
-                  </div>
-                </Dropdown.Toogle>
+              <div className="flex justify-end">
+                <Dropdown>
+                  <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
+                    <div className="flex items-center justify-center gap-2">
+                      <IconSort className="w-4 h-4 fill-base-600" />
+                      Orden
+                    </div>
+                  </Dropdown.Toogle>
+                  <Dropdown.Menu
+                    className="w-[11rem]"
+                    position="bottom"
+                    align="end"
+                  >
+                    {typeSort.map(({ label, value }) => (
+                      <Dropdown.Item key={value}>
+                        <label
+                          htmlFor={value}
+                          className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                        >
+                          <Radio
+                            id={value}
+                            value={value}
+                            checked={sortFilter === value}
+                            onChange={checkedSortFilter}
+                            name="sort"
+                          />
+                          {label}
+                        </label>
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
 
-                <Dropdown.Menu
-                  className="w-[11rem]"
-                  position="bottom"
-                  align="end"
-                >
-                  {rolesFilter.map(({ type, value }) => (
-                    <Dropdown.Item key={type}>
-                      <label
-                        htmlFor={type}
-                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                      >
-                        <Checkbox
-                          id={type}
-                          name={type}
-                          checked={value}
-                          onChange={checkedRolesFilter}
-                        />
-                        {ROLES_LABEL[type]}
-                      </label>
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
+                <Dropdown>
+                  <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
+                    <div className="flex items-center justify-center gap-2">
+                      <IconFilter className="w-4 h-4 fill-base-600" />
+                      Roles
+                    </div>
+                  </Dropdown.Toogle>
+
+                  <Dropdown.Menu
+                    className="w-[11rem]"
+                    position="bottom"
+                    align="end"
+                  >
+                    {rolesFilter.map(({ type, value }) => (
+                      <Dropdown.Item key={type}>
+                        <label
+                          htmlFor={type}
+                          className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                        >
+                          <Checkbox
+                            id={type}
+                            name={type}
+                            checked={value}
+                            onChange={checkedRolesFilter}
+                          />
+                          {ROLES_LABEL[type]}
+                        </label>
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
             </div>
           </div>
           <Table>
