@@ -45,7 +45,11 @@ import {
 } from './ListGroup';
 import { CheckboxProps as TCheckboxProps } from './Checkbox';
 import { RadioProps as TRadioProps } from './Radio';
+import { ModalProps as TModalProps } from './Modal/index';
 
+/* Modal */
+export type ModalProps = TModalProps;
+export { default as Modal } from './Modal';
 /* Radio */
 export type RadioProps = TRadioProps;
 export { default as Radio } from './Radio';

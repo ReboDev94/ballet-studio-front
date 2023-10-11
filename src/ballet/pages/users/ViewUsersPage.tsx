@@ -13,6 +13,8 @@ import {
   Table,
   Radio,
   Input,
+  Modal,
+  Button,
 } from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
 import { getAllUsersThunk } from '@/store/modules/auth/thunks';
@@ -31,6 +33,7 @@ import { ISort } from '@/common/interfaces';
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
+  const [modal, setModal] = useState(false);
 
   const [
     { roles: rolesFilter, sort: sortFilter, name: nameFilter },
@@ -128,89 +131,99 @@ const ViewUsersPage = () => {
     <>
       <Card>
         <Card.Body>
-          <div className="flex flex-col md:flex-row justify-between my-4">
-            <h3 className="w-full text-2xl text-base-500 font-semibold mb-2">
-              Usuarios
-            </h3>
-            <div className="flex flex-col lg:flex-row md:items-center gap-2">
-              <div className="w-full relative flex">
-                <div className="grid place-content-center p-2 bg-base-50 rounded-l-lg border border-r-0">
-                  <IconSearch className="h-4 w-4 fill-base-600" />
-                </div>
-                <Input
-                  value={nameFilter}
-                  onChange={({ target: { value } }) =>
-                    setFilters(prev => ({ ...prev, name: value }))
-                  }
-                  className="w-full md:min-w-[10rem] lg:min-w-[15rem] rounded-l-none"
-                  placeholder="Busqueda"
-                />
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-2xl text-base-500 font-semibold">Usuarios</h3>
+            <Button
+              onClick={() => setModal(true)}
+              type="button"
+              className="w-32"
+              size="sm"
+            >
+              Agregar
+            </Button>
+          </div>
+          <div className="my-4 flex flex-col md:flex-row md:items-center md:justify-end  gap-2">
+            <div className="w-full h-9 lg:w-72 relative flex">
+              <div className="grid place-content-center p-2 bg-base-50 rounded-l-lg border border-r-0">
+                <IconSearch className="h-4 w-4 fill-base-600" />
               </div>
-              <div className="flex justify-end">
-                <Dropdown>
-                  <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
-                    <div className="flex items-center justify-center gap-2">
-                      <IconSort className="w-4 h-4 fill-base-600" />
-                      Orden
-                    </div>
-                  </Dropdown.Toogle>
-                  <Dropdown.Menu
-                    className="w-[11rem]"
-                    position="bottom"
-                    align="end"
-                  >
-                    {typeSort.map(({ label, value }) => (
-                      <Dropdown.Item key={value}>
-                        <label
-                          htmlFor={value}
-                          className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                        >
-                          <Radio
-                            id={value}
-                            value={value}
-                            checked={sortFilter === value}
-                            onChange={checkedSortFilter}
-                            name="sort"
-                          />
-                          {label}
-                        </label>
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
+              <Input
+                value={nameFilter}
+                onChange={({ target: { value } }) =>
+                  setFilters(prev => ({ ...prev, name: value }))
+                }
+                className="rounded-l-none"
+                placeholder="Busqueda"
+              />
+            </div>
+            <div className="flex justify-end">
+              <Dropdown>
+                <Dropdown.Toogle
+                  buttonProps={{ variant: 'outline-base', size: 'sm' }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <IconSort className="w-4 h-4 fill-base-600" />
+                    Orden
+                  </div>
+                </Dropdown.Toogle>
+                <Dropdown.Menu
+                  className="w-[11rem]"
+                  position="bottom"
+                  align="end"
+                >
+                  {typeSort.map(({ label, value }) => (
+                    <Dropdown.Item key={value}>
+                      <label
+                        htmlFor={value}
+                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                      >
+                        <Radio
+                          id={value}
+                          value={value}
+                          checked={sortFilter === value}
+                          onChange={checkedSortFilter}
+                          name="sort"
+                        />
+                        {label}
+                      </label>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
 
-                <Dropdown>
-                  <Dropdown.Toogle buttonProps={{ variant: 'outline-base' }}>
-                    <div className="flex items-center justify-center gap-2">
-                      <IconFilter className="w-4 h-4 fill-base-600" />
-                      Roles
-                    </div>
-                  </Dropdown.Toogle>
+              <Dropdown>
+                <Dropdown.Toogle
+                  buttonProps={{ variant: 'outline-base', size: 'sm' }}
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <IconFilter className="w-4 h-4 fill-base-600" />
+                    Roles
+                  </div>
+                </Dropdown.Toogle>
 
-                  <Dropdown.Menu
-                    className="w-[11rem]"
-                    position="bottom"
-                    align="end"
-                  >
-                    {rolesFilter.map(({ type, value }) => (
-                      <Dropdown.Item key={type}>
-                        <label
-                          htmlFor={type}
-                          className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                        >
-                          <Checkbox
-                            id={type}
-                            name={type}
-                            checked={value}
-                            onChange={checkedRolesFilter}
-                          />
-                          {ROLES_LABEL[type]}
-                        </label>
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+                <Dropdown.Menu
+                  className="w-[11rem]"
+                  position="bottom"
+                  align="end"
+                >
+                  {rolesFilter.map(({ type, value }) => (
+                    <Dropdown.Item key={type}>
+                      <label
+                        htmlFor={type}
+                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                      >
+                        <Checkbox
+                          id={type}
+                          name={type}
+                          checked={value}
+                          onChange={checkedRolesFilter}
+                        />
+                        {ROLES_LABEL[type]}
+                      </label>
+                    </Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
           </div>
           <Table>
@@ -268,6 +281,26 @@ const ViewUsersPage = () => {
           </Table>
         </Card.Body>
       </Card>
+
+      <Modal value={modal} center size="md">
+        <Modal.Header onClose={() => setModal(false)}>
+          <h3 className="text-base-600 font-semibold">Nuevo usuario</h3>
+        </Modal.Header>
+        <Modal.Body>Body</Modal.Body>
+        <Modal.Footer className="flex justify-end gap-2">
+          <Button
+            size="xs"
+            variant="outline-primary"
+            type="button"
+            onClick={() => setModal(false)}
+          >
+            Cancelar
+          </Button>
+          <Button size="xs" variant="primary" type="button">
+            Guardar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
