@@ -255,7 +255,7 @@ const ViewUsersPage = () => {
                     <Table.Row hover key={id}>
                       <Table.Td>
                         <Avatar size="xs" src={photo}>
-                          <IconUser className="fill-white h-6 w-6" />
+                          <IconUser className="fill-white h-5 w-5" />
                         </Avatar>
                       </Table.Td>
                       <Table.Td>{name}</Table.Td>
