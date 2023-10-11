@@ -4,13 +4,11 @@ import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import {
   IconDashboard,
   IconGroup,
-  IconPersonAdd,
   IconSchool,
   IconStudents,
   IconTeam,
   IconUser,
   IconMenu,
-  IconViewAllUser,
 } from '@/common/assets/svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { logoutThunk } from '@/store/modules/auth/thunks';
@@ -58,45 +56,18 @@ const BalletLayout = () => {
               </Link>
 
               {isAdmin && (
-                <Menu.CollapseSidebar title="Usuarios" icon={IconTeam}>
-                  <Menu>
-                    <Link to="/user/new">
-                      <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                    </Link>
-                    <Link to="/user">
-                      <Menu.ItemSidebar
-                        title="Visualizar"
-                        icon={IconViewAllUser}
-                      />
-                    </Link>
-                  </Menu>
-                </Menu.CollapseSidebar>
+                <Link to="/user">
+                  <Menu.ItemSidebar title="Usuarios" icon={IconTeam} />
+                </Link>
               )}
 
-              <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
-                <Menu>
-                  <Link to="/student/new">
-                    <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                  </Link>
-                  <Link to="/student">
-                    <Menu.ItemSidebar
-                      title="Visualizar"
-                      icon={IconViewAllUser}
-                    />
-                  </Link>
-                </Menu>
-              </Menu.CollapseSidebar>
+              <Link to="/student">
+                <Menu.ItemSidebar title="Estudiantes" icon={IconStudents} />
+              </Link>
 
-              <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
-                <Menu>
-                  <Link to="/groups/new">
-                    <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                  </Link>
-                  <Link to="/groups">
-                    <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
-                  </Link>
-                </Menu>
-              </Menu.CollapseSidebar>
+              <Link to="/group">
+                <Menu.ItemSidebar title="Grupos" icon={IconGroup} />
+              </Link>
             </Menu>
           </Sidebar.Content>
           <Sidebar.Footer>

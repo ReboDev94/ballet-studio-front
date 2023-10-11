@@ -3,11 +3,8 @@ import {
   DashboardPage,
   ProfileSchoolPage,
   ProfilePage,
-  NewUserPage,
   ViewUsersPage,
   ViewGroupsPage,
-  NewGroupPage,
-  NewStudentPage,
   ViewStudentsPage,
 } from '@/ballet/pages';
 import { BalletLayout } from '@/ballet/layout';
@@ -44,17 +41,14 @@ const BalletRoutes = () => {
           {isAdmin && (
             <>
               <Route path="/user" element={<ViewUsersPage />}></Route>
-              <Route path="/user/new" element={<NewUserPage />}></Route>
             </>
           )}
 
           {/* students */}
           <Route path="/student" element={<ViewStudentsPage />}></Route>
-          <Route path="/student/new" element={<NewStudentPage />}></Route>
 
           {/* group */}
           <Route path="/group" element={<ViewGroupsPage />}></Route>
-          <Route path="/group/new" element={<NewGroupPage />}></Route>
         </Route>
       </Route>
     </Routes>

@@ -21,6 +21,7 @@ import { getAllUsersThunk } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import {
   IconFilter,
+  IconPersonAdd,
   IconSearch,
   IconSort,
   IconUser,
@@ -29,6 +30,7 @@ import { getRoles } from '@/auth/utils';
 import { formatDate } from '@/common/utils';
 import { ROLES_LABEL, TypeRoles } from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
+import { NewUpdateUser } from '@/ballet/components';
 
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
@@ -136,9 +138,10 @@ const ViewUsersPage = () => {
             <Button
               onClick={() => setModal(true)}
               type="button"
-              className="w-32"
+              className="flex items-center gap-2"
               size="sm"
             >
+              <IconPersonAdd className="fill-primary-50 w-4 h-4" />
               Agregar
             </Button>
           </div>
@@ -286,20 +289,9 @@ const ViewUsersPage = () => {
         <Modal.Header onClose={() => setModal(false)}>
           <h3 className="text-base-600 font-semibold">Nuevo usuario</h3>
         </Modal.Header>
-        <Modal.Body>Body</Modal.Body>
-        <Modal.Footer className="flex justify-end gap-2">
-          <Button
-            size="xs"
-            variant="outline-primary"
-            type="button"
-            onClick={() => setModal(false)}
-          >
-            Cancelar
-          </Button>
-          <Button size="xs" variant="primary" type="button">
-            Guardar
-          </Button>
-        </Modal.Footer>
+        <Modal.Body>
+          <NewUpdateUser />
+        </Modal.Body>
       </Modal>
     </>
   );
