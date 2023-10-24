@@ -4,7 +4,7 @@ const now = new Date();
 
 const AuthLayout = () => {
   return (
-    <div className="h-screen mx-auto min-w- max-w-screen-2xl">
+    <div className="h-screen mx-auto max-w-screen-2xl">
       <div className="grid grid-cols-12 h-full">
         <div className="col-span-12 lg:col-span-4 py-10 lg:mx-5 xl:mx-10 order-2 lg:order-none lg:flex lg:flex-col lg:justify-center">
           <img src="/logo.png" className="h-24 block mx-auto" alt="logo" />

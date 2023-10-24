@@ -87,7 +87,7 @@ const LoginPage = () => {
             </Form.Label>
 
             <Link
-              to="/auth/reset-password"
+              to="/auth/reset/password"
               className="text-xs hover:underline hover:cursor-pointer font-medium"
             >
               ¿Tienes problemas para iniciar sesión?

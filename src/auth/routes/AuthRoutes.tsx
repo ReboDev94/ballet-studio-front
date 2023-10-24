@@ -4,6 +4,7 @@ import {
   ResetPasswordPage,
   LoginPage,
   ConfirmPasswordPage,
+  ConfirmAccount,
 } from '@/auth/pages';
 import { AuthLayout } from '@/auth/layout';
 import { TITLE_DEFAULT } from '@/common/constants';
@@ -18,10 +19,14 @@ const AuthRoutes = () => {
       <Route element={<AuthLayout />}>
         <Route path="/*" element={<Navigate to="/auth/login" />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
-        <Route path="reset-password" element={<ResetPasswordPage />}></Route>
+        <Route path="reset/password" element={<ResetPasswordPage />}></Route>
         <Route
-          path="confirm-password"
+          path="reset/password/:token"
           element={<ConfirmPasswordPage />}
+        ></Route>
+        <Route
+          path="confirm/account/:token"
+          element={<ConfirmAccount />}
         ></Route>
       </Route>
     </Routes>

@@ -33,8 +33,6 @@ const NewUpdateUser = () => {
     <>
       <Card>
         <Card.Body className="px-2 py-0">
-          <h3 className="text-xl text-base-500 font-semibold">Nuevo Usuario</h3>
-          <Divider />
           <Form>
             <h3 className="text-lg text-primary-800 font-semibold">
               Datos personales
