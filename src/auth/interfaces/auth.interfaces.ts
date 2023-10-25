@@ -5,6 +5,9 @@ export interface ILoginRequest {
   email: string;
   password: string;
 }
+export interface IRegisterRequest extends ILoginRequest {
+  confirmPassword: string;
+}
 
 export interface ILoginResponse extends ICommonResponse {
   user: User;
@@ -73,6 +76,7 @@ export interface IUserForm {
 }
 
 export type UserTypes = keyof IUserForm;
+export type RegisterTypes = keyof IRegisterRequest;
 
 export interface initialStateAuth {
   isAuthenticated: boolean;

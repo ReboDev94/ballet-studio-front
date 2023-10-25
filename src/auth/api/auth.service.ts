@@ -5,6 +5,7 @@ import {
   IGetUserResponse,
   ILoginRequest,
   ILoginResponse,
+  IRegisterRequest,
   IResetPassword,
   IUpdateUserResponse,
   IUserForm,
@@ -12,6 +13,7 @@ import {
 import { ICommonResponse } from '@/common/interfaces';
 
 const LOGIN_URL = 'auth/login';
+const REGISTER = 'auth/register';
 const GET_USER_URL = 'auth/user';
 const UPDATE_PROFILE = 'auth/update-profile';
 const GET_ALL_USERS = 'auth/users';
@@ -20,6 +22,11 @@ const UPDATE_PASSWORD = 'auth/reset/password';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
+  return response;
+};
+
+export const registerService = async (data: IRegisterRequest) => {
+  const response = await axiosInstance.post<ICommonResponse>(REGISTER, data);
   return response;
 };
 

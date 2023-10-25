@@ -3,6 +3,7 @@ import {
   getAllUsersService,
   getUserService,
   loginService,
+  registerService,
   sendEmailResetPasswordService,
   updatePasswordService,
   updateProfileService,
@@ -10,6 +11,7 @@ import {
 import {
   IGetAllUsersRequest,
   ILoginRequest,
+  IRegisterRequest,
   IResetPassword,
   IUserForm,
 } from '@/auth/interfaces';
@@ -23,9 +25,12 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setDataLoginAction, updateProfileUserAction } from './actions';
 import {
   ERROR_GET_ALL_USERS,
+  ERROR_REGISTER_USER,
   FAILED_RESET_PASSWORD,
   FAILED_SEND_EMAIL,
   INCORRECT_CREDENTIALS,
+  SING_IN_SUCCESS,
+  SUCCESS_REGISTER_USER,
   SUCCESS_RESET_PASSWORD,
   SUCCESS_SEND_EMAIL,
   UNAUTHORIZED,
@@ -46,9 +51,25 @@ export const loginThunk = createAsyncThunk(
       addHeadersAuth();
       dispatch(setDataLoginAction({ isAuthenticated: true, user }));
       await dispatch(getSchoolThunk()).unwrap();
-      return user;
-    } catch (error) {
-      return rejectWithValue(INCORRECT_CREDENTIALS);
+      return SING_IN_SUCCESS;
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      const errors = error.response?.data.message || INCORRECT_CREDENTIALS;
+      return rejectWithValue(errors);
+    }
+  },
+);
+
+export const registerThunk = createAsyncThunk(
+  'auth/register',
+  async (data: IRegisterRequest, { rejectWithValue }) => {
+    try {
+      await registerService(data);
+      return SUCCESS_REGISTER_USER;
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      const errors = error.response?.data.errors || ERROR_REGISTER_USER;
+      return rejectWithValue(errors);
     }
   },
 );

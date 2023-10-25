@@ -9,11 +9,7 @@ import { SchemaValidationLogin } from '@/auth/validations';
 import { useAppDispatch } from '@/store/hooks';
 import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
 import { loginThunk } from '@/store/modules/auth/thunks';
-import {
-  INCORRECT_CREDENTIALS,
-  SING_IN_LOADING,
-  SING_IN_SUCCESS,
-} from '@/auth/constants';
+import { SING_IN_LOADING } from '@/auth/constants';
 
 const optToast = { id: 'login' };
 
@@ -38,8 +34,8 @@ const LoginPage = () => {
     toast.loading(SING_IN_LOADING, optToast);
     await dispatch(loginThunk(data))
       .unwrap()
-      .then(() => toast.success(SING_IN_SUCCESS, optToast))
-      .catch(() => toast.error(INCORRECT_CREDENTIALS, optToast));
+      .then(success => toast.success(success, optToast))
+      .catch(error => toast.error(error, optToast));
   };
 
   return (
@@ -96,6 +92,16 @@ const LoginPage = () => {
             <Button block disabled={isSubmitting} type="submit">
               Iniciar
             </Button>
+
+            <div className="flex justify-center text-xs">
+              ¿Aun no tienes una cuenta?&nbsp;
+              <Link
+                to="/auth/register"
+                className=" hover:underline hover:cursor-pointer font-medium"
+              >
+                Registrate
+              </Link>
+            </div>
 
             <Divider />
           </Form>

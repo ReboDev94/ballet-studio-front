@@ -18,6 +18,7 @@ import { IResetPassword } from '../interfaces';
 import { useAppDispatch } from '@/store/hooks';
 import { loginThunk, updatePasswordThunk } from '@/store/modules/auth/thunks';
 import { LOADING_RESET_PASSWORD } from '../constants';
+import { PasswordValidations } from '../components';
 
 const optToast = { id: 'confirm-password' };
 
@@ -52,14 +53,6 @@ const ConfirmPasswordPage = () => {
   };
 
   const password = watch('password');
-  const { lower, upper, digit, character } = useMemo(() => {
-    return {
-      lower: /[a-z]/.test(password),
-      upper: /[A-Z]/.test(password),
-      digit: /\d/.test(password),
-      character: /[#$@!%&*?]/.test(password),
-    };
-  }, [password]);
 
   useEffect(() => {
     setValue('email', searchParams.get('email') as string);
@@ -132,35 +125,7 @@ const ConfirmPasswordPage = () => {
             </div>
             <ErrorInput message={errors.confirmPassword?.message} />
           </Form.Label>
-
-          <ul className="space-y-2 text-xs">
-            <li>
-              <label htmlFor="lower" className="flex gap-2 items-start">
-                <Radio id="lower" disabled checked={lower} />
-                Debe contener al menos una letra minúscula.
-              </label>
-            </li>
-            <li>
-              <label htmlFor="upper" className="flex gap-2 items-start">
-                <Radio id="upper" disabled checked={upper} />
-                Debe contener al menos una letra mayúscula
-              </label>
-            </li>
-            <li>
-              <label htmlFor="digit" className="flex gap-2 items-start">
-                <Radio id="digit" disabled checked={digit} />
-                Debe contener al menos un dígito
-              </label>
-            </li>
-            <li>
-              <label htmlFor="character" className="flex gap-2 items-start">
-                <Radio id="character" disabled checked={character} />
-                Debe contener al menos un carácter especial entre #, $, @, !, %,
-                &, *, o ?
-              </label>
-            </li>
-          </ul>
-
+          <PasswordValidations password={password} />
           <Button type="submit" disabled={isSubmitting} block>
             Confirmar contraseña
           </Button>

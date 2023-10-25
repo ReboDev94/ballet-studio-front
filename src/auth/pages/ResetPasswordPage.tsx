@@ -49,7 +49,7 @@ const ResetPasswordPage = () => {
         <Form
           className="space-y-4"
           onSubmit={handleSubmit(onSubmit)}
-          autoComplete="new-password"
+          autoComplete="off"
         >
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Restablecer contraseña
@@ -61,11 +61,11 @@ const ResetPasswordPage = () => {
           <Form.Label title="Correo electrónico:">
             <Input
               {...register('email')}
-              autoComplete="new-password"
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
               errorState={!!errors.email}
+              autoComplete="new-username"
             />
             <ErrorInput message={errors.email?.message} />
           </Form.Label>
