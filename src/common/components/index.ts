@@ -38,10 +38,29 @@ import { TagProps as TTagProps } from './Tag';
 import { DividerProps as TDividerProps } from './Divider';
 import { ErrorInputProps as TErrorInputProps } from './ErrorInput/index';
 import { SidebarBackDrop as TSidebarBackDrop } from './Sidebar';
+import { PaginationProps as TPaginationProps } from './Pagination/index';
 import {
   ListGroupProps as TListGroupProps,
   ItemListGroupProps as TItemListGroupProps,
 } from './ListGroup';
+import { CheckboxProps as TCheckboxProps } from './Checkbox';
+import { RadioProps as TRadioProps } from './Radio';
+import { ModalProps as TModalProps } from './Modal/index';
+
+/* Modal */
+export type ModalProps = TModalProps;
+export { default as Modal } from './Modal';
+/* Radio */
+export type RadioProps = TRadioProps;
+export { default as Radio } from './Radio';
+
+/* Checkbox */
+export type CheckboxProps = TCheckboxProps;
+export { default as Checkbox } from './Checkbox';
+
+/* Pagination */
+export type PaginationProps = TPaginationProps;
+export { default as Pagination } from './Pagination';
 
 /* Error input */
 export type ErrorInputProps = TErrorInputProps;

@@ -29,6 +29,7 @@
     "@reduxjs/toolkit": "^1.9.3",
     "@types/uuid": "^9.0.2",
     "axios": "^1.4.0",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.0",

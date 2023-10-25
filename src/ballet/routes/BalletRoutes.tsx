@@ -3,18 +3,19 @@ import {
   DashboardPage,
   ProfileSchoolPage,
   ProfilePage,
-  NewUserPage,
   ViewUsersPage,
   ViewGroupsPage,
-  NewGroupPage,
+  ViewStudentsPage,
 } from '@/ballet/pages';
 import { BalletLayout } from '@/ballet/layout';
 import { GuardHasSchool } from '@/ballet/guards';
 import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { TITLE_DEFAULT } from '@/common/constants';
+import { useRoles } from '@/auth/hooks';
 
 const BalletRoutes = () => {
+  const { isAdmin } = useRoles();
   const {
     school: { name: schoolName, logo },
   } = useAppSelector(state => state.school);
@@ -35,13 +36,19 @@ const BalletRoutes = () => {
 
         <Route element={<GuardHasSchool />}>
           <Route path="/dashboard" element={<DashboardPage />}></Route>
+
           {/* Users */}
-          <Route path="/users" element={<ViewUsersPage />}></Route>
-          <Route path="/users/new" element={<NewUserPage />}></Route>
+          {isAdmin && (
+            <>
+              <Route path="/user" element={<ViewUsersPage />}></Route>
+            </>
+          )}
+
+          {/* students */}
+          <Route path="/student" element={<ViewStudentsPage />}></Route>
 
           {/* group */}
-          <Route path="/groups" element={<ViewGroupsPage />}></Route>
-          <Route path="/groups/new" element={<NewGroupPage />}></Route>
+          <Route path="/group" element={<ViewGroupsPage />}></Route>
         </Route>
       </Route>
     </Routes>

@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { UserUpdate } from '@/auth/interfaces';
 import { AuthState } from './initialState';
 
 const reducers = {
@@ -8,6 +9,12 @@ const reducers = {
   },
   setHasSchool: (state: AuthState, { payload }: PayloadAction<boolean>) => {
     state.user.hasSchool = payload;
+  },
+  updateProfileUser: (
+    state: AuthState,
+    { payload }: PayloadAction<UserUpdate>,
+  ) => {
+    state.user = { ...state.user, ...payload };
   },
 };
 

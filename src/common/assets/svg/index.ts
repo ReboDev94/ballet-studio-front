@@ -11,6 +11,10 @@ import { ReactComponent as IconEyeOpen } from './icon-eye-open.svg';
 import { ReactComponent as IconUser } from './icon-user.svg';
 import { ReactComponent as IconCloseCircle } from './icon-close-circle.svg';
 import { ReactComponent as IconMenu } from './icon-menu.svg';
+import { ReactComponent as IconFilter } from './icon-filter.svg';
+import { ReactComponent as IconSort } from './icon-sort.svg';
+import { ReactComponent as IconSearch } from './icon-search.svg';
+import { ReactComponent as IconViewAllUser } from './icon-all-students.svg';
 
 export {
   IconPersonAdd,
@@ -26,4 +30,8 @@ export {
   IconUser,
   IconCloseCircle,
   IconMenu,
+  IconFilter,
+  IconSort,
+  IconSearch,
+  IconViewAllUser,
 };

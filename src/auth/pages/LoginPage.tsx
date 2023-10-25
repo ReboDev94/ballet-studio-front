@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { Button, Card, Form, Input, Divider } from '@/common/components';
 import { ILoginRequest } from '@/auth/interfaces';
@@ -9,37 +9,33 @@ import { SchemaValidationLogin } from '@/auth/validations';
 import { useAppDispatch } from '@/store/hooks';
 import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
 import { loginThunk } from '@/store/modules/auth/thunks';
-import { DEFAULT_TOAST_OPTIONS } from '@/common/constants';
-import {
-  INCORRECT_CREDENTIALS,
-  SING_IN_LOADING,
-  SING_IN_SUCCESS,
-} from '@/auth/constants';
+import { SING_IN_LOADING } from '@/auth/constants';
+
+const optToast = { id: 'login' };
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, handleSubmit } = useForm<ILoginRequest>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<ILoginRequest>({
     mode: 'onSubmit',
     defaultValues: {
-      email: 'admin1@gmail.com',
-      password: 'HolaMundo1234#',
+      email: 'rrrrebolledohdz@gmail.com',
+      password: 'KuroTaroYare123#',
     },
     resolver: yupResolver(SchemaValidationLogin),
   });
 
-  const onSubmit: SubmitHandler<ILoginRequest> = data => {
-    const promise = dispatch(loginThunk(data)).unwrap();
-    toast.promise(
-      promise,
-      {
-        loading: SING_IN_LOADING,
-        success: SING_IN_SUCCESS,
-        error: INCORRECT_CREDENTIALS,
-      },
-      { id: 'login' },
-    );
+  const onSubmit: SubmitHandler<ILoginRequest> = async data => {
+    toast.loading(SING_IN_LOADING, optToast);
+    await dispatch(loginThunk(data))
+      .unwrap()
+      .then(success => toast.success(success, optToast))
+      .catch(error => toast.error(error, optToast));
   };
 
   return (
@@ -87,21 +83,30 @@ const LoginPage = () => {
             </Form.Label>
 
             <Link
-              to="/auth/reset-password"
+              to="/auth/reset/password"
               className="text-xs hover:underline hover:cursor-pointer font-medium"
             >
               ¿Tienes problemas para iniciar sesión?
             </Link>
 
-            <Button block type="submit">
+            <Button block disabled={isSubmitting} type="submit">
               Iniciar
             </Button>
+
+            <div className="flex justify-center text-xs">
+              ¿Aun no tienes una cuenta?&nbsp;
+              <Link
+                to="/auth/register"
+                className=" hover:underline hover:cursor-pointer font-medium"
+              >
+                Registrate
+              </Link>
+            </div>
 
             <Divider />
           </Form>
         </Card.Body>
       </Card>
-      <Toaster {...DEFAULT_TOAST_OPTIONS} />
     </>
   );
 };

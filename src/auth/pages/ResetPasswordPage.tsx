@@ -1,11 +1,56 @@
 import { Link } from 'react-router-dom';
-import { Button, Card, Input, Form, Divider } from '@/common/components';
+import toast from 'react-hot-toast';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import {
+  Button,
+  Card,
+  Input,
+  Form,
+  Divider,
+  ErrorInput,
+} from '@/common/components';
+import { SchemaValidationSendEmail } from '../validations';
+import { ISendEmailResetPassword } from '../interfaces';
+import { useAppDispatch } from '@/store/hooks';
+import { sendEmailResetPasswordThunk } from '@/store/modules/auth/thunks';
+import { LOADING_SEND_EMAIL } from '../constants';
+
+const optToast = { id: 'reset-password' };
 
 const ResetPasswordPage = () => {
+  const dispatch = useAppDispatch();
+  const {
+    reset,
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<ISendEmailResetPassword>({
+    mode: 'onSubmit',
+    defaultValues: {
+      email: '',
+    },
+    resolver: yupResolver(SchemaValidationSendEmail),
+  });
+
+  const onSubmit: SubmitHandler<ISendEmailResetPassword> = async data => {
+    toast.loading(LOADING_SEND_EMAIL, optToast);
+    await dispatch(sendEmailResetPasswordThunk(data.email))
+      .unwrap()
+      .then(success => {
+        reset();
+        toast.success(success, optToast);
+      })
+      .catch(error => toast.error(error, optToast));
+  };
   return (
     <Card className="shadow-none bg-transparent">
       <Card.Body>
-        <Form className="space-y-4">
+        <Form
+          className="space-y-4"
+          onSubmit={handleSubmit(onSubmit)}
+          autoComplete="off"
+        >
           <h1 className="text-center font-bold text-3xl tracking-wide">
             Restablecer contraseña
           </h1>
@@ -15,13 +60,19 @@ const ResetPasswordPage = () => {
 
           <Form.Label title="Correo electrónico:">
             <Input
+              {...register('email')}
               type="email"
               placeholder="admin@admin.com"
               variant="primary"
+              errorState={!!errors.email}
+              autoComplete="new-username"
             />
+            <ErrorInput message={errors.email?.message} />
           </Form.Label>
 
-          <Button block>Enviar correo electrónico</Button>
+          <Button type="submit" disabled={isSubmitting} block>
+            Enviar correo electrónico
+          </Button>
 
           <Divider />
 

@@ -18,7 +18,7 @@ type IAlign = typeof ALING_END | typeof ALING_START;
 
 export interface IDropdown extends FormHTMLAttributes<HTMLDivElement> {}
 
-type buttonToogle = Pick<IButton, 'variant' | 'block'>;
+type buttonToogle = Pick<IButton, 'variant' | 'block' | 'size'>;
 
 export interface IDropdownToogle {
   children: ReactNode;

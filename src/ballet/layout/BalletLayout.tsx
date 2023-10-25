@@ -4,7 +4,6 @@ import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import {
   IconDashboard,
   IconGroup,
-  IconPersonAdd,
   IconSchool,
   IconStudents,
   IconTeam,
@@ -12,14 +11,15 @@ import {
   IconMenu,
 } from '@/common/assets/svg';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { getRoles } from '@/auth/utils';
 import { logoutThunk } from '@/store/modules/auth/thunks';
 import { twMerge } from 'tailwind-merge';
+import { useRoles } from '@/auth/hooks';
 
 const BalletLayout = () => {
   const dispatch = useAppDispatch();
+  const { mainRole, isAdmin } = useRoles();
   const {
-    user: { name, roles, photo },
+    user: { name, photo },
   } = useAppSelector(state => state.auth);
 
   const {
@@ -33,61 +33,56 @@ const BalletLayout = () => {
   };
 
   return (
-    <div className="min-h-screen  flex flex-row">
-      <Sidebar
-        width={280}
-        className={twMerge(
-          'md:translate-x-0',
-          !sidebarOpen ? '-translate-x-full' : 'translate-x-0',
-        )}
-      >
-        <Sidebar.Header>
-          <img src={logo ? logo : '/logo.png'} className="h-20" alt="logo" />
-        </Sidebar.Header>
-        <Sidebar.Content>
-          <Sidebar.Category title="Menu" />
-          <Menu>
-            <Link to="/dashboard">
-              <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
-            </Link>
-            <Link to="/profile/school">
-              <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
-            </Link>
-            <Menu.CollapseSidebar title="Estudiantes" icon={IconStudents}>
-              <Menu>
-                <Link to="/users/new">
-                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
-                </Link>
-                <Link to="/users">
-                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
-                </Link>
-              </Menu>
-            </Menu.CollapseSidebar>
+    <div className="flex h-screen overflow-hidden">
+      <div className="flex h-full">
+        <Sidebar
+          width={280}
+          className={twMerge(
+            'md:translate-x-0 md:relative',
+            !sidebarOpen ? '-translate-x-full' : 'translate-x-0',
+          )}
+        >
+          <Sidebar.Header>
+            <img src={logo ? logo : '/logo.png'} className="h-20" alt="logo" />
+          </Sidebar.Header>
+          <Sidebar.Content>
+            <Sidebar.Category title="Menu" />
+            <Menu>
+              <Link to="/dashboard">
+                <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
+              </Link>
+              <Link to="/profile/school">
+                <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
+              </Link>
 
-            <Menu.CollapseSidebar title="Grupos" icon={IconGroup}>
-              <Menu>
-                <Link to="/groups/new">
-                  <Menu.ItemSidebar title="Nuevo" icon={IconPersonAdd} />
+              {isAdmin && (
+                <Link to="/user">
+                  <Menu.ItemSidebar title="Usuarios" icon={IconTeam} />
                 </Link>
-                <Link to="/groups">
-                  <Menu.ItemSidebar title="Visualizar" icon={IconTeam} />
-                </Link>
-              </Menu>
-            </Menu.CollapseSidebar>
-          </Menu>
-        </Sidebar.Content>
-        <Sidebar.Footer>
-          <span className="text-sm font-semibold">
-            @Turink {new Date().getFullYear()}
-          </span>
-        </Sidebar.Footer>
-      </Sidebar>
-      <Sidebar.BackDrop
-        onClick={() => setSidebarOpen(false)}
-        className={twMerge('md:hidden', !sidebarOpen && 'hidden')}
-      />
+              )}
 
-      <main className="md:ml-[280px] w-full px-6 py-8">
+              <Link to="/student">
+                <Menu.ItemSidebar title="Estudiantes" icon={IconStudents} />
+              </Link>
+
+              <Link to="/group">
+                <Menu.ItemSidebar title="Grupos" icon={IconGroup} />
+              </Link>
+            </Menu>
+          </Sidebar.Content>
+          <Sidebar.Footer>
+            <span className="text-sm font-semibold">
+              @Turink {new Date().getFullYear()}
+            </span>
+          </Sidebar.Footer>
+        </Sidebar>
+        <Sidebar.BackDrop
+          onClick={() => setSidebarOpen(false)}
+          className={twMerge('md:hidden', !sidebarOpen && 'hidden')}
+        />
+      </div>
+
+      <main className="flex-1 w-full px-6 py-8 overflow-x-hidden overflow-y-auto">
         <div className="mx-auto max-w-screen-2xl">
           <nav className="flex justify-between items-center mt-2 mb-4">
             <div className="flex gap-4">
@@ -133,7 +128,7 @@ const BalletLayout = () => {
               </Dropdown>
               <div className="hidden flex-col justify-center md:flex">
                 <h5 className="font-semibold text-base-600">{name}</h5>
-                <span className="text-xs">{getRoles(roles, true)}</span>
+                <span className="text-xs">{mainRole}</span>
               </div>
             </div>
           </nav>

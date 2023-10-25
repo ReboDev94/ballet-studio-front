@@ -35,7 +35,7 @@ const Avatar: React.FC<IAvatar> = ({
         SIZE_AVATAR[size],
         SHAPE_AVATAR[shape],
         BORDER_VARIANT_AVATAR[borderVariant],
-        BACKGROUND_VARIANT_AVATAR[bgVariant],
+        !loadImg && BACKGROUND_VARIANT_AVATAR[bgVariant],
         border && BORDER_AVATAR_CLASSES,
         className,
       )}

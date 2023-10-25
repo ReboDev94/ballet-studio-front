@@ -11,7 +11,7 @@ import {
 import { IconUser, IconCloseCircle } from '@/common/assets/svg';
 import { useState } from 'react';
 
-const NewUserPage = () => {
+const NewUpdateUser = () => {
   const [isOlder] = useState(false);
 
   const [addresses] = useState([
@@ -32,11 +32,7 @@ const NewUserPage = () => {
   return (
     <>
       <Card>
-        <Card.Body>
-          <h3 className="text-xl text-base-500 font-semibold">
-            Nuevo estudiante
-          </h3>
-          <Divider />
+        <Card.Body className="px-2 py-0">
           <Form>
             <h3 className="text-lg text-primary-800 font-semibold">
               Datos personales
@@ -194,4 +190,4 @@ const NewUserPage = () => {
   );
 };
 
-export default NewUserPage;
+export default NewUpdateUser;
