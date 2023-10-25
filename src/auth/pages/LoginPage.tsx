@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { Button, Card, Form, Input, Divider } from '@/common/components';
 import { ILoginRequest } from '@/auth/interfaces';
@@ -9,7 +9,6 @@ import { SchemaValidationLogin } from '@/auth/validations';
 import { useAppDispatch } from '@/store/hooks';
 import { IconEyeOpen, IconEyeClose } from '@/common/assets/svg';
 import { loginThunk } from '@/store/modules/auth/thunks';
-import { DEFAULT_TOAST_OPTIONS } from '@/common/constants';
 import {
   INCORRECT_CREDENTIALS,
   SING_IN_LOADING,
@@ -24,7 +23,7 @@ const LoginPage = () => {
     mode: 'onSubmit',
     defaultValues: {
       email: 'rrrrebolledohdz@gmail.com',
-      password: 'HolaMundo1234#',
+      password: 'YaretKuroTaro124%',
     },
     resolver: yupResolver(SchemaValidationLogin),
   });
@@ -101,7 +100,6 @@ const LoginPage = () => {
           </Form>
         </Card.Body>
       </Card>
-      <Toaster {...DEFAULT_TOAST_OPTIONS} />
     </>
   );
 };

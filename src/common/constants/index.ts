@@ -3,3 +3,4 @@ export * from './defaultToastOptions.constant';
 export * from './titles.constant';
 export * from './paginate.constant';
 export * from './sort.constant';
+export * from './regex.constant';

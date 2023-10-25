@@ -5,14 +5,19 @@ import {
   IGetUserResponse,
   ILoginRequest,
   ILoginResponse,
+  IResetPassword,
   IUpdateUserResponse,
   IUserForm,
 } from '@/auth/interfaces';
+import axios from 'axios';
+import { ICommonResponse } from '@/common/interfaces';
 
 const LOGIN_URL = 'auth/login';
 const GET_USER_URL = 'auth/user';
 const UPDATE_PROFILE = 'auth/update-profile';
 const GET_ALL_USERS = 'auth/users';
+const SEND_RESET_PASSWORD = 'auth/send/reset/password';
+const UPDATE_PASSWORD = 'auth/reset/password';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -55,6 +60,24 @@ export const getAllUsersService = async (data: IGetAllUsersRequest) => {
     {
       params: { ...dataAux },
     },
+  );
+  return response;
+};
+
+export const sendEmailResetPasswordService = async (email: string) => {
+  const response = await axiosInstance.post<ICommonResponse>(
+    SEND_RESET_PASSWORD,
+    {
+      email,
+    },
+  );
+  return response;
+};
+
+export const updatePasswordService = async (data: IResetPassword) => {
+  const response = await axiosInstance.post<ICommonResponse>(
+    UPDATE_PASSWORD,
+    data,
   );
   return response;
 };

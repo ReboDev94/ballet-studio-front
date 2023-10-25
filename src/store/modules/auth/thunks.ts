@@ -3,11 +3,14 @@ import {
   getAllUsersService,
   getUserService,
   loginService,
+  sendEmailResetPasswordService,
+  updatePasswordService,
   updateProfileService,
 } from '@/auth/api';
 import {
   IGetAllUsersRequest,
   ILoginRequest,
+  IResetPassword,
   IUserForm,
 } from '@/auth/interfaces';
 import {
@@ -20,7 +23,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setDataLoginAction, updateProfileUserAction } from './actions';
 import {
   ERROR_GET_ALL_USERS,
+  FAILED_RESET_PASSWORD,
+  FAILED_SEND_EMAIL,
   INCORRECT_CREDENTIALS,
+  SUCCESS_RESET_PASSWORD,
+  SUCCESS_SEND_EMAIL,
   UNAUTHORIZED,
 } from '@/auth/constants';
 import { userInitialData } from './initialState';
@@ -101,6 +108,34 @@ export const getAllUsersThunk = createAsyncThunk(
       const error: AxiosError<ICommonError> = err;
       return rejectWithValue(
         error.response?.data.message || ERROR_GET_ALL_USERS,
+      );
+    }
+  },
+);
+
+export const sendEmailResetPasswordThunk = createAsyncThunk(
+  'auth/sendEmailResetPassword',
+  async (email: string, { rejectWithValue }) => {
+    try {
+      await sendEmailResetPasswordService(email);
+      return SUCCESS_SEND_EMAIL;
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      return rejectWithValue(error.response?.data.message || FAILED_SEND_EMAIL);
+    }
+  },
+);
+
+export const updatePasswordThunk = createAsyncThunk(
+  'auth/updatePassword',
+  async (data: IResetPassword, { rejectWithValue }) => {
+    try {
+      await updatePasswordService(data);
+      return SUCCESS_RESET_PASSWORD;
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      return rejectWithValue(
+        error.response?.data.message || FAILED_RESET_PASSWORD,
       );
     }
   },

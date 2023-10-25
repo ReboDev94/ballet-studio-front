@@ -7,8 +7,8 @@ import {
   Divider,
   ErrorInput,
 } from '@/common/components';
-import toast, { Toaster } from 'react-hot-toast';
-import { DEFAULT_TOAST_OPTIONS, IMAGE_TYPE_SUPPORT } from '@/common/constants';
+import toast from 'react-hot-toast';
+import { IMAGE_TYPE_SUPPORT } from '@/common/constants';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { ChangeEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -189,7 +189,6 @@ const ProfilePage = () => {
           </Button>
         </div>
       </Card.Body>
-      <Toaster {...DEFAULT_TOAST_OPTIONS} />
     </Card>
   );
 };
