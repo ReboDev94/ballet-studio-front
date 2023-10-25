@@ -9,7 +9,6 @@ import {
   IUpdateUserResponse,
   IUserForm,
 } from '@/auth/interfaces';
-import axios from 'axios';
 import { ICommonResponse } from '@/common/interfaces';
 
 const LOGIN_URL = 'auth/login';

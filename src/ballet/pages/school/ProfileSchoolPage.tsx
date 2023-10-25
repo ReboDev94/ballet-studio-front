@@ -27,7 +27,9 @@ import {
 } from '@/ballet/constants';
 import { saveOrUpdateSchoolThunk } from '@/store/modules/school/thunks';
 import { getCustomErrors } from '@/common/utils';
+import { Errors } from '@/common/interfaces';
 
+const optToast = { id: 'school' };
 const ProfileSchoolPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -58,7 +60,7 @@ const ProfileSchoolPage = () => {
     setValue,
     trigger,
     setError,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = formSchool;
 
   const [name, directorName, address, certifications] = watch([
@@ -68,25 +70,23 @@ const ProfileSchoolPage = () => {
     'certifications',
   ]);
 
-  const submit: SubmitHandler<FormSchool> = data => {
-    const myPromise = dispatch(saveOrUpdateSchoolThunk(data)).unwrap();
+  const submit: SubmitHandler<FormSchool> = async data => {
+    toast.loading(LOADING_SAVE_SCHOOL, optToast);
+    await dispatch(saveOrUpdateSchoolThunk(data))
+      .unwrap()
+      .then(() => toast.success(SAVE_DATA_SCHOOL, optToast))
+      .catch((errors: Errors[] | string) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as SchoolTypes, error, config);
+          });
 
-    toast.promise(
-      myPromise,
-      {
-        loading: LOADING_SAVE_SCHOOL,
-        success: SAVE_DATA_SCHOOL,
-        error: errors => {
-          Array.isArray(errors) &&
-            errors.map(({ property, message }) => {
-              const { error, config } = getCustomErrors(message);
-              setError(property as SchoolTypes, error, config);
-            });
-          return typeof errors === 'string' ? errors : ERROR_SAVE_DATA_SCHOOL;
-        },
-      },
-      { id: 'school' },
-    );
+        const message =
+          typeof errors === 'string' ? errors : ERROR_SAVE_DATA_SCHOOL;
+
+        toast.error(message, optToast);
+      });
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -288,13 +288,20 @@ const ProfileSchoolPage = () => {
         <div className="flex gap-2 justify-end">
           {hasSchool && (
             <Button
+              type="button"
               variant="outline-primary"
               onClick={() => navigate('/dashboard')}
+              disabled={isSubmitting}
             >
               Cancelar
             </Button>
           )}
-          <Button variant="primary" onClick={handleSubmit(submit)}>
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={isSubmitting}
+            onClick={handleSubmit(submit)}
+          >
             Guardar
           </Button>
         </div>

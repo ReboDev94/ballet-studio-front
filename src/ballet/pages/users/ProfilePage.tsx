@@ -24,7 +24,8 @@ import {
   SAVE_UPDATE_PROFILE,
 } from '@/auth/constants';
 import { useRoles } from '@/auth/hooks';
-
+import { Errors } from '@/common/interfaces';
+const optToast = { id: 'update-user' };
 const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -52,7 +53,7 @@ const ProfilePage = () => {
     trigger,
     handleSubmit,
     setError,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = userForm;
 
   const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,28 +65,21 @@ const ProfilePage = () => {
     trigger('file');
   };
 
-  const submit: SubmitHandler<IUserForm> = data => {
-    const promiseToast = dispatch(updateProfileThunk(data)).unwrap();
-
-    toast.promise(
-      promiseToast,
-      {
-        loading: LOADING_UPDATE_PROFILE,
-        success: SAVE_UPDATE_PROFILE,
-        error: errors => {
-          Array.isArray(errors) &&
-            errors.map(({ property, message }) => {
-              const { error, config } = getCustomErrors(message);
-              setError(property as UserTypes, error, config);
-            });
-
-          return typeof errors === 'string'
-            ? errors
-            : ERROR_SAVE_UPDATE_PROFILE;
-        },
-      },
-      { id: 'update-user' },
-    );
+  const submit: SubmitHandler<IUserForm> = async data => {
+    toast.loading(LOADING_UPDATE_PROFILE, optToast);
+    await dispatch(updateProfileThunk(data))
+      .unwrap()
+      .then(() => toast.success(SAVE_UPDATE_PROFILE, optToast))
+      .catch((errors: Errors[] | string) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as UserTypes, error, config);
+          });
+        const message =
+          typeof errors === 'string' ? errors : ERROR_SAVE_UPDATE_PROFILE;
+        toast.error(message, optToast);
+      });
   };
 
   return (
@@ -179,12 +173,19 @@ const ProfilePage = () => {
         <Divider />
         <div className="flex gap-2 justify-end">
           <Button
+            type="button"
             variant="outline-primary"
+            disabled={isSubmitting}
             onClick={() => navigate('/dashboard')}
           >
             Cancelar
           </Button>
-          <Button variant="primary" onClick={handleSubmit(submit)}>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={isSubmitting}
+            onClick={handleSubmit(submit)}
+          >
             Guardar
           </Button>
         </div>

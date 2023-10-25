@@ -15,30 +15,31 @@ import {
   SING_IN_SUCCESS,
 } from '@/auth/constants';
 
+const optToast = { id: 'login' };
+
 const LoginPage = () => {
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register, handleSubmit } = useForm<ILoginRequest>({
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm<ILoginRequest>({
     mode: 'onSubmit',
     defaultValues: {
       email: 'rrrrebolledohdz@gmail.com',
-      password: 'YaretKuroTaro124%',
+      password: 'KuroTaroYare123#',
     },
     resolver: yupResolver(SchemaValidationLogin),
   });
 
-  const onSubmit: SubmitHandler<ILoginRequest> = data => {
-    const promise = dispatch(loginThunk(data)).unwrap();
-    toast.promise(
-      promise,
-      {
-        loading: SING_IN_LOADING,
-        success: SING_IN_SUCCESS,
-        error: INCORRECT_CREDENTIALS,
-      },
-      { id: 'login' },
-    );
+  const onSubmit: SubmitHandler<ILoginRequest> = async data => {
+    toast.loading(SING_IN_LOADING, optToast);
+    await dispatch(loginThunk(data))
+      .unwrap()
+      .then(() => toast.success(SING_IN_SUCCESS, optToast))
+      .catch(() => toast.error(INCORRECT_CREDENTIALS, optToast));
   };
 
   return (
@@ -92,7 +93,7 @@ const LoginPage = () => {
               ¿Tienes problemas para iniciar sesión?
             </Link>
 
-            <Button block type="submit">
+            <Button block disabled={isSubmitting} type="submit">
               Iniciar
             </Button>
 
