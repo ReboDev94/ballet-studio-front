@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  confirmEmailService,
   getAllUsersService,
   getUserService,
   loginService,
@@ -9,6 +10,7 @@ import {
   updateProfileService,
 } from '@/auth/api';
 import {
+  IConfirmEmail,
   IGetAllUsersRequest,
   ILoginRequest,
   IRegisterRequest,
@@ -158,6 +160,18 @@ export const updatePasswordThunk = createAsyncThunk(
       return rejectWithValue(
         error.response?.data.message || FAILED_RESET_PASSWORD,
       );
+    }
+  },
+);
+
+export const confirmEmailThunk = createAsyncThunk(
+  'auth/confirmEmail',
+  async (data: IConfirmEmail, { rejectWithValue }) => {
+    try {
+      const { data: response } = await confirmEmailService(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue('Error');
     }
   },
 );
