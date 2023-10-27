@@ -15,6 +15,8 @@ import { ReactComponent as IconFilter } from './icon-filter.svg';
 import { ReactComponent as IconSort } from './icon-sort.svg';
 import { ReactComponent as IconSearch } from './icon-search.svg';
 import { ReactComponent as IconViewAllUser } from './icon-all-students.svg';
+import { ReactComponent as IconMore } from './icon-more.svg';
+import { ReactComponent as IconDelete } from './icon-delete.svg';
 
 export {
   IconPersonAdd,
@@ -34,4 +36,6 @@ export {
   IconSort,
   IconSearch,
   IconViewAllUser,
+  IconMore,
+  IconDelete,
 };

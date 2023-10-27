@@ -5,7 +5,9 @@ import {
   SIZE_SM,
   SIZE_XS,
   VARIANT_BASE,
+  VARIANT_ERROR,
   VARIANT_OUTLINE_BASE,
+  VARIANT_OUTLINE_ERROR,
   VARIANT_OUTLINE_PRIMARY,
   VARIANT_PRIMARY,
 } from '../constants';
@@ -14,7 +16,9 @@ export type VariantBtn =
   | typeof VARIANT_BASE
   | typeof VARIANT_OUTLINE_BASE
   | typeof VARIANT_PRIMARY
-  | typeof VARIANT_OUTLINE_PRIMARY;
+  | typeof VARIANT_OUTLINE_PRIMARY
+  | typeof VARIANT_ERROR
+  | typeof VARIANT_OUTLINE_ERROR;
 
 export type SizeBtn =
   | typeof SIZE_XS

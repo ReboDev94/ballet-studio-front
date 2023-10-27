@@ -4,9 +4,12 @@ import { twMerge } from 'tailwind-merge';
 import { DEFAULT_TABLE_CLASSES, DEFAULT_WRAPPER_TABLE_CLASSES } from './styles';
 
 const Table = React.forwardRef<HTMLTableElement, ITable>(
-  ({ className, wrapperClassName, children, ...props }, ref) => {
+  ({ className, wrapperClassName, wrapperStyle, children, ...props }, ref) => {
     return (
-      <div className={twMerge(DEFAULT_WRAPPER_TABLE_CLASSES, wrapperClassName)}>
+      <div
+        style={wrapperStyle}
+        className={twMerge(DEFAULT_WRAPPER_TABLE_CLASSES, wrapperClassName)}
+      >
         <table
           ref={ref}
           {...props}

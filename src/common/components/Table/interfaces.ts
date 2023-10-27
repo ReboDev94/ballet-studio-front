@@ -1,7 +1,8 @@
-import React, { HTMLAttributes, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
 export interface ITable extends React.TableHTMLAttributes<HTMLTableElement> {
   wrapperClassName?: string;
+  wrapperStyle?: React.CSSProperties;
 }
 
 export interface ITableHead

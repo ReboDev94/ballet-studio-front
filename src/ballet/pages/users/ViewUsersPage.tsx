@@ -20,7 +20,9 @@ import { useAppDispatch } from '@/store/hooks';
 import { getAllUsersThunk } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import {
+  IconDelete,
   IconFilter,
+  IconMore,
   IconPersonAdd,
   IconSearch,
   IconSort,
@@ -169,11 +171,7 @@ const ViewUsersPage = () => {
                     Orden
                   </div>
                 </Dropdown.Toogle>
-                <Dropdown.Menu
-                  className="w-[11rem]"
-                  position="bottom"
-                  align="end"
-                >
+                <Dropdown.Menu className="w-44" position="bottom" align="end">
                   {typeSort.map(({ label, value }) => (
                     <Dropdown.Item key={value}>
                       <label
@@ -196,7 +194,10 @@ const ViewUsersPage = () => {
 
               <Dropdown>
                 <Dropdown.Toogle
-                  buttonProps={{ variant: 'outline-base', size: 'sm' }}
+                  buttonProps={{
+                    variant: 'outline-base',
+                    size: 'sm',
+                  }}
                 >
                   <div className="flex items-center justify-center gap-2">
                     <IconFilter className="w-4 h-4 fill-base-600" />
@@ -204,11 +205,7 @@ const ViewUsersPage = () => {
                   </div>
                 </Dropdown.Toogle>
 
-                <Dropdown.Menu
-                  className="w-[11rem]"
-                  position="bottom"
-                  align="end"
-                >
+                <Dropdown.Menu className="w-44" position="bottom" align="end">
                   {rolesFilter.map(({ type, value }) => (
                     <Dropdown.Item key={type}>
                       <label
@@ -235,9 +232,10 @@ const ViewUsersPage = () => {
               <>Nombre</>
               <>Email</>
               <>Telefono</>
-              <>Activo</>
+              <>Estado</>
               <>Fecha de registro</>
               <>Roles</>
+              <>Opciones</>
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&
@@ -264,13 +262,35 @@ const ViewUsersPage = () => {
                       <Table.Td>{isActive ? 'Activo' : 'Inactivo'}</Table.Td>
                       <Table.Td>{formatDate(createdAt, 'DD/MM/YYYY')}</Table.Td>
                       <Table.Td>{getRoles(roles)}</Table.Td>
+                      <Table.Td>
+                        <Dropdown>
+                          <Dropdown.Toogle
+                            buttonProps={{
+                              variant: 'outline-base',
+                              size: 'xs',
+                              className: 'px-2',
+                            }}
+                          >
+                            <IconMore className="h-4 fill-base-600" />
+                          </Dropdown.Toogle>
+                          <Dropdown.Menu
+                            className="max-h-[160px] w-44 overflow-y-auto"
+                            position="left"
+                            align="start"
+                          >
+                            <Dropdown.Item>Eliminar</Dropdown.Item>
+                            <Dropdown.Item>Reenviar email</Dropdown.Item>
+                            <Dropdown.Item>Actualizar estado</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </Table.Td>
                     </Table.Row>
                   ),
                 )}
             </Table.Body>
             <Table.Footer>
               <Table.Row>
-                <Table.Td colSpan={7} className="py-5">
+                <Table.Td colSpan={8} className="py-5">
                   <div className="flex justify-end">
                     <Pagination
                       currentPage={pagination}
