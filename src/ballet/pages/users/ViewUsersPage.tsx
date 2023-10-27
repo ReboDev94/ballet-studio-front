@@ -17,10 +17,11 @@ import {
   Button,
 } from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
-import { getAllUsersThunk } from '@/store/modules/auth/thunks';
+import { deleteUserThunk, getAllUsersThunk } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import {
-  IconDelete,
+  IconCircleCheckboxFill,
+  IconCloseCircle,
   IconFilter,
   IconMore,
   IconPersonAdd,
@@ -30,14 +31,21 @@ import {
 } from '@/common/assets/svg';
 import { getRoles } from '@/auth/utils';
 import { formatDate } from '@/common/utils';
-import { ROLES_LABEL, TypeRoles } from '@/auth/constants';
+import { LOADING_DELETE_USER, ROLES_LABEL, TypeRoles } from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
 import { NewUpdateUser } from '@/ballet/components';
+import toast from 'react-hot-toast';
 
+const optToastDelete = { id: 'delete-user' };
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
   const [modal, setModal] = useState(false);
+  const [{ modal: modalDeleteUser, userId: idDeleteUser }, setmodalDeleteUser] =
+    useState<{
+      modal: boolean;
+      userId: number;
+    }>({ modal: false, userId: -1 });
 
   const [
     { roles: rolesFilter, sort: sortFilter, name: nameFilter },
@@ -73,7 +81,7 @@ const ViewUsersPage = () => {
     setFilters(prev => ({ ...prev, roles: newRoles }));
   };
 
-  const roles = useMemo(
+  const rolesMemo = useMemo(
     () => rolesFilter.filter(({ value }) => value).map(({ type }) => type),
     [rolesFilter],
   );
@@ -90,12 +98,12 @@ const ViewUsersPage = () => {
   });
 
   const getAll = async ({
-    name = '',
-    roles = [],
+    name = nameFilter,
+    roles = rolesMemo,
     photos = true,
     page = 1,
     take = 15,
-    order = 'ASC',
+    order = sortFilter,
   }: IGetAllUsersRequest) => {
     const { users, meta } = await dispatch(
       getAllUsersThunk({ name, roles, photos, page, take, order }),
@@ -104,23 +112,25 @@ const ViewUsersPage = () => {
     setpagination(meta.page);
   };
 
+  const deleteUser = async () => {
+    setmodalDeleteUser(prev => ({ ...prev, modal: false }));
+    toast.loading(LOADING_DELETE_USER, optToastDelete);
+    await dispatch(deleteUserThunk(idDeleteUser))
+      .unwrap()
+      .then(success => {
+        getAll({});
+        toast.success(success, optToastDelete);
+      })
+      .catch(error => toast.error(error, optToastDelete));
+  };
+
   useEffect(() => {
-    getAll({
-      name: nameFilter,
-      roles,
-      order: sortFilter,
-      page: 1,
-    });
+    getAll({});
   }, [sortFilter, rolesFilter]);
 
   useEffect(() => {
     const debouceId = setTimeout(() => {
-      getAll({
-        name: nameFilter,
-        roles,
-        order: sortFilter,
-        page: 1,
-      });
+      getAll({});
     }, 1000);
     return () => {
       clearTimeout(debouceId);
@@ -259,7 +269,13 @@ const ViewUsersPage = () => {
                       <Table.Td>{name}</Table.Td>
                       <Table.Td>{email}</Table.Td>
                       <Table.Td>{phone}</Table.Td>
-                      <Table.Td>{isActive ? 'Activo' : 'Inactivo'}</Table.Td>
+                      <Table.Td>
+                        {isActive ? (
+                          <IconCircleCheckboxFill className="fill-success-700 h-6 w-6" />
+                        ) : (
+                          <IconCloseCircle className="fill-error-700 h-6 w-6" />
+                        )}
+                      </Table.Td>
                       <Table.Td>{formatDate(createdAt, 'DD/MM/YYYY')}</Table.Td>
                       <Table.Td>{getRoles(roles)}</Table.Td>
                       <Table.Td>
@@ -278,9 +294,27 @@ const ViewUsersPage = () => {
                             position="left"
                             align="start"
                           >
-                            <Dropdown.Item>Eliminar</Dropdown.Item>
-                            <Dropdown.Item>Reenviar email</Dropdown.Item>
-                            <Dropdown.Item>Actualizar estado</Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() =>
+                                setmodalDeleteUser({ modal: true, userId: id })
+                              }
+                            >
+                              Eliminar
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => {
+                                console.log('hola mundo');
+                              }}
+                            >
+                              Reenviar email
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() => {
+                                console.log('hola mundo');
+                              }}
+                            >
+                              Actualizar estado
+                            </Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                       </Table.Td>
@@ -304,6 +338,31 @@ const ViewUsersPage = () => {
           </Table>
         </Card.Body>
       </Card>
+
+      <Modal value={modalDeleteUser} center>
+        <Modal.Header
+          onClose={() => setmodalDeleteUser({ modal: false, userId: -1 })}
+        >
+          <h3 className="text-base-600 font-semibold">Eliminar usuario</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <p className="text-center text-lg mb-4">
+            ¿Estas seguro de eliminar al usuario?
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Button
+              size="xs"
+              variant="outline-primary"
+              onClick={() => setmodalDeleteUser({ modal: false, userId: -1 })}
+            >
+              Cancelar
+            </Button>
+            <Button size="xs" onClick={() => deleteUser()}>
+              Eliminar
+            </Button>
+          </div>
+        </Modal.Body>
+      </Modal>
 
       <Modal value={modal} center size="md">
         <Modal.Header onClose={() => setModal(false)}>

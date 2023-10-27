@@ -17,6 +17,7 @@ import { ReactComponent as IconSearch } from './icon-search.svg';
 import { ReactComponent as IconViewAllUser } from './icon-all-students.svg';
 import { ReactComponent as IconMore } from './icon-more.svg';
 import { ReactComponent as IconDelete } from './icon-delete.svg';
+import { ReactComponent as IconCircleCheckboxFill } from './icon-checkbox-fill.svg';
 
 export {
   IconPersonAdd,
@@ -38,4 +39,5 @@ export {
   IconViewAllUser,
   IconMore,
   IconDelete,
+  IconCircleCheckboxFill,
 };

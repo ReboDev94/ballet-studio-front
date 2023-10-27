@@ -21,6 +21,7 @@ const GET_ALL_USERS = 'auth/users';
 const SEND_RESET_PASSWORD = 'auth/send/reset/password';
 const UPDATE_PASSWORD = 'auth/reset/password';
 const CONFIRM_EMAIL = 'auth/confirm/email';
+const DELETE_USER = 'auth/user/:userId';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -92,6 +93,13 @@ export const updatePasswordService = async (data: IResetPassword) => {
 
 export const confirmEmailService = async (data: IConfirmEmail) => {
   const response = await axiosInstance.post(CONFIRM_EMAIL, data);
+  return response;
+};
+
+export const deleteUserService = async (userId: number) => {
+  const response = await axiosInstance.delete(
+    DELETE_USER.replace(':userId', `${userId}`),
+  );
   return response;
 };
 

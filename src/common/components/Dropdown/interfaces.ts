@@ -31,6 +31,8 @@ export interface IDropdownMenu extends React.HTMLAttributes<HTMLUListElement> {
   align?: IAlign;
 }
 export interface IDropdownItem {
+  disabled?: boolean;
+  onClick?: () => void;
   children: ReactNode;
   className?: string;
 }

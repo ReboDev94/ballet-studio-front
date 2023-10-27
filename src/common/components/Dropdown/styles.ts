@@ -9,8 +9,9 @@ import {
 
 export const DEFAULT_DROPDOWN_CLASSES = 'group relative inline-block';
 export const DEFAULT_DROPDOWN_TOOGLE_CLASSES = 'block m-1';
-export const DEFAULT_DROPDOWN_LIST_CLASSES = `bg-white z-[3]
-   rounded-lg
+export const DEFAULT_DROPDOWN_LIST_CLASSES = `space-y-1
+  bg-white z-[3]
+    rounded-lg
     p-2
     shadow
     absolute
@@ -28,6 +29,9 @@ export const DEFAULT_DROPDOWN_LIST_CLASSES = `bg-white z-[3]
     ease-out`;
 export const DEFAULT_DROPDOWN_LI_CLASSES =
   'text-sm p-2 hover:bg-base-50 text-base-800 cursor-pointer rounded-md';
+
+export const DISABLED_DROPDOWN_LI_CLASSES =
+  'bg-base-50  text-base-400 cursor-not-allowed select-none';
 
 const ALIGN_START_CLASSES = 'left-0';
 const ALIGN_END_CLASSES = 'right-0';
