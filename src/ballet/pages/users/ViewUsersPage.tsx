@@ -17,7 +17,11 @@ import {
   Button,
 } from '@/common/components';
 import { useAppDispatch } from '@/store/hooks';
-import { deleteUserThunk, getAllUsersThunk } from '@/store/modules/auth/thunks';
+import {
+  deleteUserThunk,
+  getAllUsersThunk,
+  sendEmailResetPasswordThunk,
+} from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import {
   IconCircleCheckboxFill,
@@ -31,12 +35,19 @@ import {
 } from '@/common/assets/svg';
 import { getRoles } from '@/auth/utils';
 import { formatDate } from '@/common/utils';
-import { LOADING_DELETE_USER, ROLES_LABEL, TypeRoles } from '@/auth/constants';
+import {
+  LOADING_DELETE_USER,
+  LOADING_SEND_EMAIL,
+  ROLES_LABEL,
+  SUCCESS_SEND_EMAIL_BY_USER,
+  TypeRoles,
+} from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
 import { NewUpdateUser } from '@/ballet/components';
 import toast from 'react-hot-toast';
 
 const optToastDelete = { id: 'delete-user' };
+const optToastReesendEmail = { id: 'reesend-email' };
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
@@ -122,6 +133,16 @@ const ViewUsersPage = () => {
         toast.success(success, optToastDelete);
       })
       .catch(error => toast.error(error, optToastDelete));
+  };
+
+  const reesendEmail = async (email: string) => {
+    toast.loading(LOADING_SEND_EMAIL, optToastReesendEmail);
+    await dispatch(sendEmailResetPasswordThunk(email))
+      .unwrap()
+      .then(() =>
+        toast.success(SUCCESS_SEND_EMAIL_BY_USER, optToastReesendEmail),
+      )
+      .catch(error => toast.error(error, optToastReesendEmail));
   };
 
   useEffect(() => {
@@ -301,11 +322,7 @@ const ViewUsersPage = () => {
                             >
                               Eliminar
                             </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => {
-                                console.log('hola mundo');
-                              }}
-                            >
+                            <Dropdown.Item onClick={() => reesendEmail(email)}>
                               Reenviar email
                             </Dropdown.Item>
                             <Dropdown.Item
