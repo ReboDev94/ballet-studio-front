@@ -12,3 +12,5 @@ export const VALIDATION_MIN_PASSWORD =
   'La contrasela debe tener al menos 6 caracteres.';
 export const VALIDATION_MAX_PASSWORD =
   'La contrasela no debe tener mas de 30 caracteres.';
+
+export const VALIDATION_ARRAY_ROLES = 'Debes seleccionar al menos un rol.';

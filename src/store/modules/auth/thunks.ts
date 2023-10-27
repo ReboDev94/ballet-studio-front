@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   confirmEmailService,
+  createUserService,
   deleteUserService,
   getAllUsersService,
   getUserService,
@@ -32,11 +33,13 @@ import {
   ERROR_DELETE_USER,
   ERROR_GET_ALL_USERS,
   ERROR_REGISTER_USER,
+  FAILED_CREATE_USER,
   FAILED_RESET_PASSWORD,
   FAILED_SEND_EMAIL,
   FAILED_UPDATE_STATUS_USER,
   INCORRECT_CREDENTIALS,
   SING_IN_SUCCESS,
+  SUCCESS_CREATE_USER,
   SUCCESS_DELETE_USER,
   SUCCESS_REGISTER_USER,
   SUCCESS_RESET_PASSWORD,
@@ -48,6 +51,7 @@ import { userInitialData } from './initialState';
 import { getSchoolThunk } from '../school/thunks';
 import { AxiosError } from 'axios';
 import { ICommonError } from '@/common/interfaces';
+import { INewOrUpdateUser } from '@/ballet/interfaces';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -203,6 +207,23 @@ export const updateStatusUserThunk = createAsyncThunk(
       return SUCCESS_UPDATE_STATUS_USER;
     } catch (error) {
       return rejectWithValue(FAILED_UPDATE_STATUS_USER);
+    }
+  },
+);
+
+export const createUserThunk = createAsyncThunk(
+  'auth/createUser',
+  async (data: INewOrUpdateUser, { rejectWithValue }) => {
+    try {
+      await createUserService(data);
+      return SUCCESS_CREATE_USER;
+    } catch (err: any) {
+      const error: AxiosError<ICommonError> = err;
+      const errors =
+        error.response?.data.errors ||
+        error.response?.data.message ||
+        FAILED_CREATE_USER;
+      return rejectWithValue(errors);
     }
   },
 );

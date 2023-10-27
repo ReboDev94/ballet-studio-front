@@ -1,187 +1,192 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { SchemaNewOrUpdateUser } from '@/ballet/validations';
 import {
-  Avatar,
   Button,
   Card,
   Form,
   Input,
-  Textarea,
-  ListGroup,
   Divider,
+  Checkbox,
+  ErrorInput,
 } from '@/common/components';
-import { IconUser, IconCloseCircle } from '@/common/assets/svg';
-import { useState } from 'react';
+import { INewOrUpdateUser, INewOrUpdateUserTypes } from '@/ballet/interfaces';
+import { LOADING_CREATE_USER, ROLES_LABEL } from '@/auth/constants';
+import { useUtilsRoles } from '@/ballet/hooks';
+import toast from 'react-hot-toast';
+import { useAppDispatch } from '@/store/hooks';
+import { createUserThunk } from '@/store/modules/auth/thunks';
+import { Errors } from '@/common/interfaces';
+import { getCustomErrors } from '@/common/utils';
 
-const NewUpdateUser = () => {
-  const [isOlder] = useState(false);
+const optToast = { id: 'create-user' };
+interface INewUpdateUser {
+  onSuccess?: () => void;
+  onClose?: () => void;
+}
 
-  const [addresses] = useState([
-    {
-      uid: 'bddd3e80-1cf6-4a27-9889-2eccd9aae068',
-      title: 'Hola mundo',
+const NewUpdateUser: React.FC<INewUpdateUser> = ({
+  onSuccess = () => {},
+  onClose = () => {},
+}) => {
+  const dispatch = useAppDispatch();
+  const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
+    useUtilsRoles();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm<INewOrUpdateUser>({
+    mode: 'onSubmit',
+    defaultValues: {
+      name: '',
+      email: '',
+      phone: '',
+      roles: [],
     },
-    {
-      uid: '2673a4a7-a56e-4105-a7e6-80cde774ea66',
-      title: 'Hola mundo',
-    },
-    {
-      uid: 'a631dbdf-0c4d-4a59-990e-683923b98d83',
-      title: 'Hola mundo',
-    },
-  ]);
+    resolver: yupResolver(SchemaNewOrUpdateUser),
+  });
+
+  useEffect(() => {
+    setValue('roles', rolesTypeSelected);
+  }, [rolesTypeSelected]);
+
+  const onSubmit: SubmitHandler<INewOrUpdateUser> = async data => {
+    toast.loading(LOADING_CREATE_USER, optToast);
+    await dispatch(createUserThunk(data))
+      .unwrap()
+      .then(success => {
+        onSuccess();
+        toast.success(success, optToast);
+      })
+      .catch((errors: Errors[] | string) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as INewOrUpdateUserTypes, error, config);
+          });
+        typeof errors === 'string' && toast.error(errors, optToast);
+      });
+    console.log(data);
+  };
 
   return (
     <>
       <Card>
         <Card.Body className="px-2 py-0">
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <h3 className="text-lg text-primary-800 font-semibold">
               Datos personales
             </h3>
-            <div className="w-full my-5">
-              <Avatar size="lg" src="https://i.pravatar.cc">
-                <IconUser className="fill-white h-14 w-14" />
-              </Avatar>
-            </div>
             <Divider />
             <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
+              <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
                 <h5 className="font-semibold">Nombre:</h5>
                 <span className="text-xs text-base-500">
-                  Escribe el nombre del estudiante
+                  Escribe el nombre del usuario
                 </span>
               </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Input type="text" placeholder="Yaretzin Araujo Delgado" />
-              </div>
-            </div>
-            <Divider />
-            <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
-                <h5 className="font-semibold">Fotografía (opcional):</h5>
-                <span className="text-xs text-base-500">
-                  Selecciona una fotografía para identitifcar al estudiante
-                </span>
-              </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Input type="file" />
-              </div>
-            </div>
-            <Divider />
-            <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
-                <h5 className="font-semibold">Fecha de nacimiento:</h5>
-                <span className="text-xs text-base-500">
-                  Escribe la fecha de nacimiento del estudiantes
-                </span>
-              </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Input type="date" />
-              </div>
-            </div>
-            <Divider />
-            <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
-                <h5 className="font-semibold">Dirección</h5>
-                <span className="text-xs text-base-500">
-                  Escribe el nombre de tu calle, no.exterior, no.interior,
-                  colonia, codigo postal y alguna referencia.
-                </span>
-              </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Textarea
-                  placeholder="Dirección"
-                  rows={3}
-                  className="resize-none"
+              <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+                <Input
+                  {...register('name')}
+                  type="text"
+                  placeholder="Yaretzin Araujo Delgado"
+                  errorState={!!errors.name}
                 />
+                <ErrorInput message={errors.name?.message} />
               </div>
             </div>
             <Divider />
             <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
-                <h5 className="font-semibold">Enfermedades (opcional):</h5>
+              <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
+                <h5 className="font-semibold">Correo electrónico:</h5>
                 <span className="text-xs text-base-500">
-                  Describa enfermedades cronicas, operaciones u otro
-                  padecimiento.
+                  Escribe el correo electrónico
                 </span>
               </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Input type="text" placeholder="Obesidad" className="mb-4" />
+              <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+                <Input
+                  {...register('email')}
+                  type="email"
+                  placeholder="example@gmail.com"
+                  errorState={!!errors.email}
+                />
+                <ErrorInput message={errors.email?.message} />
+              </div>
+            </div>
 
-                <ListGroup>
-                  {addresses.map(({ uid, title }) => (
-                    <ListGroup.Item key={uid} variant="primary">
-                      <div className="w-full h-full flex items-center justify-between">
-                        <span className="flex-1 line-clamp-1">{title}</span>
-                        <button type="button">
-                          <IconCloseCircle className="fill-primary-800 h-6 w-6" />
-                        </button>
-                      </div>
-                    </ListGroup.Item>
-                  ))}
-                </ListGroup>
-              </div>
-            </div>
-            {!isOlder && (
-              <>
-                <Divider />
-                <h3 className="text-lg text-primary-800 font-semibold mb-5 ">
-                  Datos del tutor
-                </h3>
-                <div className="grid grid-cols-12">
-                  <div className="col-span-4 pr-2">
-                    <h5 className="font-semibold">Nombre:</h5>
-                    <span className="text-xs text-base-500">
-                      Escribe el nombre del tutor
-                    </span>
-                  </div>
-                  <div className="col-start-5 col-end-10 my-auto">
-                    <Input type="text" placeholder="Yaretzin Araujo Delgado" />
-                  </div>
-                </div>
-                <Divider />
-                <div className="grid grid-cols-12">
-                  <div className="col-span-4 pr-2">
-                    <h5 className="font-semibold">
-                      Correo electrónico (opcional):
-                    </h5>
-                    <span className="text-xs text-base-500">
-                      Escribe el correo electrónico del tutor
-                    </span>
-                  </div>
-                  <div className="col-start-5 col-end-10 my-auto">
-                    <Input type="email" placeholder="example@gmail.com" />
-                  </div>
-                </div>
-                <Divider />
-                <div className="grid grid-cols-12">
-                  <div className="col-span-4 pr-2">
-                    <h5 className="font-semibold">Teléfono fijo (opcional):</h5>
-                    <span className="text-xs text-base-500">
-                      Escribe el número de teléfono del tutor
-                    </span>
-                  </div>
-                  <div className="col-start-5 col-end-10 my-auto">
-                    <Input type="text" placeholder="000-000-00-00" />
-                  </div>
-                </div>
-              </>
-            )}
             <Divider />
             <div className="grid grid-cols-12">
-              <div className="col-span-4 pr-2">
-                <h5 className="font-semibold">Teléfono celular</h5>
+              <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
+                <h5 className="font-semibold">Roles:</h5>
                 <span className="text-xs text-base-500">
-                  Escribe el número de teléfono celular del tutor
+                  Seleccione los roles del usuario
                 </span>
               </div>
-              <div className="col-start-5 col-end-10 my-auto">
-                <Input type="text" placeholder="000-000-00-00" />
+              <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+                <ul className="flex gap-4 max-md:flex-col">
+                  {rolesFilter.map(({ id, type, value }) => (
+                    <li key={id}>
+                      <label
+                        htmlFor={id}
+                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                      >
+                        <Checkbox
+                          id={id}
+                          name={id}
+                          checked={value}
+                          onChange={checkedRolesFilter}
+                        />
+                        {ROLES_LABEL[type]}
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+                <ErrorInput message={errors.roles?.message} />
+              </div>
+            </div>
+            <Divider />
+            <div className="grid grid-cols-12">
+              <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
+                <h5 className="font-semibold">Teléfono (opcional)</h5>
+                <span className="text-xs text-base-500">
+                  Escribe el número de teléfono
+                </span>
+              </div>
+              <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+                <Input
+                  {...register('phone')}
+                  type="text"
+                  placeholder="000-000-00-00"
+                  errorState={!!errors.phone}
+                />
+                <ErrorInput message={errors.phone?.message} />
               </div>
             </div>
             <Divider />
             <div className="flex gap-2 justify-end">
-              <Button variant="outline-primary">Cancelar</Button>
-              <Button variant="primary">Guardar</Button>
+              <Button
+                type="button"
+                onClick={onClose}
+                variant="outline-primary"
+                size="xs"
+                disabled={isSubmitting}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                variant="primary"
+                size="xs"
+                disabled={isSubmitting}
+              >
+                Guardar
+              </Button>
             </div>
           </Form>
         </Card.Body>

@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   IDataUsers,
   IGetAllUsersRequest,
-  IRolesFilter,
   IUpdateStatus,
 } from '@/auth/interfaces';
 import {
@@ -43,38 +42,34 @@ import {
   LOADING_UPDATE_STATUS_USER,
   ROLES_LABEL,
   SUCCESS_SEND_EMAIL_BY_USER,
-  TypeRoles,
 } from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
 import { NewUpdateUser } from '@/ballet/components';
 import toast from 'react-hot-toast';
+import { useUtilsRoles } from '@/ballet/hooks';
 
 const optToastDelete = { id: 'delete-user' };
 const optToastReesendEmail = { id: 'reesend-email' };
 const optToastUpdateStatus = { id: 'update-status-user' };
+
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
   const [modal, setModal] = useState(false);
+
+  const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
+    useUtilsRoles();
+
   const [{ modal: modalDeleteUser, userId: idDeleteUser }, setmodalDeleteUser] =
     useState<{
       modal: boolean;
       userId: number;
     }>({ modal: false, userId: -1 });
 
-  const [
-    { roles: rolesFilter, sort: sortFilter, name: nameFilter },
-    setFilters,
-  ] = useState<{
-    roles: IRolesFilter[];
+  const [{ sort: sortFilter, name: nameFilter }, setFilters] = useState<{
     sort: ISort;
     name: string;
   }>({
-    roles: [
-      { type: TypeRoles.admin, value: false },
-      { type: TypeRoles.teacher, value: false },
-      { type: TypeRoles.receptionist, value: false },
-    ],
     sort: 'ASC',
     name: '',
   });
@@ -85,21 +80,6 @@ const ViewUsersPage = () => {
     const sort = value as ISort;
     setFilters(prev => ({ ...prev, sort }));
   };
-
-  const checkedRolesFilter = ({
-    target: { checked, name },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const newRoles = [...rolesFilter].map(rol => {
-      if (rol.type === name) rol.value = checked;
-      return rol;
-    });
-    setFilters(prev => ({ ...prev, roles: newRoles }));
-  };
-
-  const rolesMemo = useMemo(
-    () => rolesFilter.filter(({ value }) => value).map(({ type }) => type),
-    [rolesFilter],
-  );
 
   const [
     {
@@ -114,7 +94,7 @@ const ViewUsersPage = () => {
 
   const getAll = async ({
     name = nameFilter,
-    roles = rolesMemo,
+    roles = rolesTypeSelected,
     photos = true,
     page = 1,
     take = 15,
@@ -262,15 +242,15 @@ const ViewUsersPage = () => {
                 </Dropdown.Toogle>
 
                 <Dropdown.Menu className="w-44" position="bottom" align="end">
-                  {rolesFilter.map(({ type, value }) => (
-                    <Dropdown.Item key={type}>
+                  {rolesFilter.map(({ id, type, value }) => (
+                    <Dropdown.Item key={id}>
                       <label
-                        htmlFor={type}
+                        htmlFor={id}
                         className="flex gap-2 items-center select-none cursor-pointer text-xs"
                       >
                         <Checkbox
-                          id={type}
-                          name={type}
+                          id={id}
+                          name={id}
                           checked={value}
                           onChange={checkedRolesFilter}
                         />
@@ -414,7 +394,10 @@ const ViewUsersPage = () => {
           <h3 className="text-base-600 font-semibold">Nuevo usuario</h3>
         </Modal.Header>
         <Modal.Body>
-          <NewUpdateUser />
+          <NewUpdateUser
+            onClose={() => setModal(false)}
+            onSuccess={() => getAll({})}
+          />
         </Modal.Body>
       </Modal>
     </>

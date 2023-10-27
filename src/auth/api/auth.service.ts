@@ -13,6 +13,7 @@ import {
   IUserForm,
 } from '@/auth/interfaces';
 import { ICommonResponse } from '@/common/interfaces';
+import { INewOrUpdateUser } from '@/ballet/interfaces';
 
 const LOGIN_URL = 'auth/login';
 const REGISTER = 'auth/register';
@@ -24,6 +25,7 @@ const UPDATE_PASSWORD = 'auth/reset/password';
 const CONFIRM_EMAIL = 'auth/confirm/email';
 const DELETE_USER = 'auth/user/:userId';
 const UPDATE_STATUS_USER = 'auth/update-status-user/:userId';
+const CREATE_USER = 'auth/user';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -111,6 +113,11 @@ export const updateStatusUserService = async (data: IUpdateStatus) => {
     UPDATE_STATUS_USER.replace(':userId', `${userId}`),
     { status },
   );
+  return response;
+};
+
+export const createUserService = async (data: INewOrUpdateUser) => {
+  const response = await axiosInstance.post(CREATE_USER, data);
   return response;
 };
 

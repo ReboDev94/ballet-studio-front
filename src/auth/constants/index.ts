@@ -6,3 +6,4 @@ export * from './register.constant';
 export * from './confirm-account.constant';
 export * from './delete-user.constant';
 export * from './update-satus-user.constant';
+export * from './create-user.constant';

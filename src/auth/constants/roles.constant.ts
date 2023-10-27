@@ -9,3 +9,5 @@ export enum TypeRoles {
   teacher = 'teacher',
   receptionist = 'receptionist',
 }
+
+export const allRoles = Object.values(TypeRoles);
