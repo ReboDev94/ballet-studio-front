@@ -9,6 +9,7 @@ import {
   sendEmailResetPasswordService,
   updatePasswordService,
   updateProfileService,
+  updateStatusUserService,
 } from '@/auth/api';
 import {
   IConfirmEmail,
@@ -16,6 +17,7 @@ import {
   ILoginRequest,
   IRegisterRequest,
   IResetPassword,
+  IUpdateStatus,
   IUserForm,
 } from '@/auth/interfaces';
 import {
@@ -32,12 +34,14 @@ import {
   ERROR_REGISTER_USER,
   FAILED_RESET_PASSWORD,
   FAILED_SEND_EMAIL,
+  FAILED_UPDATE_STATUS_USER,
   INCORRECT_CREDENTIALS,
   SING_IN_SUCCESS,
   SUCCESS_DELETE_USER,
   SUCCESS_REGISTER_USER,
   SUCCESS_RESET_PASSWORD,
   SUCCESS_SEND_EMAIL,
+  SUCCESS_UPDATE_STATUS_USER,
   UNAUTHORIZED,
 } from '@/auth/constants';
 import { userInitialData } from './initialState';
@@ -187,6 +191,18 @@ export const deleteUserThunk = createAsyncThunk(
       return SUCCESS_DELETE_USER;
     } catch (error) {
       return rejectWithValue(ERROR_DELETE_USER);
+    }
+  },
+);
+
+export const updateStatusUserThunk = createAsyncThunk(
+  'auth/updateStatusUser',
+  async (data: IUpdateStatus, { rejectWithValue }) => {
+    try {
+      await updateStatusUserService(data);
+      return SUCCESS_UPDATE_STATUS_USER;
+    } catch (error) {
+      return rejectWithValue(FAILED_UPDATE_STATUS_USER);
     }
   },
 );

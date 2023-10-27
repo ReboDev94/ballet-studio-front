@@ -3,6 +3,7 @@ import {
   IDataUsers,
   IGetAllUsersRequest,
   IRolesFilter,
+  IUpdateStatus,
 } from '@/auth/interfaces';
 import {
   Avatar,
@@ -21,6 +22,7 @@ import {
   deleteUserThunk,
   getAllUsersThunk,
   sendEmailResetPasswordThunk,
+  updateStatusUserThunk,
 } from '@/store/modules/auth/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import {
@@ -38,6 +40,7 @@ import { formatDate } from '@/common/utils';
 import {
   LOADING_DELETE_USER,
   LOADING_SEND_EMAIL,
+  LOADING_UPDATE_STATUS_USER,
   ROLES_LABEL,
   SUCCESS_SEND_EMAIL_BY_USER,
   TypeRoles,
@@ -48,6 +51,7 @@ import toast from 'react-hot-toast';
 
 const optToastDelete = { id: 'delete-user' };
 const optToastReesendEmail = { id: 'reesend-email' };
+const optToastUpdateStatus = { id: 'update-status-user' };
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
@@ -123,6 +127,16 @@ const ViewUsersPage = () => {
     setpagination(meta.page);
   };
 
+  const changeStatusStateUsers = (dataP: IUpdateStatus) => {
+    const { userId, status } = dataP;
+
+    const newUsers = [...data].map(user => {
+      if (user.id === userId) user.isActive = status;
+      return user;
+    });
+    setUsers(prev => ({ ...prev, data: newUsers }));
+  };
+
   const deleteUser = async () => {
     setmodalDeleteUser(prev => ({ ...prev, modal: false }));
     toast.loading(LOADING_DELETE_USER, optToastDelete);
@@ -143,6 +157,17 @@ const ViewUsersPage = () => {
         toast.success(SUCCESS_SEND_EMAIL_BY_USER, optToastReesendEmail),
       )
       .catch(error => toast.error(error, optToastReesendEmail));
+  };
+
+  const enabledOrDisabled = async (data: IUpdateStatus) => {
+    toast.loading(LOADING_UPDATE_STATUS_USER, optToastUpdateStatus);
+    await dispatch(updateStatusUserThunk(data))
+      .unwrap()
+      .then(success => {
+        changeStatusStateUsers(data);
+        toast.success(success, optToastUpdateStatus);
+      })
+      .catch(error => toast.error(error, optToastUpdateStatus));
   };
 
   useEffect(() => {
@@ -326,11 +351,14 @@ const ViewUsersPage = () => {
                               Reenviar email
                             </Dropdown.Item>
                             <Dropdown.Item
-                              onClick={() => {
-                                console.log('hola mundo');
-                              }}
+                              onClick={() =>
+                                enabledOrDisabled({
+                                  userId: id,
+                                  status: !isActive,
+                                })
+                              }
                             >
-                              Actualizar estado
+                              {isActive ? 'Desactivar' : 'Activar'}
                             </Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>

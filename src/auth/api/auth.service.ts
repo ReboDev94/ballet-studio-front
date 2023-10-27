@@ -8,6 +8,7 @@ import {
   ILoginResponse,
   IRegisterRequest,
   IResetPassword,
+  IUpdateStatus,
   IUpdateUserResponse,
   IUserForm,
 } from '@/auth/interfaces';
@@ -22,6 +23,7 @@ const SEND_RESET_PASSWORD = 'auth/send/reset/password';
 const UPDATE_PASSWORD = 'auth/reset/password';
 const CONFIRM_EMAIL = 'auth/confirm/email';
 const DELETE_USER = 'auth/user/:userId';
+const UPDATE_STATUS_USER = 'auth/update-status-user/:userId';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -99,6 +101,15 @@ export const confirmEmailService = async (data: IConfirmEmail) => {
 export const deleteUserService = async (userId: number) => {
   const response = await axiosInstance.delete(
     DELETE_USER.replace(':userId', `${userId}`),
+  );
+  return response;
+};
+
+export const updateStatusUserService = async (data: IUpdateStatus) => {
+  const { status, userId } = data;
+  const response = await axiosInstance.patch(
+    UPDATE_STATUS_USER.replace(':userId', `${userId}`),
+    { status },
   );
   return response;
 };
