@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { Sidebar, Menu, Avatar, Dropdown, Button } from '@/common/components';
 import {
   IconDashboard,
@@ -15,9 +16,45 @@ import { logoutThunk } from '@/store/modules/auth/thunks';
 import { twMerge } from 'tailwind-merge';
 import { useRoles } from '@/auth/hooks';
 
+const MENU_DATA = [
+  {
+    title: 'Dashboard',
+    url: '/dashboard',
+    icon: IconDashboard,
+    active: false,
+  },
+  {
+    title: 'Escuela',
+    url: '/profile/school',
+    icon: IconSchool,
+    active: false,
+  },
+  {
+    title: 'Usuarios',
+    url: '/user',
+    icon: IconTeam,
+    active: false,
+  },
+  {
+    title: 'Estudiantes',
+    url: '/student',
+    icon: IconStudents,
+    active: false,
+  },
+  {
+    title: 'Grupos',
+    url: '/group',
+    icon: IconGroup,
+    active: false,
+  },
+];
+
 const BalletLayout = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-  const { mainRole, isAdmin } = useRoles();
+
+  const { mainRole } = useRoles();
   const {
     user: { name, photo },
   } = useAppSelector(state => state.auth);
@@ -27,6 +64,11 @@ const BalletLayout = () => {
   } = useAppSelector(state => state.school);
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const clickItem = (url: string) => {
+    if (url !== pathname) setSidebarOpen(false);
+    navigate(url);
+  };
 
   const logout = () => {
     dispatch(logoutThunk());
@@ -48,26 +90,15 @@ const BalletLayout = () => {
           <Sidebar.Content>
             <Sidebar.Category title="Menu" />
             <Menu>
-              <Link to="/dashboard">
-                <Menu.ItemSidebar title="Dashboard" icon={IconDashboard} />
-              </Link>
-              <Link to="/profile/school">
-                <Menu.ItemSidebar title="Escuela" icon={IconSchool} />
-              </Link>
-
-              {isAdmin && (
-                <Link to="/user">
-                  <Menu.ItemSidebar title="Usuarios" icon={IconTeam} />
-                </Link>
-              )}
-
-              <Link to="/student">
-                <Menu.ItemSidebar title="Estudiantes" icon={IconStudents} />
-              </Link>
-
-              <Link to="/group">
-                <Menu.ItemSidebar title="Grupos" icon={IconGroup} />
-              </Link>
+              {MENU_DATA.map(({ title, icon, url }) => (
+                <Menu.ItemSidebar
+                  key={uuidv4()}
+                  active={pathname === url}
+                  onClick={() => clickItem(url)}
+                  title={title}
+                  icon={icon}
+                />
+              ))}
             </Menu>
           </Sidebar.Content>
           <Sidebar.Footer>

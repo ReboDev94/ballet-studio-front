@@ -10,6 +10,7 @@ export interface IItemSidebar {
   className?: string;
   icon?: FC<SVGProps<SVGSVGElement>>;
   active?: boolean;
+  onClick?: () => void;
 }
 
 export interface ICollapseSidebar extends Omit<IItemSidebar, 'active'> {

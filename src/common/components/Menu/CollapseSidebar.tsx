@@ -5,7 +5,6 @@ import {
   ITEM_TITLE_CLASSES,
   ITEM_WRAPPER_CLASSES,
   ITEM_SIDEBAR_CLASSES,
-  TYPE_ICON_ITEM_SIDEBAR,
   ITEM_SIDEBAR_ICON_CLASSES,
   ITEM_COLLAPSE_MENU_CLASSES,
 } from './styles';
@@ -36,22 +35,10 @@ const CollapseSidebar: React.FC<ICollapseSidebar> = ({
         )}
       >
         <div className={ITEM_WRAPPER_CLASSES}>
-          {Icon && (
-            <Icon
-              className={twMerge(
-                ITEM_SIDEBAR_ICON_CLASSES,
-                TYPE_ICON_ITEM_SIDEBAR[variant],
-              )}
-            />
-          )}
+          {Icon && <Icon className={twMerge(ITEM_SIDEBAR_ICON_CLASSES)} />}
         </div>
         <span className={ITEM_TITLE_CLASSES}>{title}</span>
-        <ArrowDownIcon
-          className={twMerge(
-            ITEM_SIDEBAR_ICON_CLASSES,
-            TYPE_ICON_ITEM_SIDEBAR[variant],
-          )}
-        />
+        <ArrowDownIcon className={twMerge(ITEM_SIDEBAR_ICON_CLASSES)} />
       </div>
       <div
         className={twMerge(ITEM_COLLAPSE_MENU_CLASSES, isCollapse && 'hidden')}
