@@ -23,9 +23,11 @@ export const BASE_BUTTON_CLASSES = `
   active:scale-95
   transition-transform
   disabled:cursor-not-allowed
- disabled:bg-base-100
+  disabled:bg-base-100
   disabled:text-base-300
-  disabled:active:scale-100`;
+  disabled:active:scale-100
+  disabled:border
+  disabled:border-base-200`;
 
 export const BLOCK_BUTTON_CLASSES = 'w-full';
 
