@@ -1,4 +1,4 @@
-import { array, mixed, object, string } from 'yup';
+import { array, mixed, number, object, string } from 'yup';
 import {
   VALIDATION_ARRAY_ROLES,
   VALIDATION_EMAIL,
@@ -7,6 +7,7 @@ import {
 import { TypeRoles } from '@/auth/constants';
 
 export const SchemaNewOrUpdateUser = object({
+  id: number().default(undefined).optional(),
   name: string().required(VALIDATION_REQUIRED),
   phone: string().default('').optional(),
   email: string().email(VALIDATION_EMAIL).required(VALIDATION_REQUIRED),

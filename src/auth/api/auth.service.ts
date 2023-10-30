@@ -26,6 +26,7 @@ const CONFIRM_EMAIL = 'auth/confirm/email';
 const DELETE_USER = 'auth/user/:userId';
 const UPDATE_STATUS_USER = 'auth/update-status-user/:userId';
 const CREATE_USER = 'auth/user';
+const UPDATE_USER = 'auth/user/:userId';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);
@@ -119,6 +120,15 @@ export const updateStatusUserService = async (data: IUpdateStatus) => {
 export const createUserService = async (data: INewOrUpdateUser) => {
   const response = await axiosInstance.post(CREATE_USER, data);
   return response;
+};
+
+export const updateUserService = async (data: INewOrUpdateUser) => {
+  const { id, ...rest } = data;
+  const response = await axiosInstance.patch(
+    UPDATE_USER.replace(':userId', `${id}`),
+    rest,
+  );
+  response;
 };
 
 const generateFormDataUser = (data: IUserForm) => {

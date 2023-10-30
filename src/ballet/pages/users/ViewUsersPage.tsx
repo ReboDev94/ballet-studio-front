@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
   IDataUsers,
   IGetAllUsersRequest,
   IUpdateStatus,
+  IUserAll,
 } from '@/auth/interfaces';
 import {
   Avatar,
@@ -45,7 +47,6 @@ import {
 } from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
 import { NewUpdateUser } from '@/ballet/components';
-import toast from 'react-hot-toast';
 import { useUtilsRoles } from '@/ballet/hooks';
 
 const optToastDelete = { id: 'delete-user' };
@@ -55,10 +56,18 @@ const optToastUpdateStatus = { id: 'update-status-user' };
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
-  const [modal, setModal] = useState(false);
 
   const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
     useUtilsRoles();
+
+  const [{ modal: modalEditUser, user: userEditOrNew }, setModalEditUser] =
+    useState<{
+      modal: boolean;
+      user: IUserAll | undefined;
+    }>({
+      modal: false,
+      user: undefined,
+    });
 
   const [{ modal: modalDeleteUser, userId: idDeleteUser }, setmodalDeleteUser] =
     useState<{
@@ -174,7 +183,7 @@ const ViewUsersPage = () => {
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-2xl text-base-500 font-semibold">Usuarios</h3>
             <Button
-              onClick={() => setModal(true)}
+              onClick={() => setModalEditUser({ modal: true, user: undefined })}
               type="button"
               className="flex items-center gap-2"
               size="sm"
@@ -275,77 +284,80 @@ const ViewUsersPage = () => {
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&
-                data.map(
-                  ({
-                    id,
-                    photo,
-                    name,
-                    email,
-                    phone,
-                    isActive,
-                    createdAt,
-                    roles,
-                  }) => (
-                    <Table.Row hover key={id}>
-                      <Table.Td>
-                        <Avatar size="xs" src={photo}>
-                          <IconUser className="fill-white h-5 w-5" />
-                        </Avatar>
-                      </Table.Td>
-                      <Table.Td>{name}</Table.Td>
-                      <Table.Td>{email}</Table.Td>
-                      <Table.Td>{phone}</Table.Td>
-                      <Table.Td>
-                        {isActive ? (
-                          <IconCircleCheckboxFill className="fill-success-700 h-6 w-6" />
-                        ) : (
-                          <IconCloseCircle className="fill-error-700 h-6 w-6" />
-                        )}
-                      </Table.Td>
-                      <Table.Td>{formatDate(createdAt, 'DD/MM/YYYY')}</Table.Td>
-                      <Table.Td>{getRoles(roles)}</Table.Td>
-                      <Table.Td>
-                        <Dropdown>
-                          <Dropdown.Toogle
-                            buttonProps={{
-                              variant: 'outline-base',
-                              size: 'xs',
-                              className: 'px-2',
-                            }}
+                data.map(user => (
+                  <Table.Row hover key={user.id}>
+                    <Table.Td>
+                      <Avatar size="xs" src={user.photo}>
+                        <IconUser className="fill-white h-5 w-5" />
+                      </Avatar>
+                    </Table.Td>
+                    <Table.Td>{user.name}</Table.Td>
+                    <Table.Td>{user.email}</Table.Td>
+                    <Table.Td>{user.phone}</Table.Td>
+                    <Table.Td>
+                      {user.isActive ? (
+                        <IconCircleCheckboxFill className="fill-success-700 h-6 w-6" />
+                      ) : (
+                        <IconCloseCircle className="fill-error-700 h-6 w-6" />
+                      )}
+                    </Table.Td>
+                    <Table.Td>
+                      {formatDate(user.createdAt, 'DD/MM/YYYY')}
+                    </Table.Td>
+                    <Table.Td>{getRoles(user.roles)}</Table.Td>
+                    <Table.Td>
+                      <Dropdown>
+                        <Dropdown.Toogle
+                          buttonProps={{
+                            variant: 'outline-base',
+                            size: 'xs',
+                            className: 'px-2',
+                          }}
+                        >
+                          <IconMore className="h-4 fill-base-600" />
+                        </Dropdown.Toogle>
+                        <Dropdown.Menu
+                          className="w-44"
+                          position="left"
+                          align="center"
+                        >
+                          <Dropdown.Item
+                            onClick={() =>
+                              setModalEditUser({ modal: true, user })
+                            }
                           >
-                            <IconMore className="h-4 fill-base-600" />
-                          </Dropdown.Toogle>
-                          <Dropdown.Menu
-                            className="max-h-[160px] w-44 overflow-y-auto"
-                            position="left"
-                            align="start"
+                            Editar
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              setmodalDeleteUser({
+                                modal: true,
+                                userId: user.id,
+                              })
+                            }
                           >
-                            <Dropdown.Item
-                              onClick={() =>
-                                setmodalDeleteUser({ modal: true, userId: id })
-                              }
-                            >
-                              Eliminar
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => reesendEmail(email)}>
-                              Reenviar email
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() =>
-                                enabledOrDisabled({
-                                  userId: id,
-                                  status: !isActive,
-                                })
-                              }
-                            >
-                              {isActive ? 'Desactivar' : 'Activar'}
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </Table.Td>
-                    </Table.Row>
-                  ),
-                )}
+                            Eliminar
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => reesendEmail(user.email)}
+                          >
+                            Reenviar email
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              enabledOrDisabled({
+                                userId: user.id,
+                                status: !user.isActive,
+                              })
+                            }
+                          >
+                            {user.isActive ? 'Desactivar' : 'Activar'}
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Table.Td>
+                  </Table.Row>
+                ))}
             </Table.Body>
             <Table.Footer>
               <Table.Row>
@@ -389,13 +401,18 @@ const ViewUsersPage = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal value={modal} center size="md">
-        <Modal.Header onClose={() => setModal(false)}>
-          <h3 className="text-base-600 font-semibold">Nuevo usuario</h3>
+      <Modal value={modalEditUser} center size="md">
+        <Modal.Header
+          onClose={() => setModalEditUser({ modal: false, user: undefined })}
+        >
+          <h3 className="text-base-600 font-semibold">
+            {userEditOrNew ? 'Editar' : 'Nuevo'} usuario
+          </h3>
         </Modal.Header>
         <Modal.Body>
           <NewUpdateUser
-            onClose={() => setModal(false)}
+            user={userEditOrNew}
+            onClose={() => setModalEditUser({ modal: false, user: undefined })}
             onSuccess={() => getAll({})}
           />
         </Modal.Body>

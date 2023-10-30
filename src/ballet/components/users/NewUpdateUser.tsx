@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useEffect } from 'react';
+import React from 'react';
+import toast from 'react-hot-toast';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SchemaNewOrUpdateUser } from '@/ballet/validations';
@@ -13,55 +14,67 @@ import {
   ErrorInput,
 } from '@/common/components';
 import { INewOrUpdateUser, INewOrUpdateUserTypes } from '@/ballet/interfaces';
-import { LOADING_CREATE_USER, ROLES_LABEL } from '@/auth/constants';
-import { useUtilsRoles } from '@/ballet/hooks';
-import toast from 'react-hot-toast';
+import {
+  LOADING_CREATE_USER,
+  LOADING_UPDATE_USER,
+  ROLES_LABEL,
+  TypeRoles,
+  getAllRolesSelectable,
+  typeEnumRoles,
+} from '@/auth/constants';
 import { useAppDispatch } from '@/store/hooks';
-import { createUserThunk } from '@/store/modules/auth/thunks';
+import { updateOrcreateUserThunk } from '@/store/modules/auth/thunks';
 import { Errors } from '@/common/interfaces';
 import { getCustomErrors } from '@/common/utils';
+import { IUserAll } from '@/auth/interfaces';
 
 const optToast = { id: 'create-user' };
+
+const DEFAULT_USER = {
+  id: undefined,
+  name: '',
+  email: '',
+  phone: '',
+  roles: [],
+};
 interface INewUpdateUser {
+  user?: IUserAll;
   onSuccess?: () => void;
   onClose?: () => void;
 }
 
 const NewUpdateUser: React.FC<INewUpdateUser> = ({
+  user = DEFAULT_USER,
   onSuccess = () => {},
   onClose = () => {},
 }) => {
   const dispatch = useAppDispatch();
-  const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
-    useUtilsRoles();
 
   const {
     register,
     handleSubmit,
-    setValue,
     setError,
     formState: { errors, isSubmitting },
   } = useForm<INewOrUpdateUser>({
     mode: 'onSubmit',
     defaultValues: {
-      name: '',
-      email: '',
-      phone: '',
-      roles: [],
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      roles: user.roles.map(({ slug }) => TypeRoles[slug as typeEnumRoles]),
     },
     resolver: yupResolver(SchemaNewOrUpdateUser),
   });
 
-  useEffect(() => {
-    setValue('roles', rolesTypeSelected);
-  }, [rolesTypeSelected]);
-
   const onSubmit: SubmitHandler<INewOrUpdateUser> = async data => {
-    toast.loading(LOADING_CREATE_USER, optToast);
-    await dispatch(createUserThunk(data))
+    const { id } = data;
+    toast.loading(id ? LOADING_UPDATE_USER : LOADING_CREATE_USER, optToast);
+    await dispatch(updateOrcreateUserThunk(data))
       .unwrap()
       .then(success => {
         onSuccess();
+        onClose();
         toast.success(success, optToast);
       })
       .catch((errors: Errors[] | string) => {
@@ -72,7 +85,6 @@ const NewUpdateUser: React.FC<INewUpdateUser> = ({
           });
         typeof errors === 'string' && toast.error(errors, optToast);
       });
-    console.log(data);
   };
 
   return (
@@ -130,18 +142,13 @@ const NewUpdateUser: React.FC<INewUpdateUser> = ({
               </div>
               <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
                 <ul className="flex gap-4 max-md:flex-col">
-                  {rolesFilter.map(({ id, type, value }) => (
+                  {getAllRolesSelectable().map(({ id, type }) => (
                     <li key={id}>
                       <label
                         htmlFor={id}
                         className="flex gap-2 items-center select-none cursor-pointer text-xs"
                       >
-                        <Checkbox
-                          id={id}
-                          name={id}
-                          checked={value}
-                          onChange={checkedRolesFilter}
-                        />
+                        <Checkbox {...register('roles')} id={id} value={type} />
                         {ROLES_LABEL[type]}
                       </label>
                     </li>

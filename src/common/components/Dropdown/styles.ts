@@ -1,4 +1,5 @@
 import {
+  ALING_CENTER,
   ALING_END,
   ALING_START,
   POSITION_BOTTOM,
@@ -10,7 +11,8 @@ import {
 export const DEFAULT_DROPDOWN_CLASSES = 'group relative inline-block';
 export const DEFAULT_DROPDOWN_TOOGLE_CLASSES = 'block m-1';
 export const DEFAULT_DROPDOWN_LIST_CLASSES = `space-y-1
-  bg-white z-[3]
+  bg-white
+    z-[3]
     rounded-lg
     p-2
     shadow
@@ -44,6 +46,9 @@ const POSITION_BOTTOM_CLASSES = 'top-full bottom-auto';
 const POSITION_RIGHT_CLASSES = 'left-full top-0';
 const POSITION_LEFT_CLASSES = 'right-full top-0';
 
+const POSITION_CENTER_CLASSES = 'top-1/2 -translate-y-1/2';
+const ALING_CENTER_CLASSES = 'left-1/2 -translate-x-1/2';
+
 export const POSITION_TYPE = {
   [POSITION_BOTTOM]: POSITION_BOTTOM_CLASSES,
   [POSITION_TOP]: POSITION_TOP_CLASSES,
@@ -54,11 +59,13 @@ export const POSITION_TYPE = {
 export const ALIGN_VERTICAL_TYPE = {
   [ALING_END]: ALIGN_END_CLASSES,
   [ALING_START]: ALIGN_START_CLASSES,
+  [ALING_CENTER]: ALING_CENTER_CLASSES,
 };
 
 export const ALIGN_LATERAL_TYPE = {
   [ALING_END]: ALIGN_END_LATERAL_CLASSES,
   [ALING_START]: ALIGN_START_LATERAL_CLASSES,
+  [ALING_CENTER]: POSITION_CENTER_CLASSES,
 };
 
 export const DIVIDER_CLASSES = 'border-b border-base-100 my-2';

@@ -11,6 +11,7 @@ import {
   updatePasswordService,
   updateProfileService,
   updateStatusUserService,
+  updateUserService,
 } from '@/auth/api';
 import {
   IConfirmEmail,
@@ -37,6 +38,7 @@ import {
   FAILED_RESET_PASSWORD,
   FAILED_SEND_EMAIL,
   FAILED_UPDATE_STATUS_USER,
+  FAILED_UPDATE_USER,
   INCORRECT_CREDENTIALS,
   SING_IN_SUCCESS,
   SUCCESS_CREATE_USER,
@@ -45,6 +47,7 @@ import {
   SUCCESS_RESET_PASSWORD,
   SUCCESS_SEND_EMAIL,
   SUCCESS_UPDATE_STATUS_USER,
+  SUCCESS_UPDATE_USER,
   UNAUTHORIZED,
 } from '@/auth/constants';
 import { userInitialData } from './initialState';
@@ -211,18 +214,18 @@ export const updateStatusUserThunk = createAsyncThunk(
   },
 );
 
-export const createUserThunk = createAsyncThunk(
-  'auth/createUser',
+export const updateOrcreateUserThunk = createAsyncThunk(
+  'auth/updateOrcreateUser',
   async (data: INewOrUpdateUser, { rejectWithValue }) => {
     try {
-      await createUserService(data);
-      return SUCCESS_CREATE_USER;
+      if (data.id) await updateUserService(data);
+      else await createUserService(data);
+      return data.id ? SUCCESS_UPDATE_USER : SUCCESS_CREATE_USER;
     } catch (err: any) {
+      const MSG = data.id ? FAILED_UPDATE_USER : FAILED_CREATE_USER;
       const error: AxiosError<ICommonError> = err;
       const errors =
-        error.response?.data.errors ||
-        error.response?.data.message ||
-        FAILED_CREATE_USER;
+        error.response?.data.errors || error.response?.data.message || MSG;
       return rejectWithValue(errors);
     }
   },
