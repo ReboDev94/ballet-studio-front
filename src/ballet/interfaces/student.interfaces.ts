@@ -1,4 +1,5 @@
 import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
+import { date } from 'yup';
 
 export interface IStudent {
   id: number;
@@ -34,3 +35,22 @@ export interface IDataStudents {
 export interface IGetStudentsResponse extends ICommonResponse {
   students: IDataStudents;
 }
+
+export interface IDieseses {
+  id: string;
+  title: string;
+}
+
+export interface IFormNewUpdateStudent {
+  name: string;
+  dateOfBirth: Date;
+  address: string;
+  dieseses: IDieseses[];
+  tutorCelPhone: string;
+  tutorName: string;
+  tutorEmail: string;
+  tutorPhone: string;
+  file: File | null;
+}
+
+export type IFormStudentType = keyof IFormNewUpdateStudent;

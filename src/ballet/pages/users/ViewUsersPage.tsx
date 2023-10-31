@@ -46,7 +46,7 @@ import {
   SUCCESS_SEND_EMAIL_BY_USER,
 } from '@/auth/constants';
 import { ISort } from '@/common/interfaces';
-import { NewUpdateUser } from '@/ballet/components';
+import { ModalConfirm, NewUpdateUser } from '@/ballet/components';
 import { useUtilsRoles } from '@/ballet/hooks';
 
 const optToastDelete = { id: 'delete-user' };
@@ -376,30 +376,14 @@ const ViewUsersPage = () => {
         </Card.Body>
       </Card>
 
-      <Modal value={modalDeleteUser} center>
-        <Modal.Header
-          onClose={() => setmodalDeleteUser({ modal: false, userId: -1 })}
-        >
-          <h3 className="text-base-600 font-semibold">Eliminar usuario</h3>
-        </Modal.Header>
-        <Modal.Body>
-          <p className="text-center text-lg mb-4">
-            ¿Estas seguro de eliminar al usuario?
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button
-              size="xs"
-              variant="outline-primary"
-              onClick={() => setmodalDeleteUser({ modal: false, userId: -1 })}
-            >
-              Cancelar
-            </Button>
-            <Button size="xs" onClick={() => deleteUser()}>
-              Eliminar
-            </Button>
-          </div>
-        </Modal.Body>
-      </Modal>
+      <ModalConfirm
+        open={modalDeleteUser}
+        title="Eliminar usuario"
+        description="¿Estas seguro de eliminar al usuario?"
+        acceptLabelButton="Eliminar"
+        onCancel={() => setmodalDeleteUser({ modal: false, userId: -1 })}
+        onAccept={() => deleteUser()}
+      />
 
       <Modal value={modalEditUser} center size="md">
         <Modal.Header
