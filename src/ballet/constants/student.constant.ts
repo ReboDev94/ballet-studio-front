@@ -12,4 +12,10 @@ export const LOADING_CREATE_STUDENT =
   'Creando el estudiante, por favor espere.';
 export const SUCCESS_CREATE_STUDENT = 'El estudiante ha sido creado.';
 export const FAILED_CREATE_STUDENT =
-  'Ocurrio un error al crear el estudiantes, por favor intentelo mas tarde.';
+  'Ocurrio un error al crear el estudiante, por favor intentelo mas tarde.';
+
+export const LOADING_UPDATE_STUDENT =
+  'Actualizando el estudiante, por favor espere.';
+export const SUCCESS_UPDATE_STUDENT = 'El estudiante ha sido actualizado.';
+export const FAILED_UPDATE_STUDENT =
+  'Ocurrio un error al actualizar el estudiante, por favor intentelo mas tarde.';

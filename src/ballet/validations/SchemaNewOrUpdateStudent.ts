@@ -1,4 +1,4 @@
-import { array, date, mixed, object, string } from 'yup';
+import { array, date, mixed, number, object, string } from 'yup';
 import {
   IMAGE_TYPE_SUPPORT,
   MAX_IMAGE_SIZE,
@@ -12,6 +12,7 @@ import { IDieseses } from '../interfaces';
 import { isOlder } from '@/common/utils';
 
 export const SchemaNewOrUpdateStudent = object({
+  id: number().default(undefined).optional(),
   name: string().required(VALIDATION_REQUIRED),
   dateOfBirth: date().required(VALIDATION_REQUIRED).typeError(VALIDATION_DATE),
   address: string().required(VALIDATION_REQUIRED),

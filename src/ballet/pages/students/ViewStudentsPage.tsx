@@ -291,6 +291,7 @@ const ViewStudentsPage = () => {
         </Modal.Header>
         <Modal.Body>
           <NewUpdateStudent
+            student={studentEditOrUpdate}
             onCancel={() =>
               setModalEditStudent({ modal: false, student: undefined })
             }

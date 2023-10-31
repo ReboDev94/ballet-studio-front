@@ -9,6 +9,7 @@ import { formatDate } from '@/common/utils';
 const GET_ALL_STUDENTS = 'student';
 const DELETE_STUDENT = 'student/:studentId';
 const CREATE_STUDENT = 'student';
+const UPDATE_STUDENT = 'student/:studentId';
 
 export const getStudentService = async (data: IGetStudentsRequest) => {
   const response = await axiosInstance.get<IGetStudentsResponse>(
@@ -29,6 +30,18 @@ export const createStudentService = async (dataP: IFormNewUpdateStudent) => {
   const response = await axiosInstance({
     method: 'POST',
     url: CREATE_STUDENT,
+    data: generateFormDataStudent(dataP),
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response;
+};
+
+export const updateStudentService = async (dataP: IFormNewUpdateStudent) => {
+  const response = await axiosInstance({
+    method: 'PATCH',
+    url: UPDATE_STUDENT.replace(':studentId', `${dataP.id}`),
     data: generateFormDataStudent(dataP),
     headers: {
       'Content-Type': 'multipart/form-data',

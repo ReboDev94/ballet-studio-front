@@ -3,13 +3,16 @@ import {
   createStudentService,
   deleteStudentService,
   getStudentService,
+  updateStudentService,
 } from '@/ballet/api';
 import {
   FAILED_CREATE_STUDENT,
   FAILED_DELETE_STUDENT,
   FAILED_GET_ALL_STUDENTS,
+  FAILED_UPDATE_STUDENT,
   SUCCESS_CREATE_STUDENT,
   SUCCESS_DELETE_STUDENT,
+  SUCCESS_UPDATE_STUDENT,
 } from '@/ballet/constants';
 import {
   IFormNewUpdateStudent,
@@ -47,15 +50,18 @@ export const deleteStudentThunk = createAsyncThunk(
   },
 );
 
-export const createStudentThunk = createAsyncThunk(
-  'student/createStudent',
+export const createOrUpdateStudentThunk = createAsyncThunk(
+  'student/createOrUpdateStudent',
   async (data: IFormNewUpdateStudent, { rejectWithValue }) => {
     try {
-      await createStudentService(data);
-      return SUCCESS_CREATE_STUDENT;
+      data.id
+        ? await updateStudentService(data)
+        : await createStudentService(data);
+      return data.id ? SUCCESS_UPDATE_STUDENT : SUCCESS_CREATE_STUDENT;
     } catch (err: any) {
+      const MSG = data.id ? FAILED_UPDATE_STUDENT : FAILED_CREATE_STUDENT;
       const error: AxiosError<ICommonError> = err;
-      const errors = error.response?.data.errors || FAILED_CREATE_STUDENT;
+      const errors = error.response?.data.errors || MSG;
       return rejectWithValue(errors);
     }
   },

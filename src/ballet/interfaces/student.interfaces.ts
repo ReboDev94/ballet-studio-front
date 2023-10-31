@@ -42,6 +42,7 @@ export interface IDieseses {
 }
 
 export interface IFormNewUpdateStudent {
+  id: number | undefined;
   name: string;
   dateOfBirth: Date;
   address: string;

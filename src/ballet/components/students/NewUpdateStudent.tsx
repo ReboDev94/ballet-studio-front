@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { ChangeEvent, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
+import {
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import {
   Avatar,
@@ -17,21 +23,43 @@ import {
 } from '@/common/components';
 import { IconUser, IconCloseCircle, IconAdd } from '@/common/assets/svg';
 import { SchemaNewOrUpdateStudent } from '@/ballet/validations';
-import { IFormNewUpdateStudent, IFormStudentType } from '@/ballet/interfaces';
+import {
+  IFormNewUpdateStudent,
+  IFormStudentType,
+  IStudent,
+} from '@/ballet/interfaces';
 import { IMAGE_TYPE_SUPPORT, VALIDATION_REQUIRED } from '@/common/constants';
 import { getCustomErrors, isOlder } from '@/common/utils';
 import { useAppDispatch } from '@/store/hooks';
-import { createStudentThunk } from '@/store/modules/student/thunks';
-import { LOADING_CREATE_STUDENT } from '@/ballet/constants';
+import { createOrUpdateStudentThunk } from '@/store/modules/student/thunks';
+import {
+  LOADING_CREATE_STUDENT,
+  LOADING_UPDATE_STUDENT,
+} from '@/ballet/constants';
 import { Errors } from '@/common/interfaces';
 
 const optToast = { id: 'create-student' };
 
+const DEFAULT_STUDENT = {
+  id: undefined,
+  name: '',
+  dateOfBirth: undefined,
+  address: '',
+  dieseses: [],
+  tutorCelPhone: '',
+  tutorName: '',
+  tutorPhone: '',
+  tutorEmail: '',
+  file: null,
+};
+
 interface NewUpdateStudentProps {
+  student?: IStudent;
   onSuccess?: () => void;
   onCancel?: () => void;
 }
 const NewUpdateStudent: React.FC<NewUpdateStudentProps> = ({
+  student,
   onCancel = () => {},
   onSuccess = () => {},
 }) => {
@@ -47,17 +75,27 @@ const NewUpdateStudent: React.FC<NewUpdateStudentProps> = ({
     formState: { errors, isSubmitting },
   } = useForm<IFormNewUpdateStudent>({
     mode: 'onSubmit',
-    defaultValues: {
-      tutorPhone: '',
-      tutorEmail: '',
-      dieseses: [],
-      file: null,
-    },
+    defaultValues: student
+      ? {
+          id: student.id,
+          name: student.name,
+          address: student.address,
+          dateOfBirth: dayjs(student.dateOfBirth).toDate(),
+          dieseses: student.dieseses.map(value => ({
+            id: uuidv4(),
+            title: value,
+          })),
+          tutorCelPhone: student.tutor.celPhone,
+          tutorName: student.tutor.name,
+          tutorPhone: student.tutor.phone,
+          tutorEmail: student.tutor.email,
+          file: null,
+        }
+      : DEFAULT_STUDENT,
     resolver: yupResolver(SchemaNewOrUpdateStudent),
   });
 
   const [dateOfBirth] = watch(['dateOfBirth']);
-
   const { fields, append, remove } = useFieldArray({
     name: 'dieseses',
     control,
@@ -103,8 +141,11 @@ const NewUpdateStudent: React.FC<NewUpdateStudentProps> = ({
   };
 
   const onSubmit: SubmitHandler<IFormNewUpdateStudent> = async data => {
-    toast.loading(LOADING_CREATE_STUDENT, optToast);
-    await dispatch(createStudentThunk(data))
+    toast.loading(
+      data.id ? LOADING_UPDATE_STUDENT : LOADING_CREATE_STUDENT,
+      optToast,
+    );
+    await dispatch(createOrUpdateStudentThunk(data))
       .unwrap()
       .then(success => {
         onSuccess();
@@ -130,7 +171,7 @@ const NewUpdateStudent: React.FC<NewUpdateStudentProps> = ({
               Datos personales
             </h3>
             <div className="w-full my-5">
-              <Avatar size="lg" src={undefined}>
+              <Avatar size="lg" src={student?.avatar}>
                 <IconUser className="fill-white h-14 w-14" />
               </Avatar>
             </div>
@@ -162,10 +203,19 @@ const NewUpdateStudent: React.FC<NewUpdateStudentProps> = ({
                 </span>
               </div>
               <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
-                <Input
-                  {...register('dateOfBirth')}
-                  type="date"
-                  errorState={!!errors.dateOfBirth}
+                <Controller
+                  control={control}
+                  name="dateOfBirth"
+                  render={({ field: { onChange, value } }) => (
+                    <Input
+                      value={dayjs(value).format('YYYY-MM-DD')}
+                      onChange={({ target: { value } }) => {
+                        onChange(dayjs(value).toDate());
+                      }}
+                      type="date"
+                      errorState={!!errors.dateOfBirth}
+                    />
+                  )}
                 />
                 <ErrorInput message={errors.dateOfBirth?.message} />
               </div>
