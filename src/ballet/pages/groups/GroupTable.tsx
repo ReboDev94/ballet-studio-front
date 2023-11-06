@@ -1,0 +1,92 @@
+import React, { useState } from 'react';
+import { Days, IGroupAtt } from '@/ballet/interfaces';
+import { IconEyeOpen, IconMore } from '@/common/assets/svg';
+import { Button, Dropdown, Table } from '@/common/components';
+import { formatDate, getHour } from '@/common/utils';
+import { twMerge } from 'tailwind-merge';
+
+interface GroupTableProps {
+  group: IGroupAtt;
+}
+const GroupTable: React.FC<GroupTableProps> = ({ group }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  return (
+    <>
+      <Table.Row className="bg-primary-50">
+        <Table.Td>{group.description}</Table.Td>
+        <Table.Td>{formatDate(group.startDate, 'DD/MM/YYYY')}</Table.Td>
+        <Table.Td>{group.schoolCycle}</Table.Td>
+        <Table.Td>{group.degree}</Table.Td>
+        <Table.Td>{group.teacher.name}</Table.Td>
+        <Table.Td>{formatDate(group.createdAt, 'DD/MM/YYYY')}</Table.Td>
+        <Table.Td>
+          <Button
+            size="xs"
+            variant="outline-base"
+            className="px-2"
+            onClick={() => setExpanded(!expanded)}
+          >
+            <IconEyeOpen className="h-4 fill-base-600" />
+          </Button>
+        </Table.Td>
+        <Table.Td>
+          <Dropdown>
+            <Dropdown.Toogle
+              buttonProps={{
+                variant: 'outline-base',
+                size: 'xs',
+                className: 'px-2',
+              }}
+            >
+              <IconMore className="h-4 fill-base-600" />
+            </Dropdown.Toogle>
+            <Dropdown.Menu className="w-44" position="left" align="center">
+              <Dropdown.Item
+              /*  onClick={() =>
+                              setModalEditStudent({ modal: true, student })
+                            } */
+              >
+                Editar
+              </Dropdown.Item>
+              <Dropdown.Item
+              /*  onClick={() =>
+                              setModalDeleteStudent({
+                                modal: true,
+                                studentId: student.id,
+                              })
+                            } */
+              >
+                Eliminar
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Table.Td>
+      </Table.Row>
+      <Table.Row className={twMerge(!expanded && 'hidden')}>
+        <Table.Td colSpan={8}>
+          <div>
+            <Table wrapperClassName="border-none shadow-none">
+              <Table.Head>
+                {group.schedules.map(({ day }) => (
+                  <React.Fragment key={day}>{Days[day]}</React.Fragment>
+                ))}
+              </Table.Head>
+              <Table.Body divide>
+                <Table.Row hover>
+                  {group.schedules.map(({ day, hour }) => (
+                    <Table.Td key={day}>
+                      <div>{getHour(hour)}</div>
+                    </Table.Td>
+                  ))}
+                </Table.Row>
+              </Table.Body>
+            </Table>
+          </div>
+        </Table.Td>
+      </Table.Row>
+    </>
+  );
+};
+
+export default GroupTable;

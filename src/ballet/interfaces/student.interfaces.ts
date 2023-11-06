@@ -1,5 +1,4 @@
 import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
-import { date } from 'yup';
 
 export interface IStudent {
   id: number;
