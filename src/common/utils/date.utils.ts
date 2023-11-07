@@ -15,7 +15,7 @@ export const isOlder = (dateOfBirth: Date) => {
   return dayjs(new Date()).diff(dateOfBirth, 'years', false) >= 18;
 };
 
-export const getHour = (hourHHMM: string) => {
+export const getHour = (hourHHMM: string | undefined) => {
   if (!hourHHMM) return 'NO ASIGNADO';
   const time = dayjs(`${hourHHMM}:00`, 'HH:mm:ss').format('hh:mm A');
   return time;

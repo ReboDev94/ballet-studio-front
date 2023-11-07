@@ -4,7 +4,6 @@ import { IGetGroupAllRequest, IGetGroupAllResponse } from '../interfaces';
 const GET_ALL_GROUPS = 'group';
 
 export const getAllGroupService = async (data: IGetGroupAllRequest) => {
-  console.log(data);
   if (!data.degree) delete data.degree;
   const response = await axiosInstance.get<IGetGroupAllResponse>(
     GET_ALL_GROUPS,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Days, IGroupAtt } from '@/ballet/interfaces';
+import { Days, IGroupAtt, typeEnumDays } from '@/ballet/interfaces';
 import { IconEyeOpen, IconMore } from '@/common/assets/svg';
 import { Button, Dropdown, Table } from '@/common/components';
 import { formatDate, getHour } from '@/common/utils';
@@ -68,15 +68,21 @@ const GroupTable: React.FC<GroupTableProps> = ({ group }) => {
           <div>
             <Table wrapperClassName="border-none shadow-none">
               <Table.Head>
-                {group.schedules.map(({ day }) => (
-                  <React.Fragment key={day}>{Days[day]}</React.Fragment>
+                {Object.keys(Days).map(k => (
+                  <React.Fragment key={k}>
+                    {Days[k as typeEnumDays]}
+                  </React.Fragment>
                 ))}
               </Table.Head>
               <Table.Body divide>
                 <Table.Row hover>
-                  {group.schedules.map(({ day, hour }) => (
-                    <Table.Td key={day}>
-                      <div>{getHour(hour)}</div>
+                  {Object.keys(Days).map(k => (
+                    <Table.Td key={k}>
+                      <div>
+                        {getHour(
+                          group.schedules.find(({ day }) => day === k)?.hour,
+                        )}
+                      </div>
                     </Table.Td>
                   ))}
                 </Table.Row>
