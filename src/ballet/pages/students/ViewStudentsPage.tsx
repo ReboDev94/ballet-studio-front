@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import {
+  IconFilter,
   IconMore,
   IconPersonAdd,
   IconSearch,
-  IconSort,
   IconUser,
 } from '@/common/assets/svg';
 import {
@@ -157,28 +157,33 @@ const ViewStudentsPage = () => {
                   buttonProps={{ variant: 'outline-base', size: 'sm' }}
                 >
                   <div className="flex items-center justify-center gap-2">
-                    <IconSort className="w-4 h-4 fill-base-600" />
-                    Orden
+                    <IconFilter className="w-4 h-4 fill-base-600" />
+                    Filtros
                   </div>
                 </Dropdown.Toogle>
                 <Dropdown.Menu className="w-44" position="bottom" align="end">
-                  {typeSort.map(({ label, value }) => (
-                    <Dropdown.Item key={value}>
-                      <label
-                        htmlFor={value}
-                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                      >
-                        <Radio
-                          id={value}
-                          value={value}
-                          checked={sortFilter === value}
-                          onChange={checkedSortFilter}
-                          name="sort"
-                        />
-                        {label}
-                      </label>
-                    </Dropdown.Item>
-                  ))}
+                  <li>
+                    <h5 className="text-base-500 text-xs select-none">Orden</h5>
+                    <ul className="space-y-1 mt-2">
+                      {typeSort.map(({ label, value }) => (
+                        <Dropdown.Item key={value}>
+                          <label
+                            htmlFor={value}
+                            className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                          >
+                            <Radio
+                              id={value}
+                              value={value}
+                              checked={sortFilter === value}
+                              onChange={checkedSortFilter}
+                              name="sort"
+                            />
+                            {label}
+                          </label>
+                        </Dropdown.Item>
+                      ))}
+                    </ul>
+                  </li>
                 </Dropdown.Menu>
               </Dropdown>
             </div>

@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IDataGroup, IGetGroupAllRequest, IGroup } from '@/ballet/interfaces';
-import {
-  IconFilter,
-  IconSearch,
-  IconSort,
-  IconTeam,
-} from '@/common/assets/svg';
+import { IconFilter, IconSearch, IconTeam } from '@/common/assets/svg';
 import {
   Button,
   Card,
@@ -124,36 +119,6 @@ const ViewGroupsPage = () => {
             <div className="flex justify-end">
               <Dropdown>
                 <Dropdown.Toogle
-                  buttonProps={{ variant: 'outline-base', size: 'sm' }}
-                >
-                  <div className="flex items-center justify-center gap-2">
-                    <IconSort className="w-4 h-4 fill-base-600" />
-                    Orden
-                  </div>
-                </Dropdown.Toogle>
-                <Dropdown.Menu className="w-44" position="bottom" align="end">
-                  {typeSort.map(({ label, value }) => (
-                    <Dropdown.Item key={value}>
-                      <label
-                        htmlFor={value}
-                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                      >
-                        <Radio
-                          id={value}
-                          value={value}
-                          checked={sortFilter === value}
-                          onChange={checkedSortFilter}
-                          name="sort"
-                        />
-                        {label}
-                      </label>
-                    </Dropdown.Item>
-                  ))}
-                </Dropdown.Menu>
-              </Dropdown>
-
-              <Dropdown>
-                <Dropdown.Toogle
                   buttonProps={{
                     variant: 'outline-base',
                     size: 'sm',
@@ -161,31 +126,57 @@ const ViewGroupsPage = () => {
                 >
                   <div className="flex items-center justify-center gap-2">
                     <IconFilter className="w-4 h-4 fill-base-600" />
-                    Grado
+                    Filtros
                   </div>
                 </Dropdown.Toogle>
 
                 <Dropdown.Menu
-                  className="w-44 max-h-64 overflow-y-auto"
+                  className="w-44 max-h-80 overflow-y-auto"
                   position="bottom"
                   align="end"
                 >
-                  {degreeFilter.map(({ id, type, value }) => (
-                    <Dropdown.Item key={id}>
-                      <label
-                        htmlFor={id}
-                        className="flex gap-2 items-center select-none cursor-pointer text-xs"
-                      >
-                        <Checkbox
-                          id={id}
-                          name={id}
-                          checked={value}
-                          onChange={checkedDegreeFilter}
-                        />
-                        {type}
-                      </label>
-                    </Dropdown.Item>
-                  ))}
+                  <li>
+                    <h5 className="text-base-500 text-xs select-none">Orden</h5>
+                    <ul className="space-y-1 mt-2">
+                      {typeSort.map(({ label, value }) => (
+                        <Dropdown.Item key={value}>
+                          <label
+                            htmlFor={value}
+                            className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                          >
+                            <Radio
+                              id={value}
+                              value={value}
+                              checked={sortFilter === value}
+                              onChange={checkedSortFilter}
+                              name="sort"
+                            />
+                            {label}
+                          </label>
+                        </Dropdown.Item>
+                      ))}
+                    </ul>
+                    <Dropdown.Divider />
+                    <h5 className="text-base-500 text-xs select-none">Grado</h5>
+                    <ul className="space-y-1 mt-2">
+                      {degreeFilter.map(({ id, type, value }) => (
+                        <Dropdown.Item key={id}>
+                          <label
+                            htmlFor={id}
+                            className="flex gap-2 items-center select-none cursor-pointer text-xs"
+                          >
+                            <Checkbox
+                              id={id}
+                              name={id}
+                              checked={value}
+                              onChange={checkedDegreeFilter}
+                            />
+                            {type}
+                          </label>
+                        </Dropdown.Item>
+                      ))}
+                    </ul>
+                  </li>
                 </Dropdown.Menu>
               </Dropdown>
             </div>

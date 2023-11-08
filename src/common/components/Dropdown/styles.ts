@@ -14,8 +14,9 @@ export const DEFAULT_DROPDOWN_LIST_CLASSES = `space-y-1
   bg-white
     z-[3]
     rounded-lg
-    p-2
-    shadow
+    py-3
+    px-2
+    shadow-[0px_0px_25px_-15px]
     absolute
     w-[10rem]
     min-w-[10rem]
@@ -67,5 +68,5 @@ export const ALIGN_LATERAL_TYPE = {
   [ALING_START]: ALIGN_START_LATERAL_CLASSES,
   [ALING_CENTER]: POSITION_CENTER_CLASSES,
 };
-
-export const DIVIDER_CLASSES = 'border-b border-base-100 my-2';
+export const DIVIDER_WRAPPER = 'py-2';
+export const DIVIDER_CLASSES = 'h-[0.5px] bg-base-100';
