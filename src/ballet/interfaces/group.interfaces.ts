@@ -22,7 +22,6 @@ export interface IGroup {
   id: number;
   description: string;
   schedules: Schedule[];
-  startDate: string;
   schoolCycle: string;
   degree: string;
   deletedAt: string | null;

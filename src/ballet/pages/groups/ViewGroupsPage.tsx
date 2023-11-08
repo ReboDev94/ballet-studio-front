@@ -184,9 +184,8 @@ const ViewGroupsPage = () => {
           <Table>
             <Table.Head>
               <>Descripción</>
-              <>Fecha de inicio</>
-              <>Año escolar</>
               <>Grado</>
+              <>Año escolar</>
               <>Maestro</>
               <>Fecha de registro</>
               <>Horario</>

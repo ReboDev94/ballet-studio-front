@@ -36,44 +36,6 @@ const NewUpdateGroup = () => {
           <Divider />
           <div className="grid grid-cols-12">
             <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
-              <h5 className="font-semibold">Fecha de inicio:</h5>
-              <span className="text-xs text-base-500">
-                Selecciona la fecha de inicio de clases
-              </span>
-            </div>
-            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
-              <Input
-                /*  {...register('name')} */
-                type="date"
-                /* errorState={!!errors.name} */
-              />
-              {/*  <ErrorInput message={errors.name?.message} /> */}
-            </div>
-          </div>
-          <Divider />
-          <div className="grid grid-cols-12">
-            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
-              <h5 className="font-semibold">Ciclo escolar:</h5>
-              <span className="text-xs text-base-500">
-                Seleccione el año del ciclo escolar
-              </span>
-            </div>
-            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
-              <Input
-                /*  {...register('name')} */
-                type="number"
-                min="1900"
-                max="2099"
-                step="1"
-                placeholder="Grupo baby ballet 1A"
-                /* errorState={!!errors.name} */
-              />
-              {/*  <ErrorInput message={errors.name?.message} /> */}
-            </div>
-          </div>
-          <Divider />
-          <div className="grid grid-cols-12">
-            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
               <h5 className="font-semibold">Grado:</h5>
               <span className="text-xs text-base-500">
                 Seleccione el grado del grupo
@@ -90,6 +52,23 @@ const NewUpdateGroup = () => {
               {/*  <ErrorInput message={errors.name?.message} /> */}
             </div>
           </div>
+          <Divider />
+          <div className="grid grid-cols-12">
+            <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">
+              <h5 className="font-semibold">Ciclo escolar:</h5>
+              <span className="text-xs text-base-500">
+                Seleccione el año del ciclo escolar
+              </span>
+            </div>
+            <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+              <Select>
+                <Select.Option value="2024">2024</Select.Option>
+                <Select.Option value="2023">2023</Select.Option>
+              </Select>
+              {/*  <ErrorInput message={errors.name?.message} /> */}
+            </div>
+          </div>
+
           <Divider />
           <div className="grid grid-cols-12">
             <div className="col-span-12 mb-2 md:col-span-4 md:mb-0 md:pr-2">

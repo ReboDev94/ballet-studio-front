@@ -15,9 +15,8 @@ const GroupTable: React.FC<GroupTableProps> = ({ group }) => {
     <>
       <Table.Row className="bg-primary-50">
         <Table.Td>{group.description}</Table.Td>
-        <Table.Td>{formatDate(group.startDate, 'DD/MM/YYYY')}</Table.Td>
-        <Table.Td>{group.schoolCycle}</Table.Td>
         <Table.Td>{group.degree}</Table.Td>
+        <Table.Td>{group.schoolCycle}</Table.Td>
         <Table.Td>{group.teacher.name}</Table.Td>
         <Table.Td>{formatDate(group.createdAt, 'DD/MM/YYYY')}</Table.Td>
         <Table.Td>
