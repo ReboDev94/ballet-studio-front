@@ -16,3 +16,6 @@ export const VALIDATION_MAX_PASSWORD =
 export const VALIDATION_ARRAY_ROLES = 'Debes seleccionar al menos un rol.';
 
 export const VALIDATION_DATE = 'Fecha no valida.';
+
+export const VALIDATION_SCHOOL_CYCLE = 'El año del ciclo escolar no es valido.';
+export const VALIDATION_HOUR_ACCEPT = 'El formato de hora no es aceptado.';

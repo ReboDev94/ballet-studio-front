@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Days, IGroupAtt, typeEnumDays } from '@/ballet/interfaces';
+import { twMerge } from 'tailwind-merge';
+import { IGroupAtt } from '@/ballet/interfaces';
 import { IconEyeOpen, IconMore } from '@/common/assets/svg';
 import { Button, Dropdown, Table } from '@/common/components';
 import { formatDate, getHour } from '@/common/utils';
-import { twMerge } from 'tailwind-merge';
+import { Days, typeEnumDays } from '@/ballet/constants';
 
 interface GroupTableProps {
   group: IGroupAtt;

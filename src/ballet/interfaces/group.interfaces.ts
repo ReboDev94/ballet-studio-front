@@ -1,4 +1,5 @@
 import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
+import { TypeDegree, typeEnumDays } from '../constants';
 
 export interface IGetGroupAllResponse extends ICommonResponse {
   groups: IDataGroup;
@@ -18,12 +19,27 @@ export interface IGroupAtt extends IGroup {
   expanded: boolean;
 }
 
+export interface IFormGroup {
+  description: string;
+  scheduleL: string;
+  scheduleM: string;
+  scheduleMI: string;
+  scheduleJ: string;
+  scheduleV: string;
+  scheduleS: string;
+  scheduleD: string;
+  schoolCycle: number;
+  degree: TypeDegree;
+  teacherId: number;
+}
+
+export type IFormGroupTypes = keyof IFormGroup;
 export interface IGroup {
   id: number;
   description: string;
   schedules: Schedule[];
   schoolCycle: string;
-  degree: string;
+  degree: TypeDegree;
   deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
@@ -34,18 +50,6 @@ export interface Schedule {
   day: typeEnumDays;
   hour: string;
 }
-
-export enum Days {
-  'L' = 'Lunes',
-  'M' = 'Martes',
-  'MI' = 'Miercoles',
-  'J' = 'Jueves',
-  'V' = 'Viernes',
-  'S' = 'Sabado',
-  'D' = 'Domingo',
-}
-
-export type typeEnumDays = keyof typeof Days;
 
 export interface Teacher {
   name: string;

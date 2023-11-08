@@ -22,8 +22,6 @@ export interface School {
 export interface initialSchoolState {
   school: School;
 }
-
-/* form */
 export interface FormSchool extends Omit<School, 'logo' | 'id'> {
   file: File | null;
 }
