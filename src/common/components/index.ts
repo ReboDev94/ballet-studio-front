@@ -48,6 +48,15 @@ import { RadioProps as TRadioProps } from './Radio';
 import { ModalProps as TModalProps } from './Modal/index';
 
 import { LoadingProps as TLoadingProps } from './Loading';
+import {
+  SelectOptionProps as TSelectOptionProps,
+  SelectProps as TSelectProps,
+} from './Select';
+
+/* Select */
+export type SelectOptionProps = TSelectOptionProps;
+export type SelectProps = TSelectProps;
+export { default as Select } from './Select';
 
 /* Loading */
 export type LoadingProps = TLoadingProps;

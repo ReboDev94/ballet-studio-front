@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IDataGroup, IGetGroupAllRequest } from '@/ballet/interfaces';
+import { IDataGroup, IGetGroupAllRequest, IGroup } from '@/ballet/interfaces';
 import {
   IconFilter,
   IconSearch,
@@ -15,13 +15,14 @@ import {
   Pagination,
   Radio,
   Table,
+  Modal,
 } from '@/common/components';
 import { ISort } from '@/common/interfaces';
 import { useAppDispatch } from '@/store/hooks';
 import { getAllGroupThunk } from '@/store/modules/group/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
-import GroupTable from './GroupTable';
 import { useDegree } from '@/ballet/hooks';
+import { GroupTable, NewUpdateGroup } from '@/ballet/components';
 
 const ViewGroupsPage = () => {
   const dispatch = useAppDispatch();
@@ -34,6 +35,17 @@ const ViewGroupsPage = () => {
   }>({
     sort: 'ASC',
     teacher: '',
+  });
+
+  const [
+    { modal: modalEditGroup, group: groupEditOrUpdate },
+    setModalEditGroup,
+  ] = useState<{
+    modal: boolean;
+    group: IGroup | undefined;
+  }>({
+    modal: false,
+    group: undefined,
   });
 
   const checkedSortFilter = ({
@@ -83,9 +95,9 @@ const ViewGroupsPage = () => {
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-2xl text-base-500 font-semibold">Grupos</h3>
             <Button
-              /* onClick={() =>
-                setModalEditStudent({ modal: true, student: undefined })
-              } */
+              onClick={() =>
+                setModalEditGroup({ modal: true, group: undefined })
+              }
               type="button"
               className="flex items-center gap-2"
               size="sm"
@@ -209,6 +221,18 @@ const ViewGroupsPage = () => {
           </Table>
         </Card.Body>
       </Card>
+      <Modal value={modalEditGroup} size="md">
+        <Modal.Header
+          onClose={() => setModalEditGroup({ modal: false, group: undefined })}
+        >
+          <h3 className="text-base-600 font-semibold">
+            {groupEditOrUpdate ? 'Editar' : 'Nuevo'} grupo
+          </h3>
+        </Modal.Header>
+        <Modal.Body>
+          <NewUpdateGroup />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
