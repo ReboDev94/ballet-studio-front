@@ -1,5 +1,5 @@
 import { Meta, StoryFn as Story } from '@storybook/react';
-import Form, { FormProps } from '.';
+import Form, { IForm } from '.';
 import Input from '../Input';
 
 export default {
@@ -7,7 +7,7 @@ export default {
   component: Form,
 } satisfies Meta<typeof Form>;
 
-export const Default: Story<FormProps> = args => {
+export const Default: Story<IForm> = args => {
   return (
     <Form {...args}>
       <div className="w-96">

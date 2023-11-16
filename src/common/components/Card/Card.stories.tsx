@@ -1,12 +1,12 @@
 import { Meta, StoryFn as Story } from '@storybook/react';
-import Card, { CardProps } from '.';
+import Card, { ICard } from '.';
 
 export default {
   title: 'UI/Card',
   component: Card,
 } satisfies Meta<typeof Card>;
 
-export const Default: Story<CardProps> = args => {
+export const Default: Story<ICard> = args => {
   return (
     <Card {...args}>
       <Card.Body>

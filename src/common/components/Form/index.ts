@@ -6,6 +6,5 @@ const Form = Object.assign(FormComponent, {
   Label: FormLabel,
 });
 
-export type FormProps = IForm;
-export type FormLabelProps = ILabel;
 export default Form;
+export type { IForm, ILabel };

@@ -14,8 +14,5 @@ const Table = Object.assign(TableComponent, {
   Footer: TableFooter,
 });
 
-export type TableRowProps = ITableRow;
-export type TableBodyProps = ITableBody;
-export type TableProps = ITable;
-export type TableHeadProps = ITableHead;
 export default Table;
+export type { ITable, ITableHead, ITableRow, ITableBody };

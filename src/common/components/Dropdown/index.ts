@@ -19,9 +19,11 @@ const Dropdown = Object.assign(DropdownComponente, {
   Divider: DropdownDivider,
 });
 
-export type DropdownProps = IDropdown;
-export type DropdownToogleProps = IDropdownToogle;
-export type DropdownMenuProps = IDropdownMenu;
-export type DropdownItemProps = IDropdownItem;
-export type DropdownDividerProps = IDropdownDivider;
 export default Dropdown;
+export type {
+  IDropdown,
+  IDropdownToogle,
+  IDropdownMenu,
+  IDropdownItem,
+  IDropdownDivider,
+};

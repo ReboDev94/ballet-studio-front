@@ -8,7 +8,5 @@ const Menu = Object.assign(MenuComponent, {
   CollapseSidebar,
 });
 
-export type CollapseProps = ICollapseSidebar;
-export type ItemProps = IItemSidebar;
-export type MenuProps = IMenu;
 export default Menu;
+export type { IMenu, IItemSidebar, ICollapseSidebar };

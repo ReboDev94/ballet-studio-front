@@ -19,9 +19,5 @@ const Sidebar = Object.assign(SidebarComponent, {
   BackDrop: BackDrop,
 });
 
-export type SidebarProps = ISidebar;
-export type SidebarContentProps = IContent;
-export type SidebarCategoryProps = ICategory;
-export type SidebarHeaderProps = IHeader;
-export type SidebarBackDrop = IBackDrop;
 export default Sidebar;
+export type { ISidebar, IContent, ICategory, IHeader, IBackDrop };

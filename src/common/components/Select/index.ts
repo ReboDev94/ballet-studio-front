@@ -6,6 +6,5 @@ const Select = Object.assign(SelectComponente, {
   Option,
 });
 
-export type SelectProps = ISelect;
-export type SelectOptionProps = ISelectOption;
 export default Select;
+export type { ISelect, ISelectOption };

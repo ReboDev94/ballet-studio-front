@@ -10,5 +10,5 @@ const Modal = Object.assign(ModalComponent, {
   Footer,
 });
 
-export type ModalProps = IModal;
 export default Modal;
+export type { IModal };

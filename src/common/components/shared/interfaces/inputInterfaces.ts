@@ -1,4 +1,5 @@
 import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
+import { IButton } from '../..';
 import {
   SIZE_LG,
   SIZE_MD,
@@ -8,8 +9,6 @@ import {
   VARIANT_ERROR,
   VARIANT_PRIMARY,
 } from '../../constants';
-import { ButtonProps } from '../..';
-
 export type Variant =
   | typeof VARIANT_PRIMARY
   | typeof VARIANT_ERROR
@@ -67,7 +66,7 @@ export interface IInputSearch<T = string> extends defaultInput {
   options?: OptionInputSearch<T>[];
   children?: ReactNode;
   buttonClearProps?: Omit<
-    ButtonProps,
+    IButton,
     'onClick' | 'disabled' | 'type' | 'className' | 'style' | 'children'
   >;
   renderItem?: (val: OptionInputSearch<T>) => ReactNode;

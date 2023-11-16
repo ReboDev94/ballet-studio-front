@@ -6,6 +6,5 @@ const Card = Object.assign(CardComponent, {
   Body: CardBody,
 });
 
-export type CardProps = ICard;
-export type CardBodyProps = ICardBody;
 export default Card;
+export type { ICard, ICardBody };
