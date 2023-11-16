@@ -103,7 +103,7 @@ const ViewGroupsPage = () => {
           </div>
 
           <div className="my-4 flex flex-col md:flex-row md:items-center md:justify-end  gap-2">
-            <div className="w-full h-9 lg:w-72 relative flex">
+            <div className="w-full lg:w-72 relative flex">
               <div className="grid place-content-center p-2 bg-base-50 rounded-l-lg border border-r-0">
                 <IconSearch className="h-4 w-4 fill-base-600" />
               </div>
@@ -114,6 +114,7 @@ const ViewGroupsPage = () => {
                 }
                 className="rounded-l-none"
                 placeholder="Nombre del maestro"
+                sizeType="xs"
               />
             </div>
             <div className="flex justify-end">

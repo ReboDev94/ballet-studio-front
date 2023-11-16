@@ -8,7 +8,10 @@ import {
   VARIANT_PRIMARY,
 } from '../../constants';
 
-const SIZE_MD_INPUT_CLASSES = 'px-2 py-2.5 h-[42px]';
+const SIZE_XS_INPUT_CLASSES = 'h-[36px] px-2 py-2';
+const SIZE_SM_INPUT_CLASSES = 'h-[40px] px-2 py-2.5';
+const SIZE_MD_INPUT_CLASSES = 'h-[42px] px-2 py-2.5 ';
+const SIZE_LG_INPUT_CLASSES = 'h-[48px] px-2 py-2.5';
 
 export const BASE_INPUT_CLASSES = `
   block
@@ -60,10 +63,10 @@ export const TYPE_INPUT = {
 };
 
 export const SIZE_INPUT = {
-  [SIZE_XS]: '',
-  [SIZE_SM]: '',
+  [SIZE_XS]: SIZE_XS_INPUT_CLASSES,
+  [SIZE_SM]: SIZE_SM_INPUT_CLASSES,
   [SIZE_MD]: SIZE_MD_INPUT_CLASSES,
-  [SIZE_LG]: '',
+  [SIZE_LG]: SIZE_LG_INPUT_CLASSES,
 };
 
 /* Tags */

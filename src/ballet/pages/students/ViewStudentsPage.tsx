@@ -149,6 +149,7 @@ const ViewStudentsPage = () => {
                 }
                 className="rounded-l-none"
                 placeholder="Busqueda"
+                sizeType="xs"
               />
             </div>
             <div className="flex justify-end">
