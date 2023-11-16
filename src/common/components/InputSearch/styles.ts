@@ -28,5 +28,5 @@ export const MENU_WRAPPER_OPT_CLASSES = `
 
 export const MENU_WRAPPER_VISIBLE_OPT_CLASSES = 'visible opacity-100 scale-100';
 export const TEXT_NO_OPTION_CLASSES = 'text-base-500 text-sm text-center';
-export const OPT_LIST_SEARCH_CLASSES = 'cursor-pointer border';
+export const OPT_LIST_SEARCH_CLASSES = 'cursor-pointer text-sm font-semibold';
 export const WRAPPER_LOADING_CLASSES = 'grid place-content-center';

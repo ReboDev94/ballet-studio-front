@@ -19,11 +19,14 @@ import { IconSearch, IconX } from '../assets/svg';
 import { SIZE_MD, VARIANT_PRIMARY } from '../constants';
 import {
   IInputSearch,
+  ObjetoOString,
   OptionInputSearch,
 } from '../shared/interfaces/inputInterfaces';
 
-const InputSearch = <T,>({
+const InputSearch = <T extends ObjetoOString>({
   buttonClearProps,
+  searchValue,
+  onSearchValue,
   value,
   renderItem,
   onChange = () => {},
@@ -38,10 +41,9 @@ const InputSearch = <T,>({
 }: IInputSearch<T>) => {
   const refDiv = useRef<HTMLDivElement | null>(null);
   const [showList, setShowList] = useState(false);
-  const [searchInput, setSearchInput] = useState('');
 
   const clearData = () => {
-    setSearchInput('');
+    onSearchValue('');
     setShowList(false);
   };
 
@@ -68,8 +70,8 @@ const InputSearch = <T,>({
       <div className="relative w-full">
         <div>
           <Input
-            value={searchInput}
-            onChange={e => setSearchInput(e.target.value)}
+            value={searchValue}
+            onChange={e => onSearchValue(e.target.value)}
             variant={variant}
             errorState={errorState}
             sizeType={sizeType}

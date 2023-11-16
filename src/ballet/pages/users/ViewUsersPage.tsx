@@ -108,7 +108,7 @@ const ViewUsersPage = () => {
     take = 15,
     order = sortFilter,
   }: IGetAllUsersRequest) => {
-    const { users, meta } = await dispatch(
+    const { data: users, meta } = await dispatch(
       getAllUsersThunk({ name, roles, photos, page, take, order }),
     ).unwrap();
     setUsers({ data: users, meta });

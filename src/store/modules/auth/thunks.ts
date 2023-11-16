@@ -140,7 +140,7 @@ export const getAllUsersThunk = createAsyncThunk(
         },
       } = await getAllUsersService(data);
 
-      return { users, meta };
+      return { data: users, meta };
     } catch (err: any) {
       const error: AxiosError<ICommonError> = err;
       return rejectWithValue(

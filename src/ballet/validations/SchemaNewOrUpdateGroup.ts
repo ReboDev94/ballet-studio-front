@@ -1,6 +1,7 @@
 import { mixed, number, object, string } from 'yup';
 import {
   VALIDATION_HOUR_ACCEPT,
+  VALIDATION_NUMBER_POSITIVE,
   VALIDATION_REQUIRED,
   VALIDATION_SCHOOL_CYCLE,
 } from '@/common/constants';
@@ -46,5 +47,7 @@ export const SchemaNewOrUpdateGroup = object({
       value => value === CURRENT_ANIO || value === CURRENT_ANIO + 1,
     ),
   degree: mixed<TypeDegree>().required(VALIDATION_REQUIRED),
-  teacherId: number().required(VALIDATION_REQUIRED),
+  teacherId: number()
+    .positive(VALIDATION_NUMBER_POSITIVE)
+    .required(VALIDATION_REQUIRED),
 });

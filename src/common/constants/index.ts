@@ -4,3 +4,4 @@ export * from './titles.constant';
 export * from './paginate.constant';
 export * from './sort.constant';
 export * from './regex.constant';
+export * from './common.constant';

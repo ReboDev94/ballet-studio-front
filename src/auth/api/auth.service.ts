@@ -19,7 +19,6 @@ const LOGIN_URL = 'auth/login';
 const REGISTER = 'auth/register';
 const GET_USER_URL = 'auth/user';
 const UPDATE_PROFILE = 'auth/update-profile';
-const GET_ALL_USERS = 'auth/users';
 const SEND_RESET_PASSWORD = 'auth/send/reset/password';
 const UPDATE_PASSWORD = 'auth/reset/password';
 const CONFIRM_EMAIL = 'auth/confirm/email';
@@ -27,6 +26,7 @@ const DELETE_USER = 'auth/user/:userId';
 const UPDATE_STATUS_USER = 'auth/update-status-user/:userId';
 const CREATE_USER = 'auth/user';
 const UPDATE_USER = 'auth/user/:userId';
+export const GET_ALL_USERS = 'auth/users';
 
 export const loginService = async (data: ILoginRequest) => {
   const response = await axiosInstance.post<ILoginResponse>(LOGIN_URL, data);

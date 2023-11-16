@@ -12,12 +12,15 @@ import {
   Input,
   Select,
   InputSearch,
-  IOptionInputSearch,
 } from '@/common/components';
 import { TypeDegree } from '@/ballet/constants';
 import { SchemaNewOrUpdateGroup } from '@/ballet/validations';
 import { IFormGroup, IFormGroupTypes } from '@/ballet/interfaces';
-import { VALIDATION_REQUIRED } from '@/common/constants';
+import { SORT_ASC, VALIDATION_REQUIRED } from '@/common/constants';
+import { useSearch } from '@/common/hooks';
+import { IGetTeacherRequest, IUserAll } from '@/auth/interfaces';
+import { GET_ALL_USERS } from '@/auth/api';
+import { TypeRoles } from '@/auth/constants';
 
 const CURRENT_ANIO = new Date().getFullYear();
 const SCHEDULE: IFormGroupTypes[] = [
@@ -33,11 +36,31 @@ const SCHEDULE: IFormGroupTypes[] = [
 interface NewUpdateGroupProps {
   onCancel?: () => void;
 }
+
 const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
   onCancel = () => {},
 }) => {
   const [onlySchedule, setOnlySchedule] = useState(true);
   const [inputSchedule, setInputSchedule] = useState('');
+  const {
+    searchValue,
+    setSearchValue,
+    selected,
+    setSelected,
+    options,
+    loading,
+  } = useSearch<IUserAll, Omit<IGetTeacherRequest, 'name'>>(
+    GET_ALL_USERS,
+    'name',
+    {
+      roles: TypeRoles.teacher,
+      order: SORT_ASC,
+      page: 1,
+      take: 15,
+      photos: false,
+    },
+    ['users', 'data'],
+  );
 
   const {
     register,
@@ -63,12 +86,15 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     () => !!validSchedule.every(value => value),
     [...validSchedule],
   );
+
+  useEffect(() => {
+    const VTeacherId = selected ? selected.value.id : -1;
+    setValue('teacherId', VTeacherId);
+  }, [selected]);
+
   useEffect(() => {
     SCHEDULE.forEach(k => setValue(k, inputSchedule));
   }, [inputSchedule]);
-
-  const [searchExample, setSearchExample] =
-    useState<IOptionInputSearch<number> | null>(null);
 
   return (
     <Card>
@@ -147,27 +173,16 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
             </div>
             <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <InputSearch
-                value={searchExample}
-                onChange={val => setSearchExample(val)}
-                options={[
-                  { value: 1, label: '1' },
-                  { value: 2, label: '2' },
-                  { value: 3, label: '3' },
-                  { value: 4, label: '4' },
-                  { value: 5, label: '5' },
-                ]}
+                value={selected}
+                onChange={val => setSelected(val)}
+                options={options}
+                loading={loading}
                 buttonClearProps={{
                   variant: 'outline-primary',
                 }}
-                renderItem={val => <div>hola mundo</div>}
-              >
-                <ul>
-                  <li>Maestro 1 </li>
-                  <li>Maestro 2 </li>
-                  <li>Maestro 3 </li>
-                  <li>Maestro 4 </li>
-                </ul>
-              </InputSearch>
+                searchValue={searchValue}
+                onSearchValue={val => setSearchValue(val)}
+              />
               <ErrorInput message={errors.teacherId?.message} />
             </div>
           </div>

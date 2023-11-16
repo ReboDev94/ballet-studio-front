@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
 import { IButton } from '../..';
 import {
@@ -52,11 +53,15 @@ export interface ISelect
 export interface ISelectOption
   extends React.OptionHTMLAttributes<HTMLOptionElement> {}
 
-export interface OptionInputSearch<T = string> {
+export type ObjetoOString = { [key: string]: any } | string;
+
+export interface OptionInputSearch<T extends ObjetoOString> {
   value: T;
   label: string;
 }
-export interface IInputSearch<T = string> extends defaultInput {
+export interface IInputSearch<T extends ObjetoOString> extends defaultInput {
+  searchValue: string;
+  onSearchValue: (val: string) => void;
   clearable?: boolean;
   disabled?: boolean;
   loading?: boolean;

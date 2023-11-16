@@ -23,10 +23,14 @@ import { ISelect, ISelectOption } from './Select';
 import { IItemListGroup, IListGroup } from './ListGroup';
 import { ICollapseSidebar, IItemSidebar, IMenu } from './Menu';
 import { ITable, ITableBody, ITableHead, ITableRow } from './Table';
-import { InputSearchProps, IOptionInputSearch } from './InputSearch';
+import {
+  InputSearchProps,
+  IOptionInputSearch,
+  TypeObjectoOrString,
+} from './InputSearch';
 import { IBackDrop, ICategory, IContent, IHeader, ISidebar } from './Sidebar';
 
-export type { InputSearchProps, IOptionInputSearch };
+export type { InputSearchProps, IOptionInputSearch, TypeObjectoOrString };
 export { default as InputSearch } from './InputSearch';
 
 /* Select */
