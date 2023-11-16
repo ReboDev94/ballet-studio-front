@@ -52,6 +52,10 @@ import {
   SelectOptionProps as TSelectOptionProps,
   SelectProps as TSelectProps,
 } from './Select';
+import { InputSearchProps, IOptionInputSearch } from './InputSearch';
+
+export type { InputSearchProps, IOptionInputSearch };
+export { default as InputSearch } from './InputSearch';
 
 /* Select */
 export type SelectOptionProps = TSelectOptionProps;

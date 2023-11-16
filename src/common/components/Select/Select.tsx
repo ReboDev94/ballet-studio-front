@@ -1,11 +1,16 @@
 import { forwardRef, useMemo } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { BASE_INPUT_CLASSES, TYPE_INPUT } from '../shared/styles/inputStyles';
-import { VARIANT_ERROR, VARIANT_PRIMARY } from '../constants';
+import {
+  BASE_INPUT_CLASSES,
+  SIZE_INPUT,
+  TYPE_INPUT,
+} from '../shared/styles/inputStyles';
+import { SIZE_MD, VARIANT_ERROR, VARIANT_PRIMARY } from '../constants';
 import { ISelect } from '../shared/interfaces/inputInterfaces';
 
 const Select = forwardRef<HTMLSelectElement, ISelect>((props, ref) => {
   const {
+    sizeType = SIZE_MD,
     variant = VARIANT_PRIMARY,
     errorState = false,
     className,
@@ -21,7 +26,12 @@ const Select = forwardRef<HTMLSelectElement, ISelect>((props, ref) => {
   return (
     <select
       ref={ref}
-      className={twMerge(BASE_INPUT_CLASSES, variantClasses, className)}
+      className={twMerge(
+        BASE_INPUT_CLASSES,
+        SIZE_INPUT[sizeType],
+        variantClasses,
+        className,
+      )}
       {...rest}
     >
       {children}

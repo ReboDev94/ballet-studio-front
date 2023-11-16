@@ -1,37 +1,69 @@
-import { VARIANT_BASE, VARIANT_ERROR, VARIANT_PRIMARY } from '../../constants';
+import {
+  SIZE_LG,
+  SIZE_MD,
+  SIZE_SM,
+  SIZE_XS,
+  VARIANT_BASE,
+  VARIANT_ERROR,
+  VARIANT_PRIMARY,
+} from '../../constants';
 
-export const BASE_INPUT_CLASSES = `block
+const SIZE_MD_INPUT_CLASSES = 'px-2 py-2.5 h-[42px]';
+
+export const BASE_INPUT_CLASSES = `
+  block
   w-full
-  p-2.5
   rounded-lg
   shadow-sm
   border
   border-solid
   border-base-200
-  text-sm
   focus:ring-offset-0
   disabled:cursor-not-allowed
   disabled:bg-base-50
-  disabled:text-base-300`;
+  disabled:text-base-300
+  text-sm`;
 
-export const BASE_INPUT_FILE_CLASSES = 'p-0 file:border-none file:p-2.5';
+export const BASE_INPUT_FILE_CLASSES =
+  'p-0 file:px-2 file:py-2.5 file:border-none';
 
-const PRIMARY_CLASSES = `focus:ring-primary-200
+const PRIMARY_CLASSES = `
+  focus:ring-primary-200
   focus:border-primary-200
   caret-primary-800
+  focus-within:ring-primary-200
+  focus-within:border-primary-200
+  focus-within:ring-1
   `;
 
-const ERROR_CLASSES = `border-error-800
+const ERROR_CLASSES = `
+  border-error-800
   focus:ring-error-800
   focus:border-error-800
+  focus-within:ring-error-800
+  focus-within:border-error-800
+  focus-within:ring-1
   `;
 
-const BASE_CLASSES = ``;
+const BASE_CLASSES = `
+  focus:ring-base-600
+  focus:border-base-600
+  caret-base-600
+  focus-within:ring-base-600
+  focus-within:border-base-600
+  focus-within:ring-1`;
 
 export const TYPE_INPUT = {
   [VARIANT_PRIMARY]: PRIMARY_CLASSES,
   [VARIANT_ERROR]: ERROR_CLASSES,
   [VARIANT_BASE]: BASE_CLASSES,
+};
+
+export const SIZE_INPUT = {
+  [SIZE_XS]: '',
+  [SIZE_SM]: '',
+  [SIZE_MD]: SIZE_MD_INPUT_CLASSES,
+  [SIZE_LG]: '',
 };
 
 /* Tags */
@@ -56,15 +88,15 @@ export const ITEM_TAG_CLASSES =
 
 const PRIMARY_TAG_CLASSES = `
   focus-within:ring-primary-200
-  focus-within:border-primary-200`;
+  focus-within:border-primary-200 focus-within:ring-1`;
 
 const BASE_TAG_CLASSES = `
   focus-within:ring-base-600
-  focus-within:border-base-600`;
+  focus-within:border-base-600 focus-within:ring-1`;
 
 const ERROR_TAG_CLASSES = `
   focus-within:ring-error-800
-  focus-within:border-error-800`;
+  focus-within:border-error-800 focus-within:ring-1`;
 
 const ITEM_PRIMARY_CLASSES = 'bg-primary-800 text-white fill-white';
 const ITEM_BASE_CLASSES = 'bg-base-600 text-white fill-white';

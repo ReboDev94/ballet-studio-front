@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import React, { useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
@@ -10,11 +11,12 @@ import {
   Form,
   Input,
   Select,
+  InputSearch,
+  IOptionInputSearch,
 } from '@/common/components';
 import { TypeDegree } from '@/ballet/constants';
 import { SchemaNewOrUpdateGroup } from '@/ballet/validations';
 import { IFormGroup, IFormGroupTypes } from '@/ballet/interfaces';
-import React, { useEffect, useMemo, useState } from 'react';
 import { VALIDATION_REQUIRED } from '@/common/constants';
 
 const CURRENT_ANIO = new Date().getFullYear();
@@ -52,8 +54,6 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     resolver: yupResolver(SchemaNewOrUpdateGroup),
   });
 
-  console.log(errors);
-
   const onSubmit: SubmitHandler<IFormGroup> = data => {
     console.log(data);
   };
@@ -66,6 +66,9 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
   useEffect(() => {
     SCHEDULE.forEach(k => setValue(k, inputSchedule));
   }, [inputSchedule]);
+
+  const [searchExample, setSearchExample] =
+    useState<IOptionInputSearch<number> | null>(null);
 
   return (
     <Card>
@@ -143,6 +146,28 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
               </span>
             </div>
             <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
+              <InputSearch
+                value={searchExample}
+                onChange={val => setSearchExample(val)}
+                options={[
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 4, label: '4' },
+                  { value: 5, label: '5' },
+                ]}
+                buttonClearProps={{
+                  variant: 'outline-primary',
+                }}
+                renderItem={val => <div>hola mundo</div>}
+              >
+                <ul>
+                  <li>Maestro 1 </li>
+                  <li>Maestro 2 </li>
+                  <li>Maestro 3 </li>
+                  <li>Maestro 4 </li>
+                </ul>
+              </InputSearch>
               <ErrorInput message={errors.teacherId?.message} />
             </div>
           </div>

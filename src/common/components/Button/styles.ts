@@ -27,27 +27,28 @@ export const BASE_BUTTON_CLASSES = `
   disabled:text-base-300
   disabled:active:scale-100
   disabled:border
-  disabled:border-base-200`;
+  disabled:border-base-200
+  disabled:fill-base-300`;
 
 export const BLOCK_BUTTON_CLASSES = 'w-full';
 
 const PRIMARY_CLASSES =
-  'bg-primary-800 hover:bg-primary-700 text-primary-100 focus:ring-primary-100';
+  'bg-primary-800 hover:bg-primary-700 text-primary-100 focus:ring-primary-100 fill-primary-100';
 
 const OUTLINE_PRIMARY_CLASSES =
-  'border border-primary-800  text-primary-800 focus:ring-primary-100';
+  'border border-primary-800  text-primary-800 focus:ring-primary-100 fill-primary-800 bg-white';
 
 const BASE_CLASSES =
-  'bg-base-600 hover:bg-base-500 text-white focus:ring-base-100';
+  'bg-base-600 hover:bg-base-500 text-white focus:ring-base-100 fill-base-100';
 
 const OUTLINE_BASE_CLASSES =
-  'border border-base-600  text-base-600 focus:ring-base-100';
+  'border border-base-600  text-base-600 focus:ring-base-100 fill-base-600 bg-white';
 
 const ERROR_CLASSES =
   'bg-error-700 hover:bg-error-700 text-error-100 focus:ring-error-100 fill-base-50';
 
 const OUTLINE_ERROR_CLASSES =
-  'border border-error-700  text-error-700 focus:ring-error-100 fill-error-700';
+  'border border-error-700  text-error-700 focus:ring-error-100 fill-error-700 bg-white';
 
 export const TYPE_BTNS = {
   [VARIANT_PRIMARY]: PRIMARY_CLASSES,
@@ -58,10 +59,10 @@ export const TYPE_BTNS = {
   [VARIANT_OUTLINE_ERROR]: OUTLINE_ERROR_CLASSES,
 };
 
-const SIZE_XS_BTN_CLASSES = 'h-8 text-xs';
-const SIZE_SM_BTN_CLASSES = 'h-9 text-sm';
-const SIZE_MD_BTN_CLASSES = 'h-10 text-sm';
-const SIZE_LG_BTN_CLASSES = 'h-12 text-base';
+const SIZE_XS_BTN_CLASSES = 'h-8 min-w-[2rem] text-xs';
+const SIZE_SM_BTN_CLASSES = 'h-9 min-w-[2.25rem] text-sm';
+const SIZE_MD_BTN_CLASSES = 'h-10 min-w-[2.5rem] text-sm';
+const SIZE_LG_BTN_CLASSES = 'h-12 min-w-[3rem] text-base';
 
 export const SIZE_BTNS = {
   [SIZE_XS]: SIZE_XS_BTN_CLASSES,
