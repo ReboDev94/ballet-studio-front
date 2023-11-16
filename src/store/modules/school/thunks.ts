@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError } from 'axios';
 import {
   getSchoolService,
@@ -56,7 +57,6 @@ export const saveOrUpdateSchoolThunk = createAsyncThunk(
       dispatch(setDataSchoolAction(school));
       dispatch(setHasSchoolAction(true));
       return school;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error: AxiosError<ICommonError> = err;
       const errors = error.response?.data.errors || ERROR_SAVE_DATA_SCHOOL;

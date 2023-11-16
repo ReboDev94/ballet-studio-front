@@ -1,8 +1,8 @@
 import Header from './Header';
 import ModalComponent from './Modal';
 import Body from './Body';
-import { IModal } from './interfaces';
 import Footer from './Footer';
+import { IModal } from './interfaces';
 
 const Modal = Object.assign(ModalComponent, {
   Header,
@@ -10,5 +10,5 @@ const Modal = Object.assign(ModalComponent, {
   Footer,
 });
 
-export type ModalProps = IModal;
 export default Modal;
+export type { IModal };

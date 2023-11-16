@@ -6,6 +6,5 @@ const ListGroup = Object.assign(ListGroupComponent, {
   Item: ListItem,
 });
 
-export type ListGroupProps = IListGroup;
-export type ItemListGroupProps = IItemListGroup;
 export default ListGroup;
+export type { IListGroup, IItemListGroup };

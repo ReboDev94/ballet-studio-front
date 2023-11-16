@@ -37,6 +37,12 @@ export interface IGetAllUsersRequest extends IPaginateRequest {
   photos?: boolean;
 }
 
+export interface IGetTeacherRequest extends IPaginateRequest {
+  name?: string;
+  roles: string;
+  photos?: boolean;
+}
+
 export interface UserUpdate {
   photo: string | undefined;
   name: string;

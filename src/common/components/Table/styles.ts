@@ -1,6 +1,6 @@
 export const DEFAULT_TABLE_CLASSES = 'w-full text-sm text-left text-base-400';
 export const DEFAULT_WRAPPER_TABLE_CLASSES =
-  'relative overflow-x-auto border border-base-100 bg-white rounded-md shadow-sm';
+  'relative overflow-x-auto overflow-y-hidden border border-base-100 bg-white rounded-md shadow-sm';
 
 export const DEFAULT_HEAD_TABLE_CLASSES = 'text-xs uppercase border-b';
 export const DEFAULT_HEAD_TH_CLASSES = 'px-6 py-5';

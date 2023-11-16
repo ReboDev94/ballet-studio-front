@@ -1,16 +1,32 @@
-import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
-import { VARIANT_BASE, VARIANT_ERROR, VARIANT_PRIMARY } from '../../constants';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from 'react';
+import { IButton } from '../..';
+import {
+  SIZE_LG,
+  SIZE_MD,
+  SIZE_SM,
+  SIZE_XS,
+  VARIANT_BASE,
+  VARIANT_ERROR,
+  VARIANT_PRIMARY,
+} from '../../constants';
 export type Variant =
   | typeof VARIANT_PRIMARY
   | typeof VARIANT_ERROR
   | typeof VARIANT_BASE;
+
+export type Size =
+  | typeof SIZE_XS
+  | typeof SIZE_SM
+  | typeof SIZE_MD
+  | typeof SIZE_LG;
 
 export type VariantTag = typeof VARIANT_PRIMARY | typeof VARIANT_BASE;
 
 interface defaultInput {
   variant?: Variant;
   errorState?: boolean;
+  sizeType?: Size;
 }
 
 export interface IInput
@@ -19,7 +35,7 @@ export interface IInput
 
 export interface ITextArea
   extends TextareaHTMLAttributes<HTMLTextAreaElement>,
-    defaultInput {}
+    Omit<defaultInput, 'sizeType'> {}
 
 export interface ITag extends defaultInput {
   value: string[];
@@ -29,4 +45,34 @@ export interface ITag extends defaultInput {
   className?: string;
   placeholder?: string;
   disabled?: boolean;
+}
+
+export interface ISelect
+  extends React.SelectHTMLAttributes<HTMLSelectElement>,
+    defaultInput {}
+export interface ISelectOption
+  extends React.OptionHTMLAttributes<HTMLOptionElement> {}
+
+export type ObjetoOString = { [key: string]: any } | string;
+
+export interface OptionInputSearch<T extends ObjetoOString> {
+  value: T;
+  label: string;
+}
+export interface IInputSearch<T extends ObjetoOString> extends defaultInput {
+  searchValue: string;
+  onSearchValue: (val: string) => void;
+  clearable?: boolean;
+  disabled?: boolean;
+  loading?: boolean;
+  labelNoOption?: string;
+  value?: OptionInputSearch<T> | null;
+  onChange?: (val: OptionInputSearch<T> | null) => void;
+  options?: OptionInputSearch<T>[];
+  children?: ReactNode;
+  buttonClearProps?: Omit<
+    IButton,
+    'onClick' | 'disabled' | 'type' | 'className' | 'style' | 'children'
+  >;
+  renderItem?: (val: OptionInputSearch<T>) => ReactNode;
 }

@@ -11,3 +11,6 @@ export const LOADING_RESET_PASSWORD =
   'Enviando petición para el cambio de contraseña.';
 export const FAILED_RESET_PASSWORD =
   'Ha ocurrido un error al tratar de cambiar tu contraseña.';
+
+export const SUCCESS_SEND_EMAIL_BY_USER =
+  'El correo electrónico ha sido enviado';

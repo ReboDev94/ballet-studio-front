@@ -8,4 +8,15 @@
   html {
     font-family: 'Poppins', sans-serif;
   }
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-base-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-base-200;
+  }
 }

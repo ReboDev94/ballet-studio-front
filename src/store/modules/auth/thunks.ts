@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  confirmEmailService,
+  createUserService,
+  deleteUserService,
   getAllUsersService,
   getUserService,
   loginService,
@@ -7,12 +10,16 @@ import {
   sendEmailResetPasswordService,
   updatePasswordService,
   updateProfileService,
+  updateStatusUserService,
+  updateUserService,
 } from '@/auth/api';
 import {
+  IConfirmEmail,
   IGetAllUsersRequest,
   ILoginRequest,
   IRegisterRequest,
   IResetPassword,
+  IUpdateStatus,
   IUserForm,
 } from '@/auth/interfaces';
 import {
@@ -24,21 +31,30 @@ import {
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setDataLoginAction, updateProfileUserAction } from './actions';
 import {
+  ERROR_DELETE_USER,
   ERROR_GET_ALL_USERS,
   ERROR_REGISTER_USER,
+  FAILED_CREATE_USER,
   FAILED_RESET_PASSWORD,
   FAILED_SEND_EMAIL,
+  FAILED_UPDATE_STATUS_USER,
+  FAILED_UPDATE_USER,
   INCORRECT_CREDENTIALS,
   SING_IN_SUCCESS,
+  SUCCESS_CREATE_USER,
+  SUCCESS_DELETE_USER,
   SUCCESS_REGISTER_USER,
   SUCCESS_RESET_PASSWORD,
   SUCCESS_SEND_EMAIL,
+  SUCCESS_UPDATE_STATUS_USER,
+  SUCCESS_UPDATE_USER,
   UNAUTHORIZED,
 } from '@/auth/constants';
 import { userInitialData } from './initialState';
 import { getSchoolThunk } from '../school/thunks';
 import { AxiosError } from 'axios';
 import { ICommonError } from '@/common/interfaces';
+import { INewOrUpdateUser } from '@/ballet/interfaces';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -124,7 +140,7 @@ export const getAllUsersThunk = createAsyncThunk(
         },
       } = await getAllUsersService(data);
 
-      return { users, meta };
+      return { data: users, meta };
     } catch (err: any) {
       const error: AxiosError<ICommonError> = err;
       return rejectWithValue(
@@ -158,6 +174,59 @@ export const updatePasswordThunk = createAsyncThunk(
       return rejectWithValue(
         error.response?.data.message || FAILED_RESET_PASSWORD,
       );
+    }
+  },
+);
+
+export const confirmEmailThunk = createAsyncThunk(
+  'auth/confirmEmail',
+  async (data: IConfirmEmail, { rejectWithValue }) => {
+    try {
+      const { data: response } = await confirmEmailService(data);
+      return response;
+    } catch (error) {
+      return rejectWithValue('Error');
+    }
+  },
+);
+
+export const deleteUserThunk = createAsyncThunk(
+  'auth/deleteUser',
+  async (userId: number, { rejectWithValue }) => {
+    try {
+      await deleteUserService(userId);
+      return SUCCESS_DELETE_USER;
+    } catch (error) {
+      return rejectWithValue(ERROR_DELETE_USER);
+    }
+  },
+);
+
+export const updateStatusUserThunk = createAsyncThunk(
+  'auth/updateStatusUser',
+  async (data: IUpdateStatus, { rejectWithValue }) => {
+    try {
+      await updateStatusUserService(data);
+      return SUCCESS_UPDATE_STATUS_USER;
+    } catch (error) {
+      return rejectWithValue(FAILED_UPDATE_STATUS_USER);
+    }
+  },
+);
+
+export const updateOrcreateUserThunk = createAsyncThunk(
+  'auth/updateOrcreateUser',
+  async (data: INewOrUpdateUser, { rejectWithValue }) => {
+    try {
+      if (data.id) await updateUserService(data);
+      else await createUserService(data);
+      return data.id ? SUCCESS_UPDATE_USER : SUCCESS_CREATE_USER;
+    } catch (err: any) {
+      const MSG = data.id ? FAILED_UPDATE_USER : FAILED_CREATE_USER;
+      const error: AxiosError<ICommonError> = err;
+      const errors =
+        error.response?.data.errors || error.response?.data.message || MSG;
+      return rejectWithValue(errors);
     }
   },
 );

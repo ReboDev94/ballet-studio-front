@@ -1,136 +1,120 @@
 import {
-  SidebarProps as TSidebarProps,
-  SidebarContentProps as TSidebarContentProps,
-  SidebarCategoryProps as TSidebarCategoryProps,
-  SidebarHeaderProps as TSidebarHeaderProps,
-} from './Sidebar';
-import { ButtonProps as TButtonProps } from './Button';
-import {
-  CardProps as TCardProps,
-  CardBodyProps as TCardBodyProps,
-} from './Card';
-import { InputProps as TInputProps } from './Input';
-import { TextAreaProps as TTextAreaProps } from './Textarea';
-import {
-  FormProps as TFormProps,
-  FormLabelProps as TFormLabelProps,
-} from './Form';
-import {
-  MenuProps as TMenuProps,
-  ItemProps as TItemProps,
-  CollapseProps as TCollapseProps,
-} from './Menu';
-import { AvatarProps as TAvataProps } from './Avatar';
-import {
-  DropdownProps as TDropdownProps,
-  DropdownToogleProps as TDropdownToogleProps,
-  DropdownMenuProps as TDropdownMenuProps,
-  DropdownItemProps as TDropdownItemProps,
-  DropdownDividerProps as TDropdownDividerProps,
+  IDropdown,
+  IDropdownDivider,
+  IDropdownItem,
+  IDropdownMenu,
+  IDropdownToogle,
 } from './Dropdown';
+import { ITag } from './Tag';
+import { IInput } from './Input';
+import { IModal } from './Modal';
+import { IRadio } from './Radio';
+import { IAvatar } from './Avatar';
+import { IButton } from './Button';
+import { ILoading } from './Loading';
+import { IDivider } from './Divider';
+import { IForm, ILabel } from './Form';
+import { ICheckBox } from './Checkbox';
+import { ITextArea } from './Textarea';
+import { ICard, ICardBody } from './Card';
+import { IErrorInput } from './ErrorInput';
+import { IPagination } from './Pagination';
+import { ISelect, ISelectOption } from './Select';
+import { IItemListGroup, IListGroup } from './ListGroup';
+import { ICollapseSidebar, IItemSidebar, IMenu } from './Menu';
+import { ITable, ITableBody, ITableHead, ITableRow } from './Table';
 import {
-  TableProps as TTableProps,
-  TableHeadProps as TTableHeadProps,
-  TableBodyProps as TTableBody,
-  TableRowProps as TTableRowProps,
-} from './Table';
-import { TagProps as TTagProps } from './Tag';
-import { DividerProps as TDividerProps } from './Divider';
-import { ErrorInputProps as TErrorInputProps } from './ErrorInput/index';
-import { SidebarBackDrop as TSidebarBackDrop } from './Sidebar';
-import { PaginationProps as TPaginationProps } from './Pagination/index';
-import {
-  ListGroupProps as TListGroupProps,
-  ItemListGroupProps as TItemListGroupProps,
-} from './ListGroup';
-import { CheckboxProps as TCheckboxProps } from './Checkbox';
-import { RadioProps as TRadioProps } from './Radio';
-import { ModalProps as TModalProps } from './Modal/index';
+  InputSearchProps,
+  IOptionInputSearch,
+  TypeObjectoOrString,
+} from './InputSearch';
+import { IBackDrop, ICategory, IContent, IHeader, ISidebar } from './Sidebar';
+
+export type { InputSearchProps, IOptionInputSearch, TypeObjectoOrString };
+export { default as InputSearch } from './InputSearch';
+
+/* Select */
+export type { ISelect, ISelectOption };
+export { default as Select } from './Select';
+
+/* Loading */
+export type { ILoading };
+export { default as Loading } from './Loading';
 
 /* Modal */
-export type ModalProps = TModalProps;
+export type { IModal };
 export { default as Modal } from './Modal';
+
 /* Radio */
-export type RadioProps = TRadioProps;
+export type { IRadio };
 export { default as Radio } from './Radio';
 
 /* Checkbox */
-export type CheckboxProps = TCheckboxProps;
+export type { ICheckBox };
 export { default as Checkbox } from './Checkbox';
 
 /* Pagination */
-export type PaginationProps = TPaginationProps;
+export type { IPagination };
 export { default as Pagination } from './Pagination';
 
 /* Error input */
-export type ErrorInputProps = TErrorInputProps;
+export type { IErrorInput };
 export { default as ErrorInput } from './ErrorInput';
 
 /* Divider */
-
-export type DividerProps = TDividerProps;
+export type { IDivider };
 export { default as Divider } from './Divider';
 
 /* ListGroup */
-export type ListGroupProps = TListGroupProps;
-export type ItemListGroupProps = TItemListGroupProps;
+export type { IListGroup, IItemListGroup };
 export { default as ListGroup } from './ListGroup';
 
 /* Tag */
-export type TagProps = TTagProps;
+export type { ITag };
 export { default as Tag } from './Tag';
 
 /* Table */
-export type TableRowProps = TTableRowProps;
-export type TableBodyProps = TTableBody;
-export type TableProps = TTableProps;
-export type TableHeadProps = TTableHeadProps;
+export type { ITable, ITableHead, ITableRow, ITableBody };
 export { default as Table } from './Table';
 
 /* DropDown */
-export type DropdownProps = TDropdownProps;
-export type DropdownToogleProps = TDropdownToogleProps;
-export type DropdownMenuProps = TDropdownMenuProps;
-export type DropdownItemProps = TDropdownItemProps;
-export type DropdownDividerProps = TDropdownDividerProps;
+export type {
+  IDropdown,
+  IDropdownToogle,
+  IDropdownMenu,
+  IDropdownItem,
+  IDropdownDivider,
+};
 export { default as Dropdown } from './Dropdown';
 
 /* Avatar */
-export type AvatarProps = TAvataProps;
+export type { IAvatar };
 export { default as Avatar } from './Avatar';
 
 /* Menu */
-export type MenuSidebarProps = TMenuProps;
-export type ItemSidebarProps = TItemProps;
-export type CollapseProps = TCollapseProps;
+export type { IMenu, IItemSidebar, ICollapseSidebar };
 export { default as Menu } from './Menu';
 
 /* Form */
-export type FormProps = TFormProps;
-export type FormLabelProps = TFormLabelProps;
+export type { IForm, ILabel };
 export { default as Form } from './Form';
 
 /* TextArea */
-export type TextAreaProps = TTextAreaProps;
+export type { ITextArea };
 export { default as Textarea } from './Textarea';
 
 /* Input */
-export type InputProps = TInputProps;
+export type { IInput };
 export { default as Input } from './Input';
 
 /* Sidebar */
-export type SidebarProps = TSidebarProps;
-export type SidebarContentProps = TSidebarContentProps;
-export type SidebarCategoryProps = TSidebarCategoryProps;
-export type SidebarHeaderProps = TSidebarHeaderProps;
-export type SidebarBackDrop = TSidebarBackDrop;
+export type { ISidebar, IContent, ICategory, IHeader, IBackDrop };
 export { default as Sidebar } from './Sidebar';
 
 /* Button */
-export type ButtonProps = TButtonProps;
+export type { IButton };
 export { default as Button } from './Button';
 
 /* Card */
-export type CardProps = TCardProps;
-export type CardBodyProps = TCardBodyProps;
+export type { ICard, ICardBody };
 export { default as Card } from './Card';
