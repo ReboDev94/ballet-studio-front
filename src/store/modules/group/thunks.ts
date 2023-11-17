@@ -3,6 +3,7 @@ import {
   createGroupService,
   deleteGroupService,
   getAllGroupService,
+  updateGroupService,
 } from '@/ballet/api';
 import {
   FAILED_CREATE_GROUP,
@@ -49,7 +50,7 @@ export const createOrUpdateGroupThunk = createAsyncThunk(
   'group/createOrUpdateGroup',
   async (data: IFormGroup, { rejectWithValue }) => {
     try {
-      data.id ? ' ' : await createGroupService(data);
+      data.id ? await updateGroupService(data) : await createGroupService(data);
       return SUCCESS_CREATE_GROUP;
     } catch (err: any) {
       const MSG = data.id ? FAILED_UPDATE_GROUP : FAILED_CREATE_GROUP;

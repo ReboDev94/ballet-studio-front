@@ -8,6 +8,7 @@ import {
 
 const GET_ALL_GROUPS = 'group';
 const CREATE_GROUP = 'group';
+const UPDATE_GROUP = 'group/:groupId';
 const DELETE_GROUP = 'group/:groupId';
 
 export const getAllGroupService = async (data: IGetGroupAllRequest) => {
@@ -27,9 +28,19 @@ export const deleteGroupService = async (id: number) => {
 };
 
 export const createGroupService = async (data: IFormGroup) => {
+  if (data.id) delete data.id;
   const response = await axiosInstance.post<ICreateGroupResponse>(
     CREATE_GROUP,
     { ...data },
   );
-  return response.data;
+  return response;
+};
+
+export const updateGroupService = async (data: IFormGroup) => {
+  const { id, ...rest } = data;
+  const response = await axiosInstance.patch(
+    UPDATE_GROUP.replace(':groupId', `${id}`),
+    { ...rest },
+  );
+  return response;
 };

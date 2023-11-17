@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { IDataGroup, IGetGroupAllRequest, IGroup } from '@/ballet/interfaces';
+import {
+  IDataGroup,
+  IGetGroupAllRequest,
+  IGroupAtt,
+} from '@/ballet/interfaces';
 import { IconFilter, IconSearch, IconTeam } from '@/common/assets/svg';
 import {
   Button,
@@ -51,7 +55,7 @@ const ViewGroupsPage = () => {
     setModalEditGroup,
   ] = useState<{
     modal: boolean;
-    group: IGroup | undefined;
+    group: IGroupAtt | undefined;
   }>({
     modal: false,
     group: undefined,
@@ -224,9 +228,9 @@ const ViewGroupsPage = () => {
                     onDelete={groupId =>
                       setModalDeleteGroup({ modal: true, groupId })
                     }
-                    onEdit={groupValues => {
-                      /*  */
-                    }}
+                    onEdit={groupValues =>
+                      setModalEditGroup({ modal: true, group: groupValues })
+                    }
                     key={group.id}
                     group={group}
                   />
@@ -266,6 +270,7 @@ const ViewGroupsPage = () => {
         </Modal.Header>
         <Modal.Body>
           <NewUpdateGroup
+            group={groupEditOrUpdate}
             onSuccess={() => getAll()}
             onCancel={() =>
               setModalEditGroup({ modal: false, group: undefined })

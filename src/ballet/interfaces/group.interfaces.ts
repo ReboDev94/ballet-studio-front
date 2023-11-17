@@ -41,7 +41,7 @@ export interface IGroup {
   id: number;
   description: string;
   schedules: Schedule[];
-  schoolCycle: string;
+  schoolCycle: number;
   degree: TypeDegree;
   deletedAt: string | null;
   createdAt: string;
@@ -55,5 +55,6 @@ export interface Schedule {
 }
 
 export interface Teacher {
+  id: number;
   name: string;
 }

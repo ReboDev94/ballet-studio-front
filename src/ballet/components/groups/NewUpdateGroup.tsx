@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import toast from 'react-hot-toast';
 import {
   Button,
   Card,
@@ -17,15 +18,20 @@ import {
   LOADING_CREATE_GROUP,
   LOADING_UPDATE_GROUP,
   TypeDegree,
+  typeEnumDays,
 } from '@/ballet/constants';
 import { SchemaNewOrUpdateGroup } from '@/ballet/validations';
-import { IFormGroup, IFormGroupTypes } from '@/ballet/interfaces';
+import {
+  IFormGroup,
+  IFormGroupTypes,
+  IGroupAtt,
+  Schedule,
+} from '@/ballet/interfaces';
 import { SORT_ASC, VALIDATION_REQUIRED } from '@/common/constants';
 import { useSearch } from '@/common/hooks';
 import { IGetTeacherRequest, IUserAll } from '@/auth/interfaces';
 import { GET_ALL_USERS } from '@/auth/api';
 import { TypeRoles } from '@/auth/constants';
-import toast from 'react-hot-toast';
 import { createOrUpdateGroupThunk } from '@/store/modules/group/thunks';
 import { useAppDispatch } from '@/store/hooks';
 import { Errors } from '@/common/interfaces';
@@ -33,6 +39,7 @@ import { getCustomErrors } from '@/common/utils';
 
 const optToast = { id: 'group-toast' };
 const CURRENT_ANIO = new Date().getFullYear();
+const OPT_ANIOS = [CURRENT_ANIO, CURRENT_ANIO + 1];
 const SCHEDULE: IFormGroupTypes[] = [
   'scheduleL',
   'scheduleM',
@@ -44,11 +51,17 @@ const SCHEDULE: IFormGroupTypes[] = [
 ];
 
 interface NewUpdateGroupProps {
+  group?: IGroupAtt;
   onSuccess?: () => void;
   onCancel?: () => void;
 }
 
+const findSchedule = (schedules: Schedule[] = [], dayP: typeEnumDays) => {
+  return schedules.find(({ day }) => day === dayP)?.hour || '';
+};
+
 const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
+  group = undefined,
   onSuccess = () => {},
   onCancel = () => {},
 }) => {
@@ -62,7 +75,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     setSelected,
     options,
     loading,
-  } = useSearch<IUserAll, Omit<IGetTeacherRequest, 'name'>>(
+  } = useSearch<Partial<IUserAll>, Omit<IGetTeacherRequest, 'name'>>(
     GET_ALL_USERS,
     'name',
     {
@@ -85,8 +98,17 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
   } = useForm<IFormGroup>({
     mode: 'onSubmit',
     defaultValues: {
-      schoolCycle: CURRENT_ANIO,
-      scheduleL: '',
+      id: group?.id,
+      description: group?.description || '',
+      degree: TypeDegree[group?.degree || '1A'],
+      scheduleL: findSchedule(group?.schedules, 'L'),
+      scheduleM: findSchedule(group?.schedules, 'M'),
+      scheduleMI: findSchedule(group?.schedules, 'MI'),
+      scheduleJ: findSchedule(group?.schedules, 'J'),
+      scheduleV: findSchedule(group?.schedules, 'V'),
+      scheduleS: findSchedule(group?.schedules, 'S'),
+      scheduleD: findSchedule(group?.schedules, 'D'),
+      schoolCycle: group?.schoolCycle || CURRENT_ANIO,
     },
     resolver: yupResolver(SchemaNewOrUpdateGroup),
   });
@@ -120,14 +142,23 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     [...validSchedule],
   );
 
+  const onChangeInputSchedule = (value: string) => {
+    setInputSchedule(value);
+    SCHEDULE.forEach(k => setValue(k, value));
+  };
+
   useEffect(() => {
-    const VTeacherId = selected ? selected.value.id : -1;
+    const VTeacherId = selected ? selected.value.id || -1 : -1;
     setValue('teacherId', VTeacherId);
   }, [selected]);
 
   useEffect(() => {
-    SCHEDULE.forEach(k => setValue(k, inputSchedule));
-  }, [inputSchedule]);
+    if (group) {
+      const { id, name } = group.teacher;
+      setSelected({ label: name, value: { id } });
+      setOnlySchedule(false);
+    }
+  }, []);
 
   return (
     <Card>
@@ -182,17 +213,25 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
               </span>
             </div>
             <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
-              <Select
-                {...register('schoolCycle')}
-                errorState={!!errors.schoolCycle}
-              >
-                <Select.Option value={CURRENT_ANIO}>
-                  {CURRENT_ANIO}
-                </Select.Option>
-                <Select.Option value={CURRENT_ANIO + 1}>
-                  {CURRENT_ANIO + 1}
-                </Select.Option>
-              </Select>
+              {!!group && (
+                <Input
+                  {...register('schoolCycle')}
+                  errorState={!!errors.schoolCycle}
+                  disabled={!!group}
+                />
+              )}
+              {!group && (
+                <Select
+                  {...register('schoolCycle')}
+                  errorState={!!errors.schoolCycle}
+                >
+                  {OPT_ANIOS.map(anio => (
+                    <Select.Option key={anio} value={anio}>
+                      {anio}
+                    </Select.Option>
+                  ))}
+                </Select>
+              )}
               <ErrorInput message={errors.schoolCycle?.message} />
             </div>
           </div>
@@ -255,7 +294,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                   <Input
                     type="time"
                     value={inputSchedule}
-                    onChange={e => setInputSchedule(e.target.value)}
+                    onChange={e => onChangeInputSchedule(e.target.value)}
                     errorState={!validationOnlySchedule}
                   />
                   {!validationOnlySchedule && (
