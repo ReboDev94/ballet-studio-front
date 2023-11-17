@@ -10,6 +10,8 @@ export interface IGetGroupAllRequest extends IPaginateRequest {
   teacher?: string;
 }
 
+export interface ICreateGroupResponse extends ICommonResponse {}
+
 export interface IDataGroup {
   data: IGroupAtt[];
   meta: IMeta;
@@ -20,6 +22,7 @@ export interface IGroupAtt extends IGroup {
 }
 
 export interface IFormGroup {
+  id: number | undefined;
   description: string;
   scheduleL: string;
   scheduleM: string;

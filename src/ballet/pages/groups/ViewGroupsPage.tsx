@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { IDataGroup, IGetGroupAllRequest, IGroup } from '@/ballet/interfaces';
 import { IconFilter, IconSearch, IconTeam } from '@/common/assets/svg';
 import {
@@ -14,11 +15,16 @@ import {
 } from '@/common/components';
 import { ISort } from '@/common/interfaces';
 import { useAppDispatch } from '@/store/hooks';
-import { getAllGroupThunk } from '@/store/modules/group/thunks';
+import {
+  deleteGroupThunk,
+  getAllGroupThunk,
+} from '@/store/modules/group/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import { useDegree } from '@/ballet/hooks';
-import { GroupTable, NewUpdateGroup } from '@/ballet/components';
+import { GroupTable, ModalConfirm, NewUpdateGroup } from '@/ballet/components';
+import { LOADING_DELETE_GROUP } from '@/ballet/constants';
 
+const optToast = { id: 'group-toast' };
 const ViewGroupsPage = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
@@ -31,6 +37,14 @@ const ViewGroupsPage = () => {
     sort: 'ASC',
     teacher: '',
   });
+
+  const [
+    { modal: modalDeleteGroup, groupId: idDeleteGroup },
+    setModalDeleteGroup,
+  ] = useState<{
+    modal: boolean;
+    groupId: number;
+  }>({ modal: false, groupId: -1 });
 
   const [
     { modal: modalEditGroup, group: groupEditOrUpdate },
@@ -73,6 +87,17 @@ const ViewGroupsPage = () => {
     const { groups, meta } = await dispatch(getAllGroupThunk(data)).unwrap();
     setGroups({ data: groups, meta });
     setPage(meta.page);
+  };
+
+  const deleteGroup = async () => {
+    toast.loading(LOADING_DELETE_GROUP, optToast);
+    await dispatch(deleteGroupThunk(idDeleteGroup))
+      .unwrap()
+      .then(success => {
+        getAll();
+        toast.success(success, optToast);
+      })
+      .catch(err => toast.error(err, optToast));
   };
 
   useEffect(() => {
@@ -194,7 +219,18 @@ const ViewGroupsPage = () => {
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&
-                data.map(group => <GroupTable key={group.id} group={group} />)}
+                data.map(group => (
+                  <GroupTable
+                    onDelete={groupId =>
+                      setModalDeleteGroup({ modal: true, groupId })
+                    }
+                    onEdit={groupValues => {
+                      /*  */
+                    }}
+                    key={group.id}
+                    group={group}
+                  />
+                ))}
             </Table.Body>
             <Table.Footer>
               <Table.Row>
@@ -212,6 +248,14 @@ const ViewGroupsPage = () => {
           </Table>
         </Card.Body>
       </Card>
+      <ModalConfirm
+        open={modalDeleteGroup}
+        title="Eliminar grupo"
+        description="¿Estas seguro de eliminar el grupo?"
+        acceptLabelButton="Eliminar"
+        onCancel={() => setModalDeleteGroup({ modal: false, groupId: -1 })}
+        onAccept={() => deleteGroup()}
+      />
       <Modal value={modalEditGroup} size="md">
         <Modal.Header
           onClose={() => setModalEditGroup({ modal: false, group: undefined })}
@@ -221,7 +265,12 @@ const ViewGroupsPage = () => {
           </h3>
         </Modal.Header>
         <Modal.Body>
-          <NewUpdateGroup />
+          <NewUpdateGroup
+            onSuccess={() => getAll()}
+            onCancel={() =>
+              setModalEditGroup({ modal: false, group: undefined })
+            }
+          />
         </Modal.Body>
       </Modal>
     </>

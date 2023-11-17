@@ -10,6 +10,7 @@ import { REGEX_HOUR, TypeDegree } from '../constants';
 const CURRENT_ANIO = new Date().getFullYear();
 
 export const SchemaNewOrUpdateGroup = object({
+  id: number().default(undefined).optional(),
   description: string().default('').optional(),
   scheduleL: string()
     .default('')

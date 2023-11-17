@@ -8,8 +8,10 @@ import { Days, typeEnumDays } from '@/ballet/constants';
 
 interface GroupTableProps {
   group: IGroupAtt;
+  onDelete: (id: number) => void;
+  onEdit: (group: IGroupAtt) => void;
 }
-const GroupTable: React.FC<GroupTableProps> = ({ group }) => {
+const GroupTable: React.FC<GroupTableProps> = ({ group, onDelete, onEdit }) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -42,21 +44,10 @@ const GroupTable: React.FC<GroupTableProps> = ({ group }) => {
               <IconMore className="h-4 fill-base-600" />
             </Dropdown.Toogle>
             <Dropdown.Menu className="w-44" position="left" align="center">
-              <Dropdown.Item
-              /*  onClick={() =>
-                              setModalEditStudent({ modal: true, student })
-                            } */
-              >
+              <Dropdown.Item onClick={() => onEdit(group)}>
                 Editar
               </Dropdown.Item>
-              <Dropdown.Item
-              /*  onClick={() =>
-                              setModalDeleteStudent({
-                                modal: true,
-                                studentId: student.id,
-                              })
-                            } */
-              >
+              <Dropdown.Item onClick={() => onDelete(group.id)}>
                 Eliminar
               </Dropdown.Item>
             </Dropdown.Menu>

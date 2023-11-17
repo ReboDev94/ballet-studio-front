@@ -1,7 +1,21 @@
-import { getAllGroupService } from '@/ballet/api';
-import { FAILED_GET_ALL_GROUPS } from '@/ballet/constants';
-import { IGetGroupAllRequest } from '@/ballet/interfaces';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  createGroupService,
+  deleteGroupService,
+  getAllGroupService,
+} from '@/ballet/api';
+import {
+  FAILED_CREATE_GROUP,
+  FAILED_DELETE_GROUP,
+  FAILED_GET_ALL_GROUPS,
+  FAILED_UPDATE_GROUP,
+  SUCCESS_CREATE_GROUP,
+  SUCCESS_DELETE_GROUP,
+} from '@/ballet/constants';
+import { IFormGroup, IGetGroupAllRequest } from '@/ballet/interfaces';
+import { ICommonError } from '@/common/interfaces';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
 export const getAllGroupThunk = createAsyncThunk(
   'group/getAllGroup',
@@ -15,6 +29,33 @@ export const getAllGroupThunk = createAsyncThunk(
       return { groups, meta };
     } catch (error) {
       return rejectWithValue(FAILED_GET_ALL_GROUPS);
+    }
+  },
+);
+
+export const deleteGroupThunk = createAsyncThunk(
+  'group/deleteGroup',
+  async (id: number, { rejectWithValue }) => {
+    try {
+      await deleteGroupService(id);
+      return SUCCESS_DELETE_GROUP;
+    } catch (err) {
+      return rejectWithValue(FAILED_DELETE_GROUP);
+    }
+  },
+);
+
+export const createOrUpdateGroupThunk = createAsyncThunk(
+  'group/createOrUpdateGroup',
+  async (data: IFormGroup, { rejectWithValue }) => {
+    try {
+      data.id ? ' ' : await createGroupService(data);
+      return SUCCESS_CREATE_GROUP;
+    } catch (err: any) {
+      const MSG = data.id ? FAILED_UPDATE_GROUP : FAILED_CREATE_GROUP;
+      const error: AxiosError<ICommonError> = err;
+      const errors = error.response?.data.errors || MSG;
+      return rejectWithValue(errors);
     }
   },
 );

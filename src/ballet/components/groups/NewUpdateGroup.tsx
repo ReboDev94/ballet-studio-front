@@ -13,7 +13,11 @@ import {
   Select,
   InputSearch,
 } from '@/common/components';
-import { TypeDegree } from '@/ballet/constants';
+import {
+  LOADING_CREATE_GROUP,
+  LOADING_UPDATE_GROUP,
+  TypeDegree,
+} from '@/ballet/constants';
 import { SchemaNewOrUpdateGroup } from '@/ballet/validations';
 import { IFormGroup, IFormGroupTypes } from '@/ballet/interfaces';
 import { SORT_ASC, VALIDATION_REQUIRED } from '@/common/constants';
@@ -21,7 +25,13 @@ import { useSearch } from '@/common/hooks';
 import { IGetTeacherRequest, IUserAll } from '@/auth/interfaces';
 import { GET_ALL_USERS } from '@/auth/api';
 import { TypeRoles } from '@/auth/constants';
+import toast from 'react-hot-toast';
+import { createOrUpdateGroupThunk } from '@/store/modules/group/thunks';
+import { useAppDispatch } from '@/store/hooks';
+import { Errors } from '@/common/interfaces';
+import { getCustomErrors } from '@/common/utils';
 
+const optToast = { id: 'group-toast' };
 const CURRENT_ANIO = new Date().getFullYear();
 const SCHEDULE: IFormGroupTypes[] = [
   'scheduleL',
@@ -34,12 +44,15 @@ const SCHEDULE: IFormGroupTypes[] = [
 ];
 
 interface NewUpdateGroupProps {
+  onSuccess?: () => void;
   onCancel?: () => void;
 }
 
 const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
+  onSuccess = () => {},
   onCancel = () => {},
 }) => {
+  const dispatch = useAppDispatch();
   const [onlySchedule, setOnlySchedule] = useState(true);
   const [inputSchedule, setInputSchedule] = useState('');
   const {
@@ -66,6 +79,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     register,
     watch,
     setValue,
+    setError,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IFormGroup>({
@@ -77,8 +91,27 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     resolver: yupResolver(SchemaNewOrUpdateGroup),
   });
 
-  const onSubmit: SubmitHandler<IFormGroup> = data => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormGroup> = async data => {
+    toast.loading(
+      data.id ? LOADING_UPDATE_GROUP : LOADING_CREATE_GROUP,
+      optToast,
+    );
+
+    await dispatch(createOrUpdateGroupThunk(data))
+      .unwrap()
+      .then(success => {
+        onSuccess();
+        onCancel();
+        toast.success(success, optToast);
+      })
+      .catch((errors: Errors[] | string) => {
+        Array.isArray(errors) &&
+          errors.map(({ property, message }) => {
+            const { error, config } = getCustomErrors(message);
+            setError(property as IFormGroupTypes, error, config);
+          });
+        typeof errors === 'string' && toast.error(errors, optToast);
+      });
   };
 
   const validSchedule = watch([...SCHEDULE]);

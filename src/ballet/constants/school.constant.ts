@@ -4,6 +4,7 @@ export const LOADING_SAVE_SCHOOL =
   'Estamos guardando la información de tu escuela. por favor espera.';
 export const SAVE_DATA_SCHOOL =
   'La información de la escuela ha sido guardada con exito!';
-export const ERROR_SAVE_DATA_SCHOOL = 'Ocurrio un error al guardar los datos!';
+export const ERROR_SAVE_DATA_SCHOOL =
+  'Ocurrio un error al guardar los datos de la escuela!';
 export const GET_SCHOOL_ERROR =
   'Ocurrio un error al obtener los datos de la escuela.';
