@@ -268,14 +268,16 @@ const ViewUsersPage = () => {
           </div>
           <Table>
             <Table.Head>
-              <>Foto</>
-              <>Nombre</>
-              <>Email</>
-              <>Telefono</>
-              <>Estado</>
-              <>Fecha de registro</>
-              <>Roles</>
-              <>Opciones</>
+              <Table.Row>
+                <Table.Th>Foto</Table.Th>
+                <Table.Th>Nombre</Table.Th>
+                <Table.Th>Email</Table.Th>
+                <Table.Th>Telefono</Table.Th>
+                <Table.Th>Estado</Table.Th>
+                <Table.Th>Fecha de registro</Table.Th>
+                <Table.Th>Roles</Table.Th>
+                <Table.Th>Opciones</Table.Th>
+              </Table.Row>
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&

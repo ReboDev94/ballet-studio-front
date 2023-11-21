@@ -11,7 +11,8 @@ const TableHead = React.forwardRef<HTMLTableSectionElement, ITableHead>(
         className={twMerge(DEFAULT_HEAD_TABLE_CLASSES, className)}
         {...props}
       >
-        <tr>
+        {children}
+        {/* <tr>
           {Array.isArray(children) ? (
             children.map((child, i) => (
               <th key={i} scope="rol" className={DEFAULT_HEAD_TH_CLASSES}>
@@ -23,7 +24,7 @@ const TableHead = React.forwardRef<HTMLTableSectionElement, ITableHead>(
               {children}
             </th>
           )}
-        </tr>
+        </tr> */}
       </thead>
     );
   },

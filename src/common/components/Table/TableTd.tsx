@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { DEFAULT_HEAD_TD_CLASSES } from './styles';
 
-const TableCol = <PROPS extends HTMLAttributes<HTMLTableCellElement>>({
+const TableTd = <PROPS extends HTMLAttributes<HTMLTableCellElement>>({
   children,
   className,
   ...props
@@ -12,4 +12,4 @@ const TableCol = <PROPS extends HTMLAttributes<HTMLTableCellElement>>({
   </td>
 );
 
-export default TableCol;
+export default TableTd;

@@ -192,14 +192,16 @@ const ViewStudentsPage = () => {
 
           <Table>
             <Table.Head>
-              <>Foto</>
-              <>Nombre</>
-              <>Dirección</>
-              <>Teléfono</>
-              <>Correo electrónico</>
-              <>Fecha de nacimiento</>
-              <>Fecha de registro</>
-              <>Opciones</>
+              <Table.Row>
+                <Table.Th>Foto</Table.Th>
+                <Table.Th>Nombre</Table.Th>
+                <Table.Th>Dirección</Table.Th>
+                <Table.Th>Teléfono</Table.Th>
+                <Table.Th>Correo electrónico</Table.Th>
+                <Table.Th>Fecha de nacimiento</Table.Th>
+                <Table.Th>Fecha de registro</Table.Th>
+                <Table.Th>Opciones</Table.Th>
+              </Table.Row>
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&

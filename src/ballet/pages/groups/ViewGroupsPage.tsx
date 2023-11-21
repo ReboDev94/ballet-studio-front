@@ -5,7 +5,12 @@ import {
   IGetGroupAllRequest,
   IGroupAtt,
 } from '@/ballet/interfaces';
-import { IconFilter, IconSearch, IconTeam } from '@/common/assets/svg';
+import {
+  IconFilter,
+  IconMore,
+  IconSearch,
+  IconTeam,
+} from '@/common/assets/svg';
 import {
   Button,
   Card,
@@ -25,8 +30,9 @@ import {
 } from '@/store/modules/group/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import { useDegree } from '@/ballet/hooks';
-import { GroupTable, ModalConfirm, NewUpdateGroup } from '@/ballet/components';
+import { ModalConfirm, NewUpdateGroup } from '@/ballet/components';
 import { LOADING_DELETE_GROUP } from '@/ballet/constants';
+import { formatDate } from '@/common/utils';
 
 const optToast = { id: 'group-toast' };
 const ViewGroupsPage = () => {
@@ -213,32 +219,118 @@ const ViewGroupsPage = () => {
           </div>
           <Table>
             <Table.Head>
-              <>Descripción</>
-              <>Grado</>
-              <>Año escolar</>
-              <>Maestro</>
-              <>Fecha de registro</>
-              <>Horario</>
-              <>Opciones</>
+              <Table.Row>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Nombre
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Grado
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Año escolar
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Maestro
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  No.Alumnos
+                </Table.Th>
+                <Table.Th className="py-3 text-center" colSpan={7} rowSpan={1}>
+                  Horario
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Fecha de registro
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={2}>
+                  Opciones
+                </Table.Th>
+              </Table.Row>
+              <Table.Row>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Lunes
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Martes
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Miercoles
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Jueves
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Viernes
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Sabado
+                </Table.Th>
+                <Table.Th className="py-3" rowSpan={1}>
+                  Domingo
+                </Table.Th>
+              </Table.Row>
             </Table.Head>
             <Table.Body divide>
               {data.length > 0 &&
                 data.map(group => (
-                  <GroupTable
-                    onDelete={groupId =>
-                      setModalDeleteGroup({ modal: true, groupId })
-                    }
-                    onEdit={groupValues =>
-                      setModalEditGroup({ modal: true, group: groupValues })
-                    }
-                    key={group.id}
-                    group={group}
-                  />
+                  <Table.Row key={group.id}>
+                    <Table.Td>{group.description}</Table.Td>
+                    <Table.Td>{group.degree}</Table.Td>
+                    <Table.Td>{group.schoolCycle}</Table.Td>
+                    <Table.Td>{group.teacher.name}</Table.Td>
+                    <Table.Td className="text-center">1</Table.Td>
+                    {/* <Table.Td> {getHour(group.schedules.find(({ day }) => day === 'L')?.hour)}</Table.Td> */}
+                    <Table.Td>L</Table.Td>
+                    <Table.Td>M</Table.Td>
+                    <Table.Td>MI</Table.Td>
+                    <Table.Td>J</Table.Td>
+                    <Table.Td>V</Table.Td>
+                    <Table.Td>S</Table.Td>
+                    <Table.Td>D</Table.Td>
+                    <Table.Td>
+                      {formatDate(group.createdAt, 'DD/MM/YYYY')}
+                    </Table.Td>
+                    <Table.Td>
+                      <Dropdown>
+                        <Dropdown.Toogle
+                          buttonProps={{
+                            variant: 'outline-base',
+                            size: 'xs',
+                            className: 'px-2',
+                          }}
+                        >
+                          <IconMore className="h-4 fill-base-600" />
+                        </Dropdown.Toogle>
+                        <Dropdown.Menu
+                          className="w-44"
+                          position="left"
+                          align="center"
+                        >
+                          <Dropdown.Item
+                            onClick={() =>
+                              setModalEditGroup({ modal: true, group })
+                            }
+                          >
+                            Editar
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() =>
+                              setModalDeleteGroup({
+                                modal: true,
+                                groupId: group.id,
+                              })
+                            }
+                          >
+                            Eliminar
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </Table.Td>
+                  </Table.Row>
                 ))}
             </Table.Body>
             <Table.Footer>
               <Table.Row>
-                <Table.Td colSpan={8} className="py-5">
+                <Table.Td colSpan={14} className="py-5">
                   <div className="flex justify-end">
                     <Pagination
                       currentPage={page}
