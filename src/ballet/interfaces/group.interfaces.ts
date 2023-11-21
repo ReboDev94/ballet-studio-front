@@ -9,6 +9,7 @@ export interface IGetGroupAllResponse extends ICommonResponse {
 export interface IGetGroupAllRequest extends IPaginateRequest {
   degree?: string;
   teacher?: string;
+  schoolCycle?: number;
 }
 
 export interface ICreateGroupResponse extends ICommonResponse {}

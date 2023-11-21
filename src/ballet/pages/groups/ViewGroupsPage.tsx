@@ -21,6 +21,7 @@ import {
   Radio,
   Table,
   Modal,
+  Select,
 } from '@/common/components';
 import { ISort } from '@/common/interfaces';
 import { useAppDispatch } from '@/store/hooks';
@@ -33,7 +34,11 @@ import { useDegree } from '@/ballet/hooks';
 import { ModalConfirm } from '@/ballet/components';
 import { LOADING_DELETE_GROUP } from '@/ballet/constants';
 import { formatDate } from '@/common/utils';
-import { getSchedulesByDay } from '@/ballet/utils';
+import {
+  CURRENT_ANIO,
+  getAniosFilter,
+  getSchedulesByDay,
+} from '@/ballet/utils';
 import ScheduleTable from './ScheduleTable';
 
 const optToast = { id: 'group-toast' };
@@ -43,12 +48,17 @@ const ViewGroupsPage = () => {
   const [page, setPage] = useState(1);
   const { selectedDegrees, degreeFilter, checkedDegreeFilter } = useDegree();
 
-  const [{ sort: sortFilter, teacher: teacherFilter }, setFilters] = useState<{
+  const [
+    { sort: sortFilter, teacher: teacherFilter, schoolCycle: anioFilter },
+    setFilters,
+  ] = useState<{
     sort: ISort;
     teacher: string;
+    schoolCycle: number;
   }>({
     sort: 'ASC',
     teacher: '',
+    schoolCycle: CURRENT_ANIO,
   });
 
   const [
@@ -93,6 +103,7 @@ const ViewGroupsPage = () => {
       degree: selectedDegrees,
       teacher: teacherFilter,
       order: sortFilter,
+      schoolCycle: anioFilter,
       page: 1,
       take: 15,
     },
@@ -115,7 +126,7 @@ const ViewGroupsPage = () => {
 
   useEffect(() => {
     getAll();
-  }, [sortFilter, teacherFilter, selectedDegrees]);
+  }, [sortFilter, teacherFilter, selectedDegrees, anioFilter]);
 
   useEffect(() => {
     getAll();
@@ -195,6 +206,29 @@ const ViewGroupsPage = () => {
                         </Dropdown.Item>
                       ))}
                     </ul>
+                    <Dropdown.Divider />
+                    <h5 className="text-base-500 text-xs select-none">
+                      Ciclo escolar
+                    </h5>
+                    <div className="mt-2">
+                      <Select
+                        sizeType="xs"
+                        value={anioFilter}
+                        onChange={e =>
+                          setFilters(prev => ({
+                            ...prev,
+                            schoolCycle: e.target.value as unknown as number,
+                          }))
+                        }
+                      >
+                        {getAniosFilter().map(anio => (
+                          <Select.Option key={anio} value={anio}>
+                            {anio}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </div>
+
                     <Dropdown.Divider />
                     <h5 className="text-base-500 text-xs select-none">Grado</h5>
                     <ul className="space-y-1 mt-2">

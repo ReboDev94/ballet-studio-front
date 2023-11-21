@@ -1,6 +1,9 @@
 import { typeEnumDays } from '../constants';
 import { ScheduleResponse, Schedules } from '../interfaces';
 
+export const INITIAL_ANIO = 2023;
+export const CURRENT_ANIO = new Date().getFullYear();
+
 export const getSchedulesByDay = (
   schedules: ScheduleResponse[],
   dayP: typeEnumDays,
@@ -20,4 +23,12 @@ export const getSchedulesByDay = (
   });
 
   return hours;
+};
+
+export const getAniosFilter = () => {
+  const anios: number[] = [];
+  for (let anio = INITIAL_ANIO; anio <= CURRENT_ANIO; anio++) {
+    anios.push(anio);
+  }
+  return anios;
 };
