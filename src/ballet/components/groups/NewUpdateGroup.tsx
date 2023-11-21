@@ -21,12 +21,7 @@ import {
   typeEnumDays,
 } from '@/ballet/constants';
 import { SchemaNewOrUpdateGroup } from '@/ballet/validations';
-import {
-  IFormGroup,
-  IFormGroupTypes,
-  IGroupAtt,
-  Schedule,
-} from '@/ballet/interfaces';
+import { IFormGroup, IFormGroupTypes, IGroupAtt } from '@/ballet/interfaces';
 import { SORT_ASC, VALIDATION_REQUIRED } from '@/common/constants';
 import { useSearch } from '@/common/hooks';
 import { IGetTeacherRequest, IUserAll } from '@/auth/interfaces';
@@ -99,7 +94,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
     mode: 'onSubmit',
     defaultValues: {
       id: group?.id,
-      description: group?.description || '',
+      name: group?.name || '',
       degree: TypeDegree[group?.degree || '1A'],
       scheduleL: findSchedule(group?.schedules, 'L'),
       scheduleM: findSchedule(group?.schedules, 'M'),
@@ -177,12 +172,12 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
             </div>
             <div className="col-span-12 md:col-start-5 md:col-end-10 my-auto">
               <Input
-                {...register('description')}
+                {...register('name')}
                 type="text"
                 placeholder="Grupo baby ballet 1A"
-                errorState={!!errors.description}
+                errorState={!!errors.name}
               />
-              <ErrorInput message={errors.description?.message} />
+              <ErrorInput message={errors.name?.message} />
             </div>
           </div>
           <Divider />

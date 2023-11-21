@@ -1,5 +1,6 @@
 import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
-import { TypeDegree, typeEnumDays } from '../constants';
+import { TypeDegree } from '../constants';
+import { ScheduleResponse, Schedules } from './schedules.interfaces';
 
 export interface IGetGroupAllResponse extends ICommonResponse {
   groups: IDataGroup;
@@ -23,14 +24,14 @@ export interface IGroupAtt extends IGroup {
 
 export interface IFormGroup {
   id: number | undefined;
-  description: string;
-  scheduleL: string;
-  scheduleM: string;
-  scheduleMI: string;
-  scheduleJ: string;
-  scheduleV: string;
-  scheduleS: string;
-  scheduleD: string;
+  name: string;
+  scheduleL: Schedules[];
+  scheduleM: Schedules[];
+  scheduleMI: Schedules[];
+  scheduleJ: Schedules[];
+  scheduleV: Schedules[];
+  scheduleS: Schedules[];
+  scheduleD: Schedules[];
   schoolCycle: number;
   degree: TypeDegree;
   teacherId: number;
@@ -39,19 +40,14 @@ export interface IFormGroup {
 export type IFormGroupTypes = keyof IFormGroup;
 export interface IGroup {
   id: number;
-  description: string;
-  schedules: Schedule[];
+  name: string;
+  schedules: ScheduleResponse[];
   schoolCycle: number;
   degree: TypeDegree;
   deletedAt: string | null;
   createdAt: string;
   updatedAt: string;
   teacher: Teacher;
-}
-
-export interface Schedule {
-  day: typeEnumDays;
-  hour: string;
 }
 
 export interface Teacher {

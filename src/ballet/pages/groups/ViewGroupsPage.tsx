@@ -30,11 +30,14 @@ import {
 } from '@/store/modules/group/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import { useDegree } from '@/ballet/hooks';
-import { ModalConfirm, NewUpdateGroup } from '@/ballet/components';
+import { ModalConfirm } from '@/ballet/components';
 import { LOADING_DELETE_GROUP } from '@/ballet/constants';
 import { formatDate } from '@/common/utils';
+import { getSchedulesByDay } from '@/ballet/utils';
+import ScheduleTable from './ScheduleTable';
 
 const optToast = { id: 'group-toast' };
+
 const ViewGroupsPage = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
@@ -245,7 +248,7 @@ const ViewGroupsPage = () => {
                   Opciones
                 </Table.Th>
               </Table.Row>
-              <Table.Row>
+              <Table.Row className="text-center">
                 <Table.Th className="py-3" rowSpan={1}>
                   Lunes
                 </Table.Th>
@@ -273,19 +276,48 @@ const ViewGroupsPage = () => {
               {data.length > 0 &&
                 data.map(group => (
                   <Table.Row key={group.id}>
-                    <Table.Td>{group.description}</Table.Td>
+                    <Table.Td>{group.name}</Table.Td>
                     <Table.Td>{group.degree}</Table.Td>
                     <Table.Td>{group.schoolCycle}</Table.Td>
                     <Table.Td>{group.teacher.name}</Table.Td>
-                    <Table.Td className="text-center">1</Table.Td>
-                    {/* <Table.Td> {getHour(group.schedules.find(({ day }) => day === 'L')?.hour)}</Table.Td> */}
-                    <Table.Td>L</Table.Td>
-                    <Table.Td>M</Table.Td>
-                    <Table.Td>MI</Table.Td>
-                    <Table.Td>J</Table.Td>
-                    <Table.Td>V</Table.Td>
-                    <Table.Td>S</Table.Td>
-                    <Table.Td>D</Table.Td>
+                    <Table.Td className="text-center text-red-900">
+                      FALTA ATRIBURO
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'L').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'M').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'MI').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'J').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'V').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'S').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
+                    <Table.Td>
+                      {getSchedulesByDay(group.schedules, 'D').map(v => (
+                        <ScheduleTable key={v}>{v}</ScheduleTable>
+                      ))}
+                    </Table.Td>
                     <Table.Td>
                       {formatDate(group.createdAt, 'DD/MM/YYYY')}
                     </Table.Td>
@@ -361,13 +393,13 @@ const ViewGroupsPage = () => {
           </h3>
         </Modal.Header>
         <Modal.Body>
-          <NewUpdateGroup
+          {/*  <NewUpdateGroup
             group={groupEditOrUpdate}
             onSuccess={() => getAll()}
             onCancel={() =>
               setModalEditGroup({ modal: false, group: undefined })
             }
-          />
+          /> */}
         </Modal.Body>
       </Modal>
     </>

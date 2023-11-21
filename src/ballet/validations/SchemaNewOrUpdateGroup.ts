@@ -11,7 +11,7 @@ const CURRENT_ANIO = new Date().getFullYear();
 
 export const SchemaNewOrUpdateGroup = object({
   id: number().default(undefined).optional(),
-  description: string().default('').optional(),
+  name: string().required(VALIDATION_REQUIRED),
   scheduleL: string()
     .default('')
     .optional()
