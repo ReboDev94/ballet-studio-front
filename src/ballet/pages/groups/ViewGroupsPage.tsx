@@ -31,7 +31,7 @@ import {
 } from '@/store/modules/group/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import { useDegree } from '@/ballet/hooks';
-import { ModalConfirm } from '@/ballet/components';
+import { ModalConfirm, NewUpdateGroup } from '@/ballet/components';
 import { LOADING_DELETE_GROUP } from '@/ballet/constants';
 import { formatDate } from '@/common/utils';
 import {
@@ -427,13 +427,13 @@ const ViewGroupsPage = () => {
           </h3>
         </Modal.Header>
         <Modal.Body>
-          {/*  <NewUpdateGroup
+          <NewUpdateGroup
             group={groupEditOrUpdate}
             onSuccess={() => getAll()}
             onCancel={() =>
               setModalEditGroup({ modal: false, group: undefined })
             }
-          /> */}
+          />
         </Modal.Body>
       </Modal>
     </>

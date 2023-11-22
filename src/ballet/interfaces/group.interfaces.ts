@@ -1,6 +1,6 @@
 import { ICommonResponse, IMeta, IPaginateRequest } from '@/common/interfaces';
 import { TypeDegree } from '../constants';
-import { ScheduleResponse, Schedules } from './schedules.interfaces';
+import { ScheduleResponse, SchedulesValuesType } from './schedules.interfaces';
 
 export interface IGetGroupAllResponse extends ICommonResponse {
   groups: IDataGroup;
@@ -26,13 +26,13 @@ export interface IGroupAtt extends IGroup {
 export interface IFormGroup {
   id: number | undefined;
   name: string;
-  scheduleL: Schedules[];
-  scheduleM: Schedules[];
-  scheduleMI: Schedules[];
-  scheduleJ: Schedules[];
-  scheduleV: Schedules[];
-  scheduleS: Schedules[];
-  scheduleD: Schedules[];
+  scheduleL: SchedulesValuesType[];
+  scheduleM: SchedulesValuesType[];
+  scheduleMI: SchedulesValuesType[];
+  scheduleJ: SchedulesValuesType[];
+  scheduleV: SchedulesValuesType[];
+  scheduleS: SchedulesValuesType[];
+  scheduleD: SchedulesValuesType[];
   schoolCycle: number;
   degree: TypeDegree;
   teacherId: number;

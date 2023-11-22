@@ -1,45 +1,66 @@
-import { mixed, number, object, string } from 'yup';
+import { array, mixed, number, object, string } from 'yup';
 import {
-  VALIDATION_HOUR_ACCEPT,
   VALIDATION_NUMBER_POSITIVE,
   VALIDATION_REQUIRED,
   VALIDATION_SCHOOL_CYCLE,
 } from '@/common/constants';
-import { REGEX_HOUR, TypeDegree } from '../constants';
+import { TypeDegree } from '../constants';
+import { SchedulesValuesType, valuesScheduleEnum } from '../interfaces';
 
 const CURRENT_ANIO = new Date().getFullYear();
 
 export const SchemaNewOrUpdateGroup = object({
   id: number().default(undefined).optional(),
   name: string().required(VALIDATION_REQUIRED),
-  scheduleL: string()
-    .default('')
+  scheduleL: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleM: string()
-    .default('')
+    .defined(),
+  scheduleM: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleMI: string()
-    .default('')
+    .defined(),
+  scheduleMI: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleJ: string()
-    .default('')
+    .defined(),
+  scheduleJ: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleV: string()
-    .default('')
+    .defined(),
+  scheduleV: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleS: string()
-    .default('')
+    .defined(),
+  scheduleS: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
-  scheduleD: string()
-    .default('')
+    .defined(),
+  scheduleD: array(
+    mixed<SchedulesValuesType>()
+      .oneOf(valuesScheduleEnum)
+      .required(VALIDATION_REQUIRED),
+  )
     .optional()
-    .matches(REGEX_HOUR, VALIDATION_HOUR_ACCEPT),
+    .defined(),
   schoolCycle: number()
     .required(VALIDATION_REQUIRED)
     .test(
