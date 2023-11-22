@@ -49,6 +49,7 @@ export interface IGroup {
   createdAt: string;
   updatedAt: string;
   teacher: Teacher;
+  noStudents: number;
 }
 
 export interface Teacher {

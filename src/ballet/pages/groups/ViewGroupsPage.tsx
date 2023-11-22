@@ -314,8 +314,8 @@ const ViewGroupsPage = () => {
                     <Table.Td>{group.degree}</Table.Td>
                     <Table.Td>{group.schoolCycle}</Table.Td>
                     <Table.Td>{group.teacher.name}</Table.Td>
-                    <Table.Td className="text-center text-red-900">
-                      FALTA ATRIBURO
+                    <Table.Td className="text-center">
+                      {group.noStudents}
                     </Table.Td>
                     <Table.Td>
                       {getSchedulesByDay(group.schedules, 'L').map(v => (
