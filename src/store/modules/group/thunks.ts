@@ -3,12 +3,14 @@ import {
   createGroupService,
   deleteGroupService,
   getAllGroupService,
+  getGroupBySlugService,
   updateGroupService,
 } from '@/ballet/api';
 import {
   FAILED_CREATE_GROUP,
   FAILED_DELETE_GROUP,
   FAILED_GET_ALL_GROUPS,
+  FAILED_GET_GROUP,
   FAILED_UPDATE_GROUP,
   SUCCESS_CREATE_GROUP,
   SUCCESS_DELETE_GROUP,
@@ -30,6 +32,20 @@ export const getAllGroupThunk = createAsyncThunk(
       return { groups, meta };
     } catch (error) {
       return rejectWithValue(FAILED_GET_ALL_GROUPS);
+    }
+  },
+);
+
+export const getGroupThunk = createAsyncThunk(
+  'group/getGroup',
+  async (slug: string, { rejectWithValue }) => {
+    try {
+      const {
+        data: { group },
+      } = await getGroupBySlugService(slug);
+      return group;
+    } catch (error) {
+      return rejectWithValue(FAILED_GET_GROUP);
     }
   },
 );

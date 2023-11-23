@@ -13,6 +13,7 @@ import { useEffect } from 'react';
 import { useAppSelector } from '@/store/hooks';
 import { TITLE_DEFAULT } from '@/common/constants';
 import { useRoles } from '@/auth/hooks';
+import { GroupStudents } from '../components';
 
 const BalletRoutes = () => {
   const { isAdmin } = useRoles();
@@ -49,6 +50,10 @@ const BalletRoutes = () => {
 
           {/* group */}
           <Route path="/group" element={<ViewGroupsPage />}></Route>
+          <Route
+            path="/group/:slug/students"
+            element={<GroupStudents />}
+          ></Route>
         </Route>
       </Route>
     </Routes>

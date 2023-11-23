@@ -15,3 +15,10 @@ export const LOADING_DELETE_GROUP = 'Eliminando el grupo, por favor espere.';
 export const SUCCESS_DELETE_GROUP = 'El grupo ha sido eliminado.';
 export const FAILED_DELETE_GROUP =
   'Ocurrio un error al intentar eliminar el grupo, por favor intente mas tarde.';
+
+export const LOADING_GET_GROUP =
+  'Obteniendo información del grupo, por favor espere.';
+export const FAILED_GET_GROUP =
+  'Ocurrio un error al consultar los datos del grupo.';
+export const SUCCESS_GET_GROUP =
+  'Los datos del grupo han sido consultado con exito.';

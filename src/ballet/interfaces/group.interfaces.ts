@@ -14,6 +14,10 @@ export interface IGetGroupAllRequest extends IPaginateRequest {
 
 export interface ICreateGroupResponse extends ICommonResponse {}
 
+export interface IGetGroupResponse extends ICommonResponse {
+  group: OnlyGroup;
+}
+
 export interface IDataGroup {
   data: IGroupAtt[];
   meta: IMeta;
@@ -49,7 +53,15 @@ export interface IGroup {
   createdAt: string;
   updatedAt: string;
   teacher: Teacher;
+  slug: string;
   noStudents: number;
+}
+
+export interface OnlyGroup {
+  id: number;
+  name: string;
+  slug: string;
+  teacher: Teacher;
 }
 
 export interface Teacher {

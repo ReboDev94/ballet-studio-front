@@ -4,18 +4,27 @@ import {
   IFormGroup,
   IGetGroupAllRequest,
   IGetGroupAllResponse,
+  IGetGroupResponse,
 } from '../interfaces';
 
 const GET_ALL_GROUPS = 'group';
 const CREATE_GROUP = 'group';
 const UPDATE_GROUP = 'group/:groupId';
 const DELETE_GROUP = 'group/:groupId';
+const GET_GROUP = 'group/:slug';
 
 export const getAllGroupService = async (data: IGetGroupAllRequest) => {
   if (!data.degree) delete data.degree;
   const response = await axiosInstance.get<IGetGroupAllResponse>(
     GET_ALL_GROUPS,
     { params: data },
+  );
+  return response;
+};
+
+export const getGroupBySlugService = async (slug: string) => {
+  const response = await axiosInstance.get<IGetGroupResponse>(
+    GET_GROUP.replace(':slug', slug),
   );
   return response;
 };

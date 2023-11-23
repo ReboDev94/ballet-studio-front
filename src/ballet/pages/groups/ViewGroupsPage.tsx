@@ -40,11 +40,13 @@ import {
   getSchedulesByDay,
 } from '@/ballet/utils';
 import ScheduleTable from './ScheduleTable';
+import { useNavigate } from 'react-router-dom';
 
 const optToast = { id: 'group-toast' };
 
 const ViewGroupsPage = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { selectedDegrees, degreeFilter, checkedDegreeFilter } = useDegree();
 
@@ -356,40 +358,51 @@ const ViewGroupsPage = () => {
                       {formatDate(group.createdAt, 'DD/MM/YYYY')}
                     </Table.Td>
                     <Table.Td>
-                      <Dropdown>
-                        <Dropdown.Toogle
-                          buttonProps={{
-                            variant: 'outline-base',
-                            size: 'xs',
-                            className: 'px-2',
-                          }}
-                        >
-                          <IconMore className="h-4 fill-base-600" />
-                        </Dropdown.Toogle>
-                        <Dropdown.Menu
-                          className="w-44"
-                          position="left"
-                          align="center"
-                        >
-                          <Dropdown.Item
-                            onClick={() =>
-                              setModalEditGroup({ modal: true, group })
-                            }
+                      <div className="flex items-center gap-2">
+                        <Dropdown>
+                          <Dropdown.Toogle
+                            buttonProps={{
+                              variant: 'outline-base',
+                              size: 'xs',
+                              className: 'px-2',
+                            }}
                           >
-                            Editar
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            onClick={() =>
-                              setModalDeleteGroup({
-                                modal: true,
-                                groupId: group.id,
-                              })
-                            }
+                            <IconMore className="h-4 fill-base-600" />
+                          </Dropdown.Toogle>
+                          <Dropdown.Menu
+                            className="w-44"
+                            position="left"
+                            align="center"
                           >
-                            Eliminar
-                          </Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
+                            <Dropdown.Item
+                              onClick={() =>
+                                setModalEditGroup({ modal: true, group })
+                              }
+                            >
+                              Editar
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() =>
+                                setModalDeleteGroup({
+                                  modal: true,
+                                  groupId: group.id,
+                                })
+                              }
+                            >
+                              Eliminar
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        <Button
+                          onClick={() =>
+                            navigate(`/group/${group.slug}/students`)
+                          }
+                          size="xs"
+                          variant="outline-base"
+                        >
+                          Estudiantes
+                        </Button>
+                      </div>
                     </Table.Td>
                   </Table.Row>
                 ))}
