@@ -49,7 +49,7 @@ const ViewGroupsPage = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(1);
   const { selectedDegrees, degreeFilter, checkedDegreeFilter } = useDegree();
-
+  const [initiaLoad, setInitiaLoad] = useState(true);
   const [
     { sort: sortFilter, teacher: teacherFilter, schoolCycle: anioFilter },
     setFilters,
@@ -82,11 +82,8 @@ const ViewGroupsPage = () => {
     group: undefined,
   });
 
-  const checkedSortFilter = ({
-    target: { value },
-  }: React.ChangeEvent<HTMLInputElement>) => {
-    const sort = value as ISort;
-    setFilters(prev => ({ ...prev, sort }));
+  const onChangeFilters = <T,>(name: string, value: T) => {
+    setFilters(prev => ({ ...prev, [name]: value }));
   };
 
   const [
@@ -127,12 +124,18 @@ const ViewGroupsPage = () => {
   };
 
   useEffect(() => {
-    getAll();
-  }, [sortFilter, teacherFilter, selectedDegrees, anioFilter]);
+    const debounce = setTimeout(() => {
+      if (!initiaLoad) getAll();
+    }, 500);
 
-  useEffect(() => {
-    getAll();
-  }, []);
+    if (initiaLoad) {
+      getAll();
+      setInitiaLoad(false);
+    }
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [sortFilter, selectedDegrees, anioFilter, teacherFilter]);
 
   return (
     <>
@@ -160,8 +163,9 @@ const ViewGroupsPage = () => {
               </div>
               <Input
                 value={teacherFilter}
-                onChange={({ target: { value } }) =>
-                  setFilters(prev => ({ ...prev, teacher: value }))
+                name="teacher"
+                onChange={({ target: { value, name } }) =>
+                  onChangeFilters(name, value)
                 }
                 className="rounded-l-none"
                 placeholder="Nombre del maestro"
@@ -200,8 +204,10 @@ const ViewGroupsPage = () => {
                               id={value}
                               value={value}
                               checked={sortFilter === value}
-                              onChange={checkedSortFilter}
                               name="sort"
+                              onChange={({ target: { value, name } }) => {
+                                onChangeFilters(name, value);
+                              }}
                             />
                             {label}
                           </label>
@@ -216,12 +222,10 @@ const ViewGroupsPage = () => {
                       <Select
                         sizeType="xs"
                         value={anioFilter}
-                        onChange={e =>
-                          setFilters(prev => ({
-                            ...prev,
-                            schoolCycle: e.target.value as unknown as number,
-                          }))
-                        }
+                        name="schoolCycle"
+                        onChange={({ target: { value, name } }) => {
+                          onChangeFilters<number>(name, parseInt(value, 10));
+                        }}
                       >
                         {getAniosFilter().map(anio => (
                           <Select.Option key={anio} value={anio}>

@@ -38,6 +38,7 @@ const optToast = { id: 'delete-student' };
 const ViewStudentsPage = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = useState(1);
+  const [initiaLoad, setInitiaLoad] = useState(true);
   const [{ sort: sortFilter, name: nameFilter }, setFilters] = useState<{
     sort: ISort;
     name: string;
@@ -110,12 +111,17 @@ const ViewStudentsPage = () => {
   };
 
   useEffect(() => {
-    getAll();
+    const debounce = setTimeout(() => {
+      if (!initiaLoad) getAll();
+    }, 500);
+    if (initiaLoad) {
+      getAll();
+      setInitiaLoad(false);
+    }
+    return () => {
+      clearTimeout(debounce);
+    };
   }, [sortFilter, nameFilter]);
-
-  useEffect(() => {
-    getAll();
-  }, []);
 
   return (
     <>

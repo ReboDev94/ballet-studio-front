@@ -110,17 +110,13 @@ const GroupStudents = () => {
   };
 
   useEffect(() => {
-    if (id !== -1) getStudents();
-  }, [sortStudentFilter]);
-
-  useEffect(() => {
     const debouceId = setTimeout(() => {
       if (id !== -1) getStudents();
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(debouceId);
     };
-  }, [nameStudentFilter]);
+  }, [sortStudentFilter, nameStudentFilter]);
 
   useEffect(() => {
     getGroup();

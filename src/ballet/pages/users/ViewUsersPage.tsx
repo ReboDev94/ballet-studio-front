@@ -55,6 +55,7 @@ const optToastUpdateStatus = { id: 'update-status-user' };
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
   const [pagination, setpagination] = useState(1);
+  const [initiaLoad, setInitiaLoad] = useState(true);
 
   const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
     useUtilsRoles();
@@ -159,21 +160,17 @@ const ViewUsersPage = () => {
   };
 
   useEffect(() => {
-    getAll({});
-  }, [sortFilter, rolesFilter]);
-
-  useEffect(() => {
-    const debouceId = setTimeout(() => {
+    const debounce = setTimeout(() => {
+      if (!initiaLoad) getAll({});
+    }, 500);
+    if (initiaLoad) {
       getAll({});
-    }, 1000);
+      setInitiaLoad(false);
+    }
     return () => {
-      clearTimeout(debouceId);
+      clearTimeout(debounce);
     };
-  }, [nameFilter]);
-
-  useEffect(() => {
-    getAll({});
-  }, []);
+  }, [nameFilter, sortFilter, rolesFilter]);
 
   return (
     <>
