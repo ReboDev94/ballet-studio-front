@@ -8,6 +8,7 @@ import {
   Divider,
   Dropdown,
   Input,
+  Modal,
   Pagination,
   Radio,
   Table,
@@ -35,7 +36,7 @@ import {
 } from '@/store/modules/groupStudents/thunks';
 import { DEFAULT_META_RESPONSE, typeSort } from '@/common/constants';
 import { formatDate } from '@/common/utils';
-import { ModalConfirm } from '@/ballet/components';
+import { AddStudents, ModalConfirm } from '@/ballet/components';
 import {
   EMPTY_ARRAY_DELETE_ALL_STUDENTS,
   LOADING_DELETE_ALL_STUDENTS_FROM_GROUP,
@@ -58,6 +59,7 @@ const GroupStudents = () => {
 
   const [page, setPage] = useState(1);
   const [selectedStudents, setSelectedStudents] = useState<number[]>([]);
+  const [modalAddStudents, setModalAddStudents] = useState(false);
   const [modalDeleteAllSelected, setModalDeleteAllSelected] = useState(false);
 
   const [
@@ -94,7 +96,7 @@ const GroupStudents = () => {
 
   const getStudents = async (
     data: IGetGroupStudentsRequest = {
-      page: 1,
+      page,
       take: 15,
       order: sortStudentFilter,
       name: nameStudentFilter,
@@ -185,7 +187,12 @@ const GroupStudents = () => {
             <h3 className="text-2xl text-base-500 font-semibold">
               Estudiantes
             </h3>
-            <Button type="button" className="flex items-center gap-2" size="sm">
+            <Button
+              onClick={() => setModalAddStudents(true)}
+              type="button"
+              className="flex items-center gap-2"
+              size="sm"
+            >
               <IconTeam className="w-4 h-4" />
               Agregar
             </Button>
@@ -344,6 +351,18 @@ const GroupStudents = () => {
         onCancel={() => setModalDeleteAllSelected(false)}
         onAccept={() => deleteAllStudents()}
       />
+
+      <Modal value={modalAddStudents} size="md">
+        <Modal.Header onClose={() => setModalAddStudents(false)}>
+          <h3 className="text-base-600 font-semibold">Agregar estudiantes</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <AddStudents
+            groupId={id}
+            onCancel={() => setModalAddStudents(false)}
+          />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

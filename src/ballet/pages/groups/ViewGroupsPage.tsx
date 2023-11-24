@@ -103,7 +103,7 @@ const ViewGroupsPage = () => {
       teacher: teacherFilter,
       order: sortFilter,
       schoolCycle: anioFilter,
-      page: 1,
+      page,
       take: 15,
     },
   ) => {

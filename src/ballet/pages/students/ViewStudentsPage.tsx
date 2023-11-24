@@ -87,9 +87,9 @@ const ViewStudentsPage = () => {
   const getAll = async (
     params: IGetStudentsRequest = {
       name: nameFilter,
-      page: 1,
-      take: 15,
       order: sortFilter,
+      page,
+      take: 15,
     },
   ) => {
     const { students, meta } = await dispatch(

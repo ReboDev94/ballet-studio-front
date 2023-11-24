@@ -64,6 +64,7 @@ const Pagination: React.FC<IPagination> = ({
         disabled={!hasPreviousPage}
         variant={variant}
         positionArrow="left"
+        type="button"
         onClick={previuosPage}
       >
         Ant.
@@ -75,6 +76,7 @@ const Pagination: React.FC<IPagination> = ({
           variant={variant}
           active={currentPage === el}
           onClick={() => setPage(el)}
+          type="button"
         />
       ))}
       <PaginationButton
@@ -82,6 +84,7 @@ const Pagination: React.FC<IPagination> = ({
         variant={variant}
         positionArrow="right"
         onClick={nextPage}
+        type="button"
       >
         Sig.
       </PaginationButton>

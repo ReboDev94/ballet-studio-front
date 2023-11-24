@@ -24,3 +24,16 @@ export interface IDeleteAllStudentsGroupRequest {
   groupId: number;
   students: number[];
 }
+
+export interface AddStudentsFromGroupForm {
+  students: number[];
+}
+
+export interface IDataStudentsAreNotGroup {
+  data: IStudent[];
+  meta: IMeta;
+}
+
+export interface IGetAllStudentsAreNotGroupResponse extends ICommonResponse {
+  students: IDataStudentsAreNotGroup;
+}

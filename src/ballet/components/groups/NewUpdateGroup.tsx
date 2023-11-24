@@ -256,8 +256,10 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                 <Table.Body>
                   {valuesScheduleEnum.map(schedule => (
                     <Table.Row key={schedule}>
-                      <Table.Td className="py-2">{schedule}</Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2">
+                        <div className="w-24">{schedule}</div>
+                      </Table.Td>
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleL"
@@ -271,7 +273,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleM"
@@ -285,7 +287,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleMI"
@@ -299,7 +301,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleJ"
@@ -313,7 +315,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleV"
@@ -327,7 +329,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleS"
@@ -341,7 +343,7 @@ const NewUpdateGroup: React.FC<NewUpdateGroupProps> = ({
                           )}
                         />
                       </Table.Td>
-                      <Table.Td className="py-2 min-w-[130px]">
+                      <Table.Td className="py-2 min-w-[110px]">
                         <Controller
                           control={control}
                           name="scheduleD"

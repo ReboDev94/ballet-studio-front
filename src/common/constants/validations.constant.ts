@@ -21,3 +21,6 @@ export const VALIDATION_SCHOOL_CYCLE = 'El año del ciclo escolar no es valido.'
 export const VALIDATION_HOUR_ACCEPT = 'El formato de hora no es aceptado.';
 export const VALIDATION_NUMBER_POSITIVE =
   'Se requiere un numero entero positivo';
+
+export const VALIDATION_ADD_STUDENTS =
+  'Debes seleccionar al menos a un estudiante.';
