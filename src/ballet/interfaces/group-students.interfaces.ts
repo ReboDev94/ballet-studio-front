@@ -19,3 +19,8 @@ export interface IGetGroupStudentsRequest extends IPaginateRequest {
   groupId: number;
   name?: string;
 }
+
+export interface IDeleteAllStudentsGroupRequest {
+  groupId: number;
+  students: number[];
+}

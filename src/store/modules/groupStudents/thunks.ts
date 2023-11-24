@@ -1,6 +1,16 @@
-import { getAllStudentByGroupService } from '@/ballet/api';
-import { FAILED_GET_ALL_STUDENTS } from '@/ballet/constants';
-import { IGetGroupStudentsRequest } from '@/ballet/interfaces';
+import {
+  deleteAllStudentsFromGroupService,
+  getAllStudentByGroupService,
+} from '@/ballet/api';
+import {
+  FAILED_DELETE_ALL_STUDENTS_FROM_GROUP,
+  FAILED_GET_ALL_STUDENTS,
+  SUCCESS_DELETE_ALL_STUDENTS_FROM_GROUP,
+} from '@/ballet/constants';
+import {
+  IDeleteAllStudentsGroupRequest,
+  IGetGroupStudentsRequest,
+} from '@/ballet/interfaces';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getAllStudentByGroupThunk = createAsyncThunk(
@@ -15,6 +25,18 @@ export const getAllStudentByGroupThunk = createAsyncThunk(
       return { students, meta };
     } catch (error) {
       return rejectWithValue(FAILED_GET_ALL_STUDENTS);
+    }
+  },
+);
+
+export const deleteAllStudentsFromGroupThunk = createAsyncThunk(
+  'group-students/deleteAllStudentsFromGroup',
+  async (data: IDeleteAllStudentsGroupRequest, { rejectWithValue }) => {
+    try {
+      await deleteAllStudentsFromGroupService(data);
+      return SUCCESS_DELETE_ALL_STUDENTS_FROM_GROUP;
+    } catch (error) {
+      return rejectWithValue(FAILED_DELETE_ALL_STUDENTS_FROM_GROUP);
     }
   },
 );
