@@ -54,7 +54,7 @@ const optToastUpdateStatus = { id: 'update-status-user' };
 
 const ViewUsersPage = () => {
   const dispatch = useAppDispatch();
-  const [pagination, setpagination] = useState(1);
+  const [page, setPage] = useState(1);
   const [initiaLoad, setInitiaLoad] = useState(true);
 
   const { rolesFilter, rolesTypeSelected, checkedRolesFilter } =
@@ -104,8 +104,8 @@ const ViewUsersPage = () => {
   const getAll = async ({
     name = nameFilter,
     roles = rolesTypeSelected,
+    page,
     photos = true,
-    page = 1,
     take = 15,
     order = sortFilter,
   }: IGetAllUsersRequest) => {
@@ -113,7 +113,7 @@ const ViewUsersPage = () => {
       getAllUsersThunk({ name, roles, photos, page, take, order }),
     ).unwrap();
     setUsers({ data: users, meta });
-    setpagination(meta.page);
+    setPage(meta.page);
   };
 
   const changeStatusStateUsers = (dataP: IUpdateStatus) => {
@@ -170,7 +170,7 @@ const ViewUsersPage = () => {
     return () => {
       clearTimeout(debounce);
     };
-  }, [nameFilter, sortFilter, rolesFilter]);
+  }, [nameFilter, sortFilter, rolesFilter, page]);
 
   return (
     <>
@@ -358,9 +358,9 @@ const ViewUsersPage = () => {
                 <Table.Td colSpan={8} className="py-5">
                   <div className="flex justify-end">
                     <Pagination
-                      currentPage={pagination}
+                      currentPage={page}
                       pageCount={pageCount}
-                      onChange={page => setpagination(page)}
+                      onChange={page => setPage(page)}
                     />
                   </div>
                 </Table.Td>

@@ -135,7 +135,7 @@ const ViewGroupsPage = () => {
     return () => {
       clearTimeout(debounce);
     };
-  }, [sortFilter, selectedDegrees, anioFilter, teacherFilter]);
+  }, [sortFilter, selectedDegrees, anioFilter, teacherFilter, page]);
 
   return (
     <>

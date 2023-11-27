@@ -154,7 +154,7 @@ const GroupStudents = () => {
     return () => {
       clearTimeout(debouceId);
     };
-  }, [sortStudentFilter, nameStudentFilter]);
+  }, [sortStudentFilter, nameStudentFilter, page]);
 
   useEffect(() => {
     getGroup();

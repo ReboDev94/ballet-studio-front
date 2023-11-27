@@ -121,7 +121,7 @@ const ViewStudentsPage = () => {
     return () => {
       clearTimeout(debounce);
     };
-  }, [sortFilter, nameFilter]);
+  }, [sortFilter, nameFilter, page]);
 
   return (
     <>
