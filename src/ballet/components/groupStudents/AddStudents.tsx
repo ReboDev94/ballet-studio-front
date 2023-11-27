@@ -20,15 +20,23 @@ import {
 import { SchemaAddStudentsFromGroup } from '@/ballet/validations/SchemaAddStudentsFromGroup';
 import { DEFAULT_META_RESPONSE } from '@/common/constants';
 import { useAppDispatch } from '@/store/hooks';
-import { getAllStudentsAreNotGroupThunk } from '@/store/modules/groupStudents/thunks';
+import {
+  addStudentsForGroupThunk,
+  getAllStudentsAreNotGroupThunk,
+} from '@/store/modules/groupStudents/thunks';
 import { IconSearch, IconUser } from '@/common/assets/svg';
+import toast from 'react-hot-toast';
+import { LOADING_ADD_STUDENTS_FOR_GROUP } from '@/ballet/constants';
 
+const optToast = { id: 'add-students' };
 interface AddStudentsProps {
   groupId: number;
+  onSuccess?: () => void;
   onCancel?: () => void;
 }
 const AddStudents: React.FC<AddStudentsProps> = ({
   groupId,
+  onSuccess = () => {},
   onCancel = () => {},
 }) => {
   const dispatch = useAppDispatch();
@@ -49,6 +57,7 @@ const AddStudents: React.FC<AddStudentsProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<AddStudentsFromGroupForm>({
     mode: 'onSubmit',
@@ -73,9 +82,15 @@ const AddStudents: React.FC<AddStudentsProps> = ({
     setPage(meta.page);
   };
 
-  const onSubmit: SubmitHandler<AddStudentsFromGroupForm> = data => {
-    /* TODO:AGREGAR ESTUDIANTES */
-    console.log(data);
+  const onSubmit: SubmitHandler<AddStudentsFromGroupForm> = async data => {
+    toast.loading(LOADING_ADD_STUDENTS_FOR_GROUP, optToast);
+    await dispatch(addStudentsForGroupThunk(data))
+      .unwrap()
+      .then(success => {
+        onSuccess();
+        toast.success(success, optToast);
+      })
+      .catch(err => toast.error(err, optToast));
   };
 
   useEffect(() => {
@@ -91,6 +106,10 @@ const AddStudents: React.FC<AddStudentsProps> = ({
       clearTimeout(debounce);
     };
   }, [page, nameStudent]);
+
+  useEffect(() => {
+    setValue('groupId', groupId);
+  }, []);
 
   return (
     <div>

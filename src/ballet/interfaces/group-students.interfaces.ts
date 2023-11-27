@@ -26,6 +26,7 @@ export interface IDeleteAllStudentsGroupRequest {
 }
 
 export interface AddStudentsFromGroupForm {
+  groupId: number | undefined;
   students: number[];
 }
 

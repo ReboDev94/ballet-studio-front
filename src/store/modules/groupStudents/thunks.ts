@@ -1,15 +1,19 @@
 import {
+  addStudentsForGroupService,
   deleteAllStudentsFromGroupService,
   getAllStudentByGroupService,
   getAllStudentsAreNotGroupService,
 } from '@/ballet/api';
 import {
+  FAILED_ADD_STUDENTS_FOR_GROUP,
   FAILED_DELETE_ALL_STUDENTS_FROM_GROUP,
   FAILED_GET_ALL_STUDENTS,
   FAILED_GET_ALL_STUDENTS_ARE_NOT_GROUP,
+  SUCCESS_ADD_STUDENTS_FOR_GROUP,
   SUCCESS_DELETE_ALL_STUDENTS_FROM_GROUP,
 } from '@/ballet/constants';
 import {
+  AddStudentsFromGroupForm,
   IDeleteAllStudentsGroupRequest,
   IGetGroupStudentsRequest,
 } from '@/ballet/interfaces';
@@ -55,6 +59,18 @@ export const getAllStudentsAreNotGroupThunk = createAsyncThunk(
       return { students, meta };
     } catch (error) {
       return rejectWithValue(FAILED_GET_ALL_STUDENTS_ARE_NOT_GROUP);
+    }
+  },
+);
+
+export const addStudentsForGroupThunk = createAsyncThunk(
+  'group-students/addStudentsForGroup',
+  async (data: AddStudentsFromGroupForm, { rejectWithValue }) => {
+    try {
+      await addStudentsForGroupService(data);
+      return SUCCESS_ADD_STUDENTS_FOR_GROUP;
+    } catch (error) {
+      return rejectWithValue(FAILED_ADD_STUDENTS_FOR_GROUP);
     }
   },
 );

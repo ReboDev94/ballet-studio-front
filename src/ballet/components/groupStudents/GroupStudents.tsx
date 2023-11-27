@@ -359,6 +359,10 @@ const GroupStudents = () => {
         <Modal.Body>
           <AddStudents
             groupId={id}
+            onSuccess={() => {
+              getStudents();
+              setModalAddStudents(false);
+            }}
             onCancel={() => setModalAddStudents(false)}
           />
         </Modal.Body>
